@@ -27,9 +27,12 @@ import Example3 from "./Example3";
 import Example4 from "./Example4";
 import Example5 from "./Example5";
 import EchoConsole from "./EchoConsole";
+import Collapse from "@material-ui/core/Collapse";
+import StarBorder from "@material-ui/icons/StarBorder";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
 
 import "../lib/highlight/styles/github.css";
-import * as hljs from "highlight.js";
 
 import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 
@@ -74,6 +77,9 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     padding: 16
+  },
+  nested: {
+    paddingLeft: theme.spacing(4)
   }
 }));
 
@@ -109,7 +115,7 @@ export default function ResponsiveDrawer(props: Props) {
   const classes = useStyles({});
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  const [open, setOpen] = React.useState(false);
   const [view, setView] = React.useState(View.Example1);
 
   function handleDrawerToggle() {
@@ -125,8 +131,11 @@ export default function ResponsiveDrawer(props: Props) {
     setSelectedIndex(index);
   }
 
+  function handleClick() {
+    setOpen(!open);
+  }
+
   useEffect(() => {
-    hljs.initHighlightingOnLoad();
     // ensureEditor();
     return () => {};
   }, []);
@@ -209,6 +218,24 @@ export default function ResponsiveDrawer(props: Props) {
       </div>
       <Divider />
       <List>
+        <ListItem button onClick={handleClick}>
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText primary="Text Output" />
+          {open ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItem button className={classes.nested}>
+              <ListItemIcon>
+                <StarBorder />
+              </ListItemIcon>
+              <ListItemText primary="Starred" />
+            </ListItem>
+          </List>
+        </Collapse>
+
         {info.map((text, index) => (
           <ListItem
             button

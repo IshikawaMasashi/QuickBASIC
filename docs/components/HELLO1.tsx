@@ -195,7 +195,7 @@ function Example2({ title }: Props) {
         1 HELLO.BAS
       </Typography>
       <hr></hr>
-      <SyntaxHighlighter language="javascript">{codeString}</SyntaxHighlighter>
+      <SyntaxHighlighter language="basic">{codeString}</SyntaxHighlighter>
       <hr></hr>
       <Grid container spacing={2}>
         <Grid item xs>

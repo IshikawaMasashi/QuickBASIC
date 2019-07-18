@@ -247,40 +247,40 @@ export class CodeGenerator implements IDoStatementVisitor {
   }
 
   visitPrintStatement(node: AstPrintStatement) {
-    var newline = true;
-    this.map(node.locus);
-    if (node.fileNumber) {
-      //   node.printItem.accept(this);
+      let newline = true;
+      this.map(node.locus);
+      if (node.fileNumber) {
+        //   node.printItem.accept(this);
+        for (var i = 0; i < node.printItems.length; i++) {
+          node.printItems[i].accept(this);
+        }
+        this.write("PUSHCONST", node.printItems.length);
+        this.write("PUSHCONST", node.fileNumber);
+        this.write("SYSCALL", "print_file");
+        return;
+      }
       for (var i = 0; i < node.printItems.length; i++) {
         node.printItems[i].accept(this);
+        if (node.printItems[i].type === AstPrintItem.TAB) {
+          this.write("SYSCALL", "print_tab");
+        } else if (node.printItems[i].expr) {
+          this.write("SYSCALL", "print");
+        }
+
+        if (node.printItems[i].terminator == ",") {
+          this.write("SYSCALL", "print_comma");
+          newline = false;
+        } else if (node.printItems[i].terminator == ";") {
+          newline = false;
+        } else {
+          newline = true;
+        }
       }
-      this.write("PUSHCONST", node.printItems.length);
-      this.write("PUSHCONST", node.fileNumber);
-      this.write("SYSCALL", "print_file");
-      return;
-    }
-    for (var i = 0; i < node.printItems.length; i++) {
-      node.printItems[i].accept(this);
-      if (node.printItems[i].type === AstPrintItem.TAB) {
-        this.write("SYSCALL", "print_tab");
-      } else if (node.printItems[i].expr) {
+
+      if (newline) {
+        this.write("PUSHCONST", "\n");
         this.write("SYSCALL", "print");
       }
-
-      if (node.printItems[i].terminator == ",") {
-        this.write("SYSCALL", "print_comma");
-        newline = false;
-      } else if (node.printItems[i].terminator == ";") {
-        newline = false;
-      } else {
-        newline = true;
-      }
-    }
-
-    if (newline) {
-      this.write("PUSHCONST", "\n");
-      this.write("SYSCALL", "print");
-    }
   }
 
   visitPrintItem(node: AstPrintItem) {

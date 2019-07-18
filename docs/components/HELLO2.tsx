@@ -187,7 +187,7 @@ function Example2({ title }: Props) {
   return (
     <div className={classes.root}>
       <Typography variant="h6" noWrap>
-        2 HELLO.BAS
+        2. HELLO.BAS
       </Typography>
       <hr></hr>
       <SyntaxHighlighter language="basic">{codeString}</SyntaxHighlighter>

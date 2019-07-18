@@ -86,13 +86,10 @@ const useStyles = makeStyles(theme => ({
 type Props = {};
 
 export default function ResponsiveDrawer(props: Props) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const editorRef = useRef<monaco.editor.IStandaloneCodeEditor>();
-
   const info = ["QuickBASIC info"];
   const textOutput = [
-    "1 HELLO.BAS",
-    "2 HELLO.BAS"
+    "1. HELLO.BAS",
+    "2. HELLO.BAS"
     // "PRINT Statement",
     // "Variable heights",
     // "Horizontal list"
@@ -136,76 +133,8 @@ export default function ResponsiveDrawer(props: Props) {
   }
 
   useEffect(() => {
-    // ensureEditor();
     return () => {};
   }, []);
-
-  const ensureEditor = () => {
-    if (editorRef.current) {
-      return;
-    }
-    const options = Object.assign(
-      {
-        value: "",
-        theme: "vs-dark",
-        minimap: {
-          enabled: false
-        },
-        fontWeight: "bold",
-        renderLineHighlight: "none"
-      },
-      {}
-    );
-    if (containerRef.current!.lastChild) {
-      containerRef.current!.removeChild(containerRef.current!.lastChild);
-    }
-
-    editorRef.current = monaco.editor.create(
-      containerRef.current!,
-      options as any
-    );
-    // editorRef.current.onDidFocusEditorText(() => enableEditorScroll());
-    // registerActions();
-    console.info("Created a new Monaco editor.");
-
-    // setupSyntaxWorker();
-    // setCompilerOptions();
-
-    editorRef.current.onDidChangeModelContent(e => {
-      if (e.isFlush) {
-        return;
-      }
-      // handleChange();
-    });
-    // editorRef.current.onDidChangeModel(() => {
-    //   handleChange();
-    // });
-
-    // editorRef.current.onMouseDown(e => {
-    //   const { lineNumber, column } = editorRef.current.getPosition(); //e.position;
-
-    //   if (viewRef.current) {
-    //     viewRef.current.setPosition(lineNumber, column);
-    //   }
-    //   // dispatch({
-    //   //   type: AppActionType.CURSOR_POSITION_CHANGED,
-    //   //   line: lineNumber,
-    //   //   column: column
-    //   // } as CursorPositionChangedAction);
-    // });
-
-    editorRef.current.onKeyUp(e => {
-      // const { lineNumber, column } = editorRef.current.getPosition(); //e.position;
-      // if (viewRef.current) {
-      //   viewRef.current.setPosition(lineNumber, column);
-      // }
-      // dispatch({
-      //   type: AppActionType.CURSOR_POSITION_CHANGED,
-      //   line: lineNumber,
-      //   column: column
-      // } as CursorPositionChangedAction);
-    });
-  };
 
   const drawer = (
     <div>
@@ -218,24 +147,6 @@ export default function ResponsiveDrawer(props: Props) {
       </div>
       <Divider />
       <List>
-        <ListItem button onClick={handleClick}>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <ListItemText primary="Text Output" />
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemIcon>
-                <StarBorder />
-              </ListItemIcon>
-              <ListItemText primary="Starred" />
-            </ListItem>
-          </List>
-        </Collapse>
-
         {info.map((text, index) => (
           <ListItem
             button
@@ -246,21 +157,22 @@ export default function ResponsiveDrawer(props: Props) {
             <ListItemText primary={text} />
           </ListItem>
         ))}
-        <ListSubheader>
-          <Typography variant="h6" noWrap>
-            Text Output
-          </Typography>
-        </ListSubheader>
-        {textOutput.map((text, index) => (
-          <ListItem
-            button
-            key={text}
-            selected={selectedIndex === index + info.length}
-            onClick={event => handleListItemClick(event, index + info.length)}
-          >
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <ListItem button onClick={handleClick}>
+          <ListItemText primary="Text Output" />
+          {open ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          {textOutput.map((text, index) => (
+            <ListItem
+              button
+              key={text}
+              selected={selectedIndex === index + info.length}
+              onClick={event => handleListItemClick(event, index + info.length)}
+            >
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </Collapse>
       </List>
       <Divider />
       <List>

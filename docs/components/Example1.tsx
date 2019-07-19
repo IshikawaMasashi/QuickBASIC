@@ -1,14 +1,7 @@
 import * as React from "react";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Slider from "@material-ui/core/Slider";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
-// import { VirtualList, ItemStyle } from "../../src";
-import VolumeDown from "@material-ui/icons/VolumeDown";
-import VolumeUp from "@material-ui/icons/VolumeUp";
-
-const { useEffect, useRef } = React;
 
 // スタイルを定義
 const useStyles = makeStyles((theme: Theme) =>
@@ -26,29 +19,23 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 // props の型を定義
-type Props = {
-  title?: string;
-};
+type Props = {};
 
 // コンポーネントを定義
-function Example1({ title }: Props) {
+function Example1({  }: Props) {
   // ここでクラス名を取得
   const classes = useStyles({});
-  const [itemSize, setItemSize] = React.useState<number | number[]>(50);
-  const handleChange = (event: any, newValue: number | number[]) => {
-    setItemSize(newValue < 18 ? 18 : newValue);
-  };
 
   return (
-    <div className={classes.root}>
+    <Paper className={classes.root}>
       <Typography variant="h4" noWrap>
-        QuickBASIC
+        About
       </Typography>
       <hr></hr>
       <Typography variant="h6">
         <p>QuickBasic are programming languages for beginners.</p>
       </Typography>
-    </div>
+    </Paper>
   );
 }
 

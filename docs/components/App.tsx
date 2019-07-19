@@ -86,7 +86,7 @@ const useStyles = makeStyles(theme => ({
 type Props = {};
 
 export default function ResponsiveDrawer(props: Props) {
-  const info = ["QuickBASIC info"];
+  const info = ["About"];
   const textOutput = [
     "1. HELLO.BAS",
     "2. HELLO.BAS"
@@ -216,7 +216,7 @@ export default function ResponsiveDrawer(props: Props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title} noWrap>
-            {labels[selectedIndex]}
+            {/* {labels[selectedIndex]} */}
           </Typography>
         </Toolbar>
       </AppBar>

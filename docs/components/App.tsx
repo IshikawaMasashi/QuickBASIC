@@ -157,6 +157,12 @@ export default function ResponsiveDrawer(props: Props) {
             <ListItemText primary={text} />
           </ListItem>
         ))}
+        <Divider />
+        <ListSubheader>
+          <Typography variant="h6" noWrap>
+            Examples
+          </Typography>
+        </ListSubheader>
         <ListItem button onClick={handleClick}>
           <ListItemText primary="Text Output" />
           {open ? <ExpandLess /> : <ExpandMore />}

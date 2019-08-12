@@ -16,8 +16,8 @@ import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 
 const { useEffect, useRef } = React;
-// import { atomDark } from "react-syntax-highlighter/dist/styles/prism";
-// import { dark } from "react-syntax-highlighter/dist/styles/prism";
+
+const highlighterStyles = require("react-syntax-highlighter/dist/esm/styles/prism");
 
 // スタイルを定義
 const useStyles = makeStyles((theme: Theme) =>
@@ -190,7 +190,12 @@ function Example2({ title }: Props) {
         2. HELLO.BAS
       </Typography>
       <hr></hr>
-      <SyntaxHighlighter language="basic">{codeString}</SyntaxHighlighter>
+      <SyntaxHighlighter
+        style={highlighterStyles.okaidia}
+        language="visual-basic"
+      >
+        {codeString}
+      </SyntaxHighlighter>
       <hr></hr>
       <Grid container spacing={2}>
         <Grid item xs>
@@ -221,7 +226,9 @@ function Example2({ title }: Props) {
       <Typography variant="h6">
         <p>This is what the program output should look like:</p>
       </Typography>
-      <SyntaxHighlighter>{`Hello World   Hello Jupiter
+      <SyntaxHighlighter
+        style={highlighterStyles.okaidia}
+      >{`Hello World   Hello Jupiter
 Good Bye      For Now
 1             2             3              4              5`}</SyntaxHighlighter>
       <Typography variant="h6">

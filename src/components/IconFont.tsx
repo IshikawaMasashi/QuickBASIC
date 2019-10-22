@@ -1,9 +1,9 @@
-import React, { SFC, ReactNode } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
+import React, { SFC, ReactNode } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
 
-import { styles } from '../utils/styles';
-import { StyleProps } from '../types';
+import { styles } from "../utils/styles";
+import { StyleProps } from "../types";
 
 export interface IconFontProps extends StyleProps {
   /**
@@ -14,7 +14,7 @@ export interface IconFontProps extends StyleProps {
 
 const IconFont: SFC<IconFontProps> = ({ className, style, children }) => (
   <i className={cx(styles.itemIcon, className)} style={style}>
-    {children || ''}
+    {children || ""}
   </i>
 );
 

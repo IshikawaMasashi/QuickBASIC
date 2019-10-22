@@ -1,5 +1,5 @@
-import { PureComponent, ReactNode } from 'react';
-import { createPortal } from 'react-dom';
+import { PureComponent, ReactNode } from "react";
+import { createPortal } from "react-dom";
 
 class Portal extends PureComponent<{ children: ReactNode }> {
   state = {
@@ -8,7 +8,7 @@ class Portal extends PureComponent<{ children: ReactNode }> {
   container = {} as HTMLDivElement;
 
   componentDidMount() {
-    this.container = document.createElement('div');
+    this.container = document.createElement("div");
     document.body.appendChild(this.container);
     this.setState({
       canRender: true

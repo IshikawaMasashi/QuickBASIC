@@ -9,10 +9,7 @@ import { _Console } from "../../src/qbasic/Console";
 import { compile2 } from "../../src/qbasic/qb";
 import { VirtualMachine } from "../../src/qbasic/virtualMachine/VirtualMachine";
 import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
-
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-
-const highlighterStyles = require("react-syntax-highlighter/dist/esm/styles/prism");
+import SyntaxHighlighter from "./SyntaxHighlighter";
 
 const { useEffect, useRef } = React;
 
@@ -158,9 +155,7 @@ function Example2({  }: Props) {
         1. HELLO.BAS
       </Typography>
       <hr></hr>
-      <SyntaxHighlighter language="basic" style={highlighterStyles.okaidia}>
-        {codeString}
-      </SyntaxHighlighter>
+      <SyntaxHighlighter language="basic" code={codeString}></SyntaxHighlighter>
       <hr></hr>
       <Grid container spacing={2}>
         <Grid item xs>

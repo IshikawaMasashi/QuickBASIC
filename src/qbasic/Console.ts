@@ -1,4 +1,4 @@
-﻿import { dbg, /*ScriptSrc*/ } from "./qb";
+﻿import { dbg /*ScriptSrc*/ } from "./qb";
 import { ImageManipulator } from "./ImageManipulator";
 import { INumberDictionary } from "./base/common/collections";
 
@@ -39,11 +39,10 @@ export class _Console {
     this.canvas.width = 640;
     this.canvas.height = 400;
     this.canvas.tabIndex = 0;
-    this.ctx = this.canvas.getContext('2d')!;
+    this.ctx = this.canvas.getContext("2d")!;
     this.ctx.setTransform(1, 0, 0, 1, 0, 0);
     // this.charImg = document.createElement("img");
     // this.charImg.setAttribute("src", ScriptSrc + "charmap.png");
-
 
     globalConsole = this;
 
@@ -54,13 +53,13 @@ export class _Console {
 
     var self = this;
 
-    window.onkeydown = (event) => {
+    window.onkeydown = (event: KeyboardEvent) => {
       if (this.hasFocus) {
         this.onKeyDown(event);
         event.preventDefault();
         // return false;
       }
-      // return 
+      // return
     };
 
     //$(window).keydown(function (event) {
@@ -71,7 +70,7 @@ export class _Console {
     //    }
     //});
 
-    canvas.onclick = (event) => {
+    canvas.onclick = event => {
       canvas.style.borderColor = "#008800";
       // $(canvas).focus();
       canvas.focus();
@@ -85,7 +84,7 @@ export class _Console {
     //    event.stopPropagation();
     //});
 
-    window.onclick = (_event) => {
+    window.onclick = (_event: MouseEvent) => {
       self.hasFocus = false;
       canvas.style.borderColor = "#888888";
     };
@@ -103,8 +102,6 @@ export class _Console {
     this.cls();
   }
 
-
-
   Colours = [
     "#000000", // Black
     "#000088", // Dark Blue
@@ -117,11 +114,11 @@ export class _Console {
     "#444444", // Charcoal
     "#0000ff", // Blue
     "#00ff00", // Green
-    "#00ffff", // Cyan 
+    "#00ffff", // Cyan
     "#ff0000", // Red
-    "#ff00ff", // Magenta 
+    "#ff00ff", // Magenta
     "#ffff00", // Yellow
-    "#ffffff"  // White
+    "#ffffff" // White
   ];
 
   ScreenDimensions: any = {
@@ -198,7 +195,10 @@ export class _Console {
     //$(this.canvas).height(dimensions.height);
     this.canvas.height = dimensions.height;
 
-    this.ctx.scale(this.width / dimensions.width, this.height / dimensions.height);
+    this.ctx.scale(
+      this.width / dimensions.width,
+      this.height / dimensions.height
+    );
 
     this.width = dimensions.width;
     this.height = dimensions.height;
@@ -220,7 +220,16 @@ export class _Console {
     this.line(this.curX, this.curY, x, y);
   }
 
-  circle(x: number, y: number, radius: number, colour: any, start: any, end: any, aspect: any, step: any) {
+  circle(
+    x: number,
+    y: number,
+    radius: number,
+    colour: any,
+    start: any,
+    end: any,
+    aspect: any,
+    step: any
+  ) {
     // all parameters are optional except for x, y, radius, and step.
     if (step) {
       x = this.curX + x;
@@ -228,7 +237,7 @@ export class _Console {
     }
 
     if (aspect === undefined) {
-      aspect = 4 * (this.height / this.width) / 3;
+      aspect = (4 * (this.height / this.width)) / 3;
     }
 
     this.ctx.save();
@@ -261,7 +270,14 @@ export class _Console {
     this.ctx.restore();
   }
 
-  get(x1: number, y1: number, x2: number, y2: number, step1: number, step2: number) {
+  get(
+    x1: number,
+    y1: number,
+    x2: number,
+    y2: number,
+    step1: number,
+    step2: number
+  ) {
     var temp;
 
     if (step1) {
@@ -294,7 +310,9 @@ export class _Console {
   }
 
   paint(_x: number, _y: number, colour: any, borderColour: any, _step: number) {
-    var image = new ImageManipulator(this.ctx.getImageData(0, 0, this.width, this.height));
+    var image = new ImageManipulator(
+      this.ctx.getImageData(0, 0, this.width, this.height)
+    );
 
     dbg.printf("%s\n", image.get(10, 10));
   }
@@ -328,9 +346,24 @@ export class _Console {
 
   scroll() {
     this.cursor(false);
-    this.ctx.drawImage(this.canvas, 0, this.charHeight, this.width, this.height - this.charHeight, 0, 0, this.width, this.height - this.charHeight);
+    this.ctx.drawImage(
+      this.canvas,
+      0,
+      this.charHeight,
+      this.width,
+      this.height - this.charHeight,
+      0,
+      0,
+      this.width,
+      this.height - this.charHeight
+    );
     this.ctx.fillStyle = this.bgcolour;
-    this.ctx.fillRect(0, this.height - this.charHeight, this.width, this.charHeight);
+    this.ctx.fillRect(
+      0,
+      this.height - this.charHeight,
+      this.width,
+      this.charHeight
+    );
     this.y -= 1;
   }
 
@@ -342,7 +375,6 @@ export class _Console {
       }
 
       onInputDone(str);
-
     } else {
       this.enableCursor(true);
       this.onInputDone = onInputDone;
@@ -368,12 +400,14 @@ export class _Console {
 
   onKeyDown(event: KeyboardEvent) {
     if (this.inputMode) {
-
       // if input position is at least 1,
       if ((<string>this.inputStr).length > 0) {
         // if it's backspace,
         if (event.keyCode == 8) {
-          this.inputStr = (<string>this.inputStr).substr(0, (<string>this.inputStr).length - 1);
+          this.inputStr = (<string>this.inputStr).substr(
+            0,
+            (<string>this.inputStr).length - 1
+          );
           this.backup(1);
           this.print(" ");
           this.backup(1);
@@ -396,7 +430,6 @@ export class _Console {
         this.inputPos += 1;
         this.print(ch);
       }
-
     } else {
       var SpecialChars: INumberDictionary<number> = {
         37: 75, // left
@@ -424,7 +457,9 @@ export class _Console {
 
   enableCursor(enabled: any) {
     if (enabled && !this.cursorEnabled) {
-      this.interval = window.setInterval(() => { this.toggleCursor() }, 500);
+      this.interval = window.setInterval(() => {
+        this.toggleCursor();
+      }, 500);
       this.cursor(true);
     } else {
       window.clearInterval(this.interval);
@@ -448,10 +483,20 @@ export class _Console {
     {
       if (show) {
         this.ctx.fillStyle = this.fgcolour;
-        this.ctx.fillRect(this.x * this.charWidth, this.y * this.charHeight + this.charHeight - 2, this.charWidth, 2);
+        this.ctx.fillRect(
+          this.x * this.charWidth,
+          this.y * this.charHeight + this.charHeight - 2,
+          this.charWidth,
+          2
+        );
       } else {
         this.ctx.fillStyle = this.bgcolour;
-        this.ctx.fillRect(this.x * this.charWidth, this.y * this.charHeight + this.charHeight - 2, this.charWidth, 2);
+        this.ctx.fillRect(
+          this.x * this.charWidth,
+          this.y * this.charHeight + this.charHeight - 2,
+          this.charWidth,
+          2
+        );
       }
     }
     ctx.restore();
@@ -482,16 +527,20 @@ export class _Console {
         this.scroll();
       }
 
-      if (str[i] == '\n') {
+      if (str[i] == "\n") {
         this.newline();
       } else {
         ctx.fillStyle = bgcolour;
-        ctx.fillRect(this.x * this.charWidth, this.y * this.charHeight, this.charWidth + 1, this.charHeight);
+        ctx.fillRect(
+          this.x * this.charWidth,
+          this.y * this.charHeight,
+          this.charWidth + 1,
+          this.charHeight
+        );
 
         ctx.fillStyle = fgcolour;
         ctx.fillText(str[i], this.x * this.charWidth, this.y * this.charHeight);
         ctx.fillStyle = bgcolour;
-
 
         this.x += 1;
         if (this.x == this.cols) {

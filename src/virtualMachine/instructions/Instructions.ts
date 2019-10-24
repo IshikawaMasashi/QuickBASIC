@@ -53,9 +53,9 @@ class ForLoop extends Instruction<number> {
     // popped off the stack, and we jump to the end address. Otherwise,
     // only the loop variable is popped and no branch is performed.
 
-    var counter = vm.stack[vm.stack.length - 1];
-    var step = vm.stack[vm.stack.length - 2];
-    var end = vm.stack[vm.stack.length - 3];
+    const counter = vm.stack[vm.stack.length - 1];
+    const step = vm.stack[vm.stack.length - 2];
+    const end = vm.stack[vm.stack.length - 3];
 
     if ((step < 0 && counter < end) || (step > 0 && counter > end)) {
       //vm.stack.length -= 3;
@@ -103,7 +103,7 @@ class PopVal extends Instruction {
     // to the top of the stack.
 
     // vm.getVariable(arg).value = <any>vm.stack.pop();
-    let variable = vm.getVariable(arg);
+    const variable = vm.getVariable(arg);
     variable.value = <any>vm.stack.pop();
   }
 }
@@ -175,7 +175,7 @@ class New extends Instruction {
   execute(vm: VirtualMachine, arg: any) {
     // The argument is a typename. Replace the top of the stack with a
     // reference to that value, with the given type.
-    var type = vm.types[arg];
+    const type = vm.types[arg];
     vm.stack.push(new ScalarVariable(type, (<any>type).copy(vm.stack.pop())));
   }
 }
@@ -197,8 +197,8 @@ class UnaryOp extends Instruction {
     super();
   }
   execute(vm: VirtualMachine, arg: string) {
-    var rhs = vm.stack.pop();
-    var value;
+    const rhs = vm.stack.pop();
+    let value;
     if (arg == "NOT") {
       // value = ~rhs;
       value = Number(!rhs);
@@ -222,8 +222,8 @@ class OperatorLessThan extends Instruction {
   name = "<";
   numArgs = 0;
   execute(vm: VirtualMachine, arg: any) {
-    var rhs = vm.stack.pop();
-    var lhs = vm.stack.pop();
+    const rhs = vm.stack.pop();
+    const lhs = vm.stack.pop();
     vm.stack.push(lhs < rhs ? -1 : 0);
   }
 }
@@ -231,8 +231,8 @@ class OperatorLessThanOrEqual extends Instruction {
   name = "<=";
   numArgs = 0;
   execute(vm: VirtualMachine, arg: any) {
-    var rhs = vm.stack.pop();
-    var lhs = vm.stack.pop();
+    const rhs = vm.stack.pop();
+    const lhs = vm.stack.pop();
     vm.stack.push(lhs <= rhs ? -1 : 0);
   }
 }
@@ -241,8 +241,8 @@ class OperatorGreaterThan extends Instruction {
   name = ">";
   numArgs = 0;
   execute(vm: VirtualMachine, arg: any) {
-    var rhs = vm.stack.pop();
-    var lhs = vm.stack.pop();
+    const rhs = vm.stack.pop();
+    const lhs = vm.stack.pop();
     vm.stack.push(lhs > rhs ? -1 : 0);
   }
 }
@@ -251,8 +251,8 @@ class OperatorGreaterThanOrEqual extends Instruction {
   name = ">=";
   numArgs = 0;
   execute(vm: VirtualMachine, arg: any) {
-    var rhs = vm.stack.pop();
-    var lhs = vm.stack.pop();
+    const rhs = vm.stack.pop();
+    const lhs = vm.stack.pop();
     vm.stack.push(lhs >= rhs ? -1 : 0);
   }
 }
@@ -283,8 +283,8 @@ class OperatorPlus extends Instruction {
   name = "+";
   numArgs = 0;
   execute(vm: VirtualMachine, arg: any) {
-    var rhs = <number>vm.stack.pop();
-    var lhs = <number>vm.stack.pop();
+    const rhs = <number>vm.stack.pop();
+    const lhs = <number>vm.stack.pop();
     vm.stack.push(lhs + rhs);
   }
 }
@@ -293,8 +293,8 @@ class OperatorMinus extends Instruction {
   name = "-";
   numArgs = 0;
   execute(vm: VirtualMachine, arg: any) {
-    var rhs = <number>vm.stack.pop();
-    var lhs = <number>vm.stack.pop();
+    const rhs = <number>vm.stack.pop();
+    const lhs = <number>vm.stack.pop();
     vm.stack.push(lhs - rhs);
   }
 }
@@ -312,8 +312,8 @@ class OperatorDivide extends Instruction {
   execute(vm: VirtualMachine, arg: any) {
     // TODO: Division by 0 error. Javascript simply results in NaN
     // TODO: \ operator.
-    var rhs = <number>vm.stack.pop();
-    var lhs = <number>vm.stack.pop();
+    const rhs = <number>vm.stack.pop();
+    const lhs = <number>vm.stack.pop();
     vm.stack.push(lhs / rhs);
   }
 }
@@ -324,8 +324,8 @@ class OperatorCaret extends Instruction {
   execute(vm: VirtualMachine, arg: any) {
     // TODO: Division by 0 error. Javascript simply results in NaN
     // TODO: \ operator.
-    var rhs = <number>vm.stack.pop();
-    var lhs = <number>vm.stack.pop();
+    const rhs = <number>vm.stack.pop();
+    const lhs = <number>vm.stack.pop();
     vm.stack.push(lhs ** rhs);
   }
 }
@@ -335,8 +335,8 @@ class MOD extends Instruction {
   numArgs = 0;
   execute(vm: VirtualMachine, arg: any) {
     // TODO: Division by 0 error. Javascript simply results in NaN
-    var rhs = <number>vm.stack.pop();
-    var lhs = <number>vm.stack.pop();
+    const rhs = <number>vm.stack.pop();
+    const lhs = <number>vm.stack.pop();
     vm.stack.push(lhs % rhs);
   }
 }
@@ -351,7 +351,7 @@ class BZ extends Instruction<number> {
   execute(vm: VirtualMachine, arg: any) {
     // Branch on zero. Pop the top of the stack. If zero, jump to
     // the given address.
-    var expr = vm.stack.pop();
+    const expr = vm.stack.pop();
     if (!expr) {
       vm.pc = arg;
     }
@@ -367,7 +367,7 @@ class BNZ extends Instruction<number> {
   execute(vm: VirtualMachine, arg: any) {
     // Branch on non-zero. Pop the top of the stack. If non-zero, jump
     // to the given address.
-    var expr = vm.stack.pop();
+    const expr = vm.stack.pop();
     if (expr !== 0) {
       vm.pc = arg;
     }
@@ -410,7 +410,7 @@ class GOSUB extends Instruction<number> {
   execute(vm: VirtualMachine, arg: number) {
     // like call, but stack frame shares all variables from the old
     // stack frame.
-    var oldvariables = vm.frame.variables;
+    const oldvariables = vm.frame.variables;
     vm.frame = new StackFrame(vm.pc);
     vm.frame.variables = oldvariables;
     vm.callstack.push(vm.frame);
@@ -454,12 +454,12 @@ class ARRAY_DEREF extends Instruction {
     // Argument is whether we want the reference or value.
 
     // get the variable
-    var variable = <ArrayVariable>vm.stack.pop();
+    const variable = <ArrayVariable>vm.stack.pop();
 
-    var indexes: any[] = [];
+    const indexes: any[] = [];
 
     // for each dimension,
-    for (var i = 0; i < variable.dimensions.length; i++) {
+    for (let i = 0; i < variable.dimensions.length; i++) {
       // pop it off the stack in reverse order.
       indexes.unshift(vm.stack.pop());
     }
@@ -484,8 +484,8 @@ class MEMBER_DEREF extends Instruction {
     // member. The top of the stack is a reference to the user
     // variable.
 
-    var userVariable: any = vm.stack.pop();
-    var deref = userVariable[arg];
+    const userVariable: any = vm.stack.pop();
+    const deref = userVariable[arg];
     vm.stack.push(deref);
   }
 }
@@ -501,8 +501,8 @@ class MEMBER_VALUE extends Instruction {
     // member. The top of the stack is a reference to the user
     // variable.
 
-    var userVariable: any = vm.stack.pop();
-    var deref = userVariable[arg];
+    const userVariable: any = vm.stack.pop();
+    const deref = userVariable[arg];
     vm.stack.push(deref.value);
   }
 }
@@ -515,8 +515,8 @@ class ASSIGN extends Instruction {
     // Stack: left hand side: variable reference
     // right hand side: value to assign.
 
-    var lhs = <ScalarVariable>vm.stack.pop();
-    var rhs = <ScalarVariable>vm.stack.pop();
+    const lhs = <ScalarVariable>vm.stack.pop();
+    const rhs = <ScalarVariable>vm.stack.pop();
 
     lhs.value = (<any>lhs.type).copy(rhs);
   }
@@ -527,11 +527,11 @@ class SYSCALL extends Instruction<string> {
     super();
   }
   execute(vm: VirtualMachine, arg: any) {
-    var variable;
-    var type: any;
-    var x;
-    var spaces;
-    var i;
+    let variable;
+    let type: any;
+    let x;
+    let spaces;
+    let i;
     // Execute a system function or subroutine. The argument is a
     // javascript string containing the name of the routine.
     if (vm.debug) {
@@ -539,8 +539,8 @@ class SYSCALL extends Instruction<string> {
     }
 
     if (arg === "print_file") {
-      var fileNumber = vm.stack.pop() as string;
-      var length = vm.stack.pop() as number;
+      const fileNumber = vm.stack.pop() as string;
+      const length = vm.stack.pop() as number;
       let value = "";
       for (let i = 0; i < length; ++i) {
         value = (vm.stack.pop() as string) + value;
@@ -551,9 +551,9 @@ class SYSCALL extends Instruction<string> {
       return;
     }
     if (arg == "print") {
-      var num = 1;
+      const num = 1;
       for (i = 0; i < num; i++) {
-        var what = vm.stack.pop();
+        const what = vm.stack.pop();
         if (vm.debug) {
           vm.trace.printf("printing %s\n", what);
         }
@@ -561,11 +561,11 @@ class SYSCALL extends Instruction<string> {
       }
     } else if (arg == "alloc_array") {
       type = vm.stack.pop();
-      var numDimensions = vm.stack.pop();
-      var dimensions = [];
+      const numDimensions = vm.stack.pop();
+      const dimensions = [];
       for (i = 0; i < numDimensions; i++) {
-        var upper = <number>vm.stack.pop();
-        var lower = <number>vm.stack.pop();
+        const upper = <number>vm.stack.pop();
+        const lower = <number>vm.stack.pop();
         dimensions.unshift(new Dimension(lower, upper));
       }
 
@@ -579,7 +579,7 @@ class SYSCALL extends Instruction<string> {
       }
       vm.cons.print(spaces);
     } else if (arg == "print_tab") {
-      var col = <number>vm.stack.pop() - 1;
+      const col = <number>vm.stack.pop() - 1;
       x = vm.cons.x;
       spaces = "";
       while (++x < col) {

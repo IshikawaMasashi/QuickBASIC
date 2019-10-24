@@ -2,10 +2,11 @@
 import { ImageManipulator } from "./ImageManipulator";
 import { INumberDictionary } from "./base/common/collections";
 import CharacterImageGenerator from "./CharacterImageGenerator";
+import IConsole from "./virtualMachine/IConsole";
 
 export var globalConsole: _Console;
 /** @constructor */
-export class _Console {
+export class _Console implements IConsole {
   ctx: CanvasRenderingContext2D;
   interval = 0;
   cursorEnabled = false;
@@ -375,7 +376,7 @@ export class _Console {
     this.y -= 1;
   }
 
-  input(onInputDone: any) {
+  input(onInputDone: (input: string) => void) {
     if (this.recording) {
       var str = "";
       while (this.keyBuffer.length > 0) {

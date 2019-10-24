@@ -37,7 +37,7 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
     args: ["INTEGER"],
     minArgs: 0,
     action: function(vm: VirtualMachine) {
-      let numArgs = vm.stack.pop();
+      const numArgs = vm.stack.pop();
       let n = 1;
       if (numArgs == 1) {
         n = <number>vm.stack.pop();
@@ -55,7 +55,7 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
     args: ["INTEGER"],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
-      let num = <number>vm.stack.pop();
+      const num = <number>vm.stack.pop();
       vm.stack.push(String.fromCharCode(num));
     }
   },
@@ -65,7 +65,7 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
     args: [],
     minArgs: 0,
     action: function(vm: VirtualMachine) {
-      let code = vm.cons.getKeyFromBuffer();
+      const code = vm.cons.getKeyFromBuffer();
       let result = "";
 
       if (code != -1) {
@@ -93,13 +93,13 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
     args: ["STRING", "INTEGER", "INTEGER"],
     minArgs: 2,
     action: function(vm: VirtualMachine) {
-      let numArgs = vm.stack.pop();
+      const numArgs = vm.stack.pop();
       let len: any;
       if (numArgs == 3) {
         len = vm.stack.pop();
       }
-      let start = <number>vm.stack.pop();
-      let str = <string>vm.stack.pop();
+      const start = <number>vm.stack.pop();
+      const str = <string>vm.stack.pop();
       vm.stack.push(str.substr(start - 1, len));
     }
   },
@@ -109,8 +109,8 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
     args: ["STRING", "INTEGER"],
     minArgs: 2,
     action: function(vm: VirtualMachine) {
-      let num = <number>vm.stack.pop();
-      let str = <string>vm.stack.pop();
+      const num = <number>vm.stack.pop();
+      const str = <string>vm.stack.pop();
       vm.stack.push(str.substr(0, num));
     }
   },
@@ -120,8 +120,8 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
     args: ["STRING", "INTEGER"],
     minArgs: 2,
     action: function(vm: VirtualMachine) {
-      let num = <number>vm.stack.pop();
-      let str = <string>vm.stack.pop();
+      const num = <number>vm.stack.pop();
+      const str = <string>vm.stack.pop();
       vm.stack.push(str.substr(str.length - num));
     }
   },
@@ -135,9 +135,9 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
       // floating point value rather than an integer, so that nibbles
       // will work properly when its timing loop returns a value less
       // than one second.
-      let date = new Date();
+      const date = new Date();
 
-      let result =
+      const result =
         date.getMilliseconds() / 1000 +
         date.getSeconds() +
         date.getMinutes() * 60 +
@@ -163,7 +163,7 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
     args: ["STRING"],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
-      let str = <string>vm.stack.pop();
+      const str = <string>vm.stack.pop();
       vm.stack.push(str.toLowerCase());
     }
   },
@@ -182,7 +182,7 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
     args: ["SINGLE"],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
-      let num = vm.stack.pop();
+      const num = vm.stack.pop();
       vm.stack.push("" + num);
     }
   },
@@ -192,7 +192,7 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
     args: ["INTEGER"],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
-      let numSpaces = vm.stack.pop();
+      const numSpaces = vm.stack.pop();
       let str = "";
       for (let i = 0; i < numSpaces; i++) {
         str += " ";
@@ -301,7 +301,8 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
       // Returns the square root of a numeric expression.
       // vm.stack.push(Math.sqrt(value));
       const file = getFile(fileNumber);
-      const lineCount = file.view.getLineCount();
+      // const lineCount = file.view.file.getBuffer().getLineCount();
+      const lineCount = file.buffer.getLineCount();
       if (file.position.lineNumber > lineCount) {
         vm.stack.push(1);
         return;

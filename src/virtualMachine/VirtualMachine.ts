@@ -8,6 +8,8 @@ import { ArrayVariable } from "../ArrayVariable";
 import { StackFrame } from "../StackFrame";
 import { ScalarVariable } from "../ScalarVariable";
 import { Type } from "../types/Type";
+import IConsole from "./IConsole";
+
 /**
     The global machine variable points to the current virtual machine, so that
     it can be accessed from the javascript setInterval function. Unfortunately,
@@ -87,7 +89,7 @@ export class VirtualMachine {
 
   private breakpoints: number[] = [];
 
-  constructor(public cons: _Console) {
+  constructor(readonly cons: IConsole) {
     // The console.
     // this.cons = cons;
 
@@ -120,6 +122,7 @@ export class VirtualMachine {
     this.frame = this.callstack[0];
     this.dataPtr = 0;
     this.suspended = false;
+    
     if (this.interval) {
       window.clearInterval(this.interval);
       this.interval = null;
@@ -185,13 +188,13 @@ export class VirtualMachine {
     // var start = (new Date()).getTime();
     try {
       for (
-        var i = 0;
+        let i = 0;
         i < this.instructionsPerInterval &&
         this.pc < this.instructions.length &&
         !this.suspended;
         i++
       ) {
-        var instr = this.instructions[this.pc++];
+        const instr = this.instructions[this.pc++];
         if (this.debug) {
           this.trace.printf("Execute [%s] %s\n", this.pc - 1, instr);
         }
@@ -230,7 +233,7 @@ export class VirtualMachine {
   }
 
   runOneInstruction() {
-    var instr = this.instructions[this.pc++];
+    const instr = this.instructions[this.pc++];
 
     // instr.instr.execute(this, instr.arg);
     instr.execute(this, instr.arg);
@@ -245,7 +248,7 @@ export class VirtualMachine {
   }
 
   getVariable(name: string) {
-    var frame: StackFrame;
+    let frame: StackFrame;
     if (this.shared[name]) {
       frame = this.callstack[0];
     } else {
@@ -256,24 +259,24 @@ export class VirtualMachine {
       return frame.variables[name];
     } else {
       // must create variable
-      var typeName = DeriveTypeNameFromVariable(name);
-      var type: any;
+      const typeName = DeriveTypeNameFromVariable(name);
+      let type: any;
       if (typeName === null) {
         type = this.defaultType;
       } else {
         type = this.types[typeName];
       }
 
-      var scalar = new ScalarVariable(type, type.createInstance());
+      const scalar = new ScalarVariable(type, type.createInstance());
       frame.variables[name] = scalar;
       return scalar;
     }
   }
 
   printStack() {
-    for (var i = 0; i < this.stack.length; i++) {
-      var item = this.stack[i];
-      var name = /*getObjectClass*/ item;
+    for (let i = 0; i < this.stack.length; i++) {
+      const item = this.stack[i];
+      let name = /*getObjectClass*/ item;
       if (name == "ScalarVariable") {
         name += " " + (<any>item).value;
       }

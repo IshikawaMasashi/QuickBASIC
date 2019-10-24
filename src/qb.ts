@@ -241,7 +241,7 @@ function JoinListsLR(args: any) {
   return args[0];
 }
 
-function JoinLists(args: any) {
+function JoinLists<T>(args: [T, T[]]) {
   args[1].unshift(args[0]);
   return args[1];
 }

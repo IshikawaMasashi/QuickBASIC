@@ -231,17 +231,17 @@ export const SystemSubroutines: IStringDictionary<ISystemSubroutine> = {
   print_using: {
     action: function(vm: VirtualMachine) {
       // pop # args
-      let argCount = vm.stack.pop() as number;
+      const argCount = vm.stack.pop() as number;
 
       // pop terminator
-      let terminator = vm.stack.pop();
+      const terminator = vm.stack.pop();
 
-      let args: any[] = [];
+      const args: any[] = [];
       for (let i = 0; i < argCount - 1; i++) {
         args.unshift(vm.stack.pop());
       }
 
-      let formatString = args.shift().value;
+      const formatString = args.shift().value;
 
       // var curArg = 0;
 
@@ -354,8 +354,8 @@ export const SystemSubroutines: IStringDictionary<ISystemSubroutine> = {
   LOCATE: {
     args: ["INTEGER", "INTEGER"],
     action: function(vm: VirtualMachine) {
-      let col = (<ScalarVariable>vm.stack.pop()).value;
-      let row = (<ScalarVariable>vm.stack.pop()).value;
+      const col = (<ScalarVariable>vm.stack.pop()).value;
+      const row = (<ScalarVariable>vm.stack.pop()).value;
       vm.cons.locate(<number>row, <number>col);
     }
   },
@@ -364,13 +364,13 @@ export const SystemSubroutines: IStringDictionary<ISystemSubroutine> = {
     args: ["ANY", "ANY"],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
-      let argCount = vm.stack.pop();
+      const argCount = vm.stack.pop();
 
       let bg;
       if (argCount == 2) {
         bg = (<ScalarVariable>vm.stack.pop()).value;
       }
-      let fg = (<ScalarVariable>vm.stack.pop()).value;
+      const fg = (<ScalarVariable>vm.stack.pop()).value;
       vm.cons.color(<number>fg, <any>bg);
     }
   },
@@ -381,8 +381,8 @@ export const SystemSubroutines: IStringDictionary<ISystemSubroutine> = {
     args: ["ANY", "ANY"],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
-      let argCount = vm.stack.pop();
-      let args: any[] = [];
+      const argCount = vm.stack.pop();
+      const args: any[] = [];
       let i;
 
       for (i = 0; i < argCount; i++) {
@@ -412,21 +412,23 @@ export const SystemSubroutines: IStringDictionary<ISystemSubroutine> = {
     action: function(vm: VirtualMachine) {
       // TODO: Support multiple arguments. Convert strings input by the
       // user to numbers.
-      let argCountOrFileNumber = vm.stack.pop();
+      const argCountOrFileNumber = vm.stack.pop();
 
       if (typeof argCountOrFileNumber === "string") {
         const fileNumber = argCountOrFileNumber as string;
         const variable = vm.stack.pop() as ScalarVariable;
         const file = getFile(fileNumber);
 
-        const buffer = file.view.getBuffer();
+        // const buffer = file.view.file.getBuffer();
         const isLine = vm.stack.pop() as number;
         if (isLine) {
           // variable.value =  splits[file.seekPosition.lineNumber++];
-          variable.value = buffer.getLineContent(file.position.lineNumber++);
+          variable.value = file.buffer.getLineContent(
+            file.position.lineNumber++
+          );
           return;
         }
-        const value = file.view.getValue();
+        const value = file.buffer.getValue();
         const splits = value.split(/\n/);
         // ToDo : もっとシンプルに！
         const result = splits.slice(file.position.lineNumber);
@@ -436,7 +438,7 @@ export const SystemSubroutines: IStringDictionary<ISystemSubroutine> = {
       }
 
       const argCount = argCountOrFileNumber as number;
-      let args: any[] = [];
+      const args: any[] = [];
 
       vm.trace.printf("Argcount=%s\n", argCount);
 
@@ -455,9 +457,9 @@ export const SystemSubroutines: IStringDictionary<ISystemSubroutine> = {
 
   SWAP: {
     action: function(vm: VirtualMachine) {
-      let lhs = <ScalarVariable>vm.stack.pop();
-      let rhs = <ScalarVariable>vm.stack.pop();
-      let temp = lhs.value;
+      const lhs = <ScalarVariable>vm.stack.pop();
+      const rhs = <ScalarVariable>vm.stack.pop();
+      const temp = lhs.value;
       lhs.value = rhs.value;
       rhs.value = temp;
       // TODO: Type checking.

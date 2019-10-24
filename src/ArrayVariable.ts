@@ -20,14 +20,14 @@ export class ArrayVariable extends Variable {
     // this.type = type;
     // this.dimensions = dimensions;
     // this.values = [];
-    var totalSize = 1;
-    var i;
+    let totalSize = 1;
+    let i;
 
-    for (i = 0; i < this.dimensions.length; i++) {
+    for (let i = 0; i < this.dimensions.length; i++) {
       totalSize *= this.dimensions[i].upper - this.dimensions[i].lower + 1;
     }
 
-    for (i = 0; i < totalSize; i++) {
+    for (let i = 0; i < totalSize; i++) {
       this.values.push(
         new ScalarVariable(this.type, this.type.createInstance())
       );
@@ -39,11 +39,11 @@ export class ArrayVariable extends Variable {
   }
 
   getIndex(indexes: number[]) {
-    var mult = 1;
-    var index = 0;
+    let mult = 1;
+    let index = 0;
 
     //dbg.printf("Access array indexes: %s\n", indexes);
-    for (var i = this.dimensions.length - 1; i >= 0; i--) {
+    for (let i = this.dimensions.length - 1; i >= 0; i--) {
       index += (indexes[i] - this.dimensions[i].lower) * mult;
       mult *= this.dimensions[i].upper - this.dimensions[i].lower + 1;
     }
@@ -51,13 +51,13 @@ export class ArrayVariable extends Variable {
   }
 
   assign(indexes: number[], value: ScalarVariable) {
-    var index = this.getIndex(indexes);
+    let index = this.getIndex(indexes);
     //dbg.printf("Assign %s to array index %d\n", value, index);
     this.values[index] = value;
   }
 
   access(indexes: number[] /*, value*/) {
-    var index = this.getIndex(indexes);
+    let index = this.getIndex(indexes);
     //dbg.printf("access array index %d\n", index);
 
     return this.values[index];

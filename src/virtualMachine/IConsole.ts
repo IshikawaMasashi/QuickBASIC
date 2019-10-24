@@ -1,5 +1,6 @@
 export default interface IConsole {
   x: number;
+  text?: string;
   input: (onInputDone: (input: string) => void) => void;
   color: (fg: number, bg: number) => void;
   print: (str: string) => void;
@@ -11,9 +12,12 @@ export default interface IConsole {
 
 export class DummyConsole implements IConsole {
   x: number;
+  public text = "";
   input(onInputDone: (input: string) => void) {}
   color(fg: number, bg: number) {}
-  print(str: string) {}
+  print(str: string) {
+    this.text = str;
+  }
   reset(testMode?: boolean) {}
   locate(row: number, col: number) {}
   cls() {}

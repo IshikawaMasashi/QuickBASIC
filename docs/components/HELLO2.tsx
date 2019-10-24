@@ -8,9 +8,9 @@ import VolumeDown from "@material-ui/icons/VolumeDown";
 import VolumeUp from "@material-ui/icons/VolumeUp";
 import Button from "@material-ui/core/Button";
 
-import { _Console } from "../../src/qbasic/Console";
-import { compile2 } from "../../src/qbasic/qb";
-import { VirtualMachine } from "../../src/qbasic/virtualMachine/VirtualMachine";
+import { _Console } from "../../src";
+import { compile2 } from "../../src";
+import { VirtualMachine } from "../../src";
 import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";

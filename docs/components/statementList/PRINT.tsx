@@ -6,11 +6,11 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 
-import { _Console } from "../../src";
-import { compile2 } from "../../src";
-import { VirtualMachine } from "../../src";
+import { _Console } from "../../../src";
+import { compile2 } from "../../../src";
+import { VirtualMachine } from "../../../src";
 import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
-import SyntaxHighlighter from "./SyntaxHighlighter";
+import SyntaxHighlighter from "../SyntaxHighlighter";
 
 // スタイルを定義
 const useStyles = makeStyles((theme: Theme) =>
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
 type Props = {};
 
 // コンポーネントを定義
-function Example2({  }: Props) {
+function PRINT({  }: Props) {
   // ここでクラス名を取得
   const classes = useStyles({});
 
@@ -51,6 +51,7 @@ function Example2({  }: Props) {
     const quickBasicProgram = compile2(code);
     if (quickBasicProgram.errors.length === 0) {
       virtualMachineRef.current.run(quickBasicProgram, false);
+      q;
     }
   }
 
@@ -151,7 +152,7 @@ function Example2({  }: Props) {
   return (
     <Paper className={classes.root}>
       <Typography variant="h6" noWrap>
-        1. HELLO.BAS
+        PRINT Statement
       </Typography>
       <hr></hr>
       <SyntaxHighlighter language="basic" code={codeString}></SyntaxHighlighter>
@@ -193,4 +194,4 @@ function Example2({  }: Props) {
   );
 }
 
-export default Example2;
+export default PRINT;

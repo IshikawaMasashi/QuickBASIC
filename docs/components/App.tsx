@@ -1,5 +1,5 @@
-import React from "react";
-
+import * as React from "react";
+import { useState } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -20,21 +20,17 @@ import Typography from "@material-ui/core/Typography";
 // import { VirtualList, ItemStyle } from "../../src";
 import VolumeDown from "@material-ui/icons/VolumeDown";
 import VolumeUp from "@material-ui/icons/VolumeUp";
-import Example1 from "./Example1";
+import About from "./About";
 import HELLO1 from "./HELLO1";
 import HELLO2 from "./HELLO2";
 import Example3 from "./Example3";
 import Example4 from "./Example4";
 import Example5 from "./Example5";
-import EchoConsole from "./EchoConsole";
 import Collapse from "@material-ui/core/Collapse";
 import StarBorder from "@material-ui/icons/StarBorder";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-
-import "../lib/highlight/styles/github.css";
-
-import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
+import ExampleList from "./examplesList/examplesList";
 
 const { useEffect, useRef } = React;
 enum View {
@@ -95,12 +91,12 @@ export default function ResponsiveDrawer(props: Props) {
     // "Horizontal list"
   ];
 
-  const controlledProps = [] as string[]; //["Scroll to index", "Controlled scroll offset"];
+  const statementList = ["PRINT"];
 
-  const labels = info.concat(textOutput.concat(controlledProps));
+  // const labels = info.concat(textOutput.concat(statementList));
 
   const pages = [
-    <Example1 />,
+    <About />,
     <HELLO1 />,
     <HELLO2 />,
     <Example3 />,
@@ -111,15 +107,15 @@ export default function ResponsiveDrawer(props: Props) {
   // const { container } = props;
   const classes = useStyles({});
   const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [open, setOpen] = React.useState(false);
-  const [view, setView] = React.useState(View.Example1);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [view, setView] = useState(View.Example1);
 
   function handleDrawerToggle() {
     setMobileOpen(!mobileOpen);
   }
 
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   function handleListItemClick(
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -146,48 +142,18 @@ export default function ResponsiveDrawer(props: Props) {
         </div>
       </div>
       <Divider />
-      <List>
-        {info.map((text, index) => (
-          <ListItem
-            button
-            key={text}
-            selected={selectedIndex === index}
-            onClick={event => handleListItemClick(event, index)}
-          >
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-        <Divider />
-        <ListSubheader>
-          <Typography variant="h6" noWrap>
-            Examples
-          </Typography>
-        </ListSubheader>
-        <ListItem button onClick={handleClick}>
-          <ListItemText primary="Text Output" />
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          {textOutput.map((text, index) => (
-            <ListItem
-              button
-              key={text}
-              selected={selectedIndex === index + info.length}
-              onClick={event => handleListItemClick(event, index + info.length)}
-            >
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </Collapse>
-      </List>
+      <ExampleList
+        selectedIndex={selectedIndex}
+        setSelectedIndex={setSelectedIndex}
+      />
       <Divider />
       <List>
         <ListSubheader>
           <Typography variant="h6" noWrap>
-            Commands List
+            Statement List
           </Typography>
         </ListSubheader>
-        {controlledProps.map((text, index) => (
+        {statementList.map((text, index) => (
           <ListItem
             button
             key={text}
@@ -263,9 +229,3 @@ export default function ResponsiveDrawer(props: Props) {
     </div>
   );
 }
-
-// ResponsiveDrawer.propTypes = {
-//   // Injected by the documentation to work in an iframe.
-//   // You won't need it on your project.
-//   container: PropTypes.object,
-// };

@@ -1,5 +1,5 @@
-﻿import { TreeNode, Location } from "earley";
-import { AstArgument } from "./AstArgument";
+﻿import { Location } from 'earley';
+import { AstArgument } from './AstArgument';
 /** @constructor */
 export class AstSubroutine {
   constructor(

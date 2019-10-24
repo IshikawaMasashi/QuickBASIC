@@ -1,2 +1,1 @@
-﻿interface ICopyable {
-}
+﻿interface ICopyable {}

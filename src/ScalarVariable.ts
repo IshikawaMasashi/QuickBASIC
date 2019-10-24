@@ -1,6 +1,6 @@
-﻿import { Type } from "./types/Type";
-import { NullType } from "./types/NullType";
-import Variable from "./Variable";
+﻿import { Type } from './types/Type';
+import { NullType } from './types/NullType';
+import Variable from './Variable';
 
 export class ScalarVariable extends Variable {
   /** @constructor */
@@ -8,7 +8,7 @@ export class ScalarVariable extends Variable {
     public type: Type,
     public value: number | string | NullType | null
   ) {
-    super()
+    super();
     // this.type = type;
     // this.value = value;
   }

@@ -1,11 +1,11 @@
-﻿import { Dimension } from "./Dimension";
-import { ScalarVariable } from "./ScalarVariable";
-import { DoubleType } from "./types/DoubleType";
-import { IntegerType } from "./types/IntegerType";
-import { NullType } from "./types/NullType";
-import { SingleType } from "./types/SingleType";
-import { StringType } from "./types/StringType";
-import Variable from "./Variable";
+﻿import { Dimension } from './Dimension';
+import { ScalarVariable } from './ScalarVariable';
+import { DoubleType } from './types/DoubleType';
+import { IntegerType } from './types/IntegerType';
+import { NullType } from './types/NullType';
+import { SingleType } from './types/SingleType';
+import { StringType } from './types/StringType';
+import Variable from './Variable';
 
 /** @constructor */
 export class ArrayVariable extends Variable {

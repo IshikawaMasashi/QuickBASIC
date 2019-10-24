@@ -1,5 +1,3 @@
-﻿
-
-export abstract class Type {
-    name: string;
+﻿export abstract class Type {
+  name: string;
 }

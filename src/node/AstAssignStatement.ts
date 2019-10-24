@@ -1,5 +1,5 @@
-﻿import { TreeNode, Location } from "earley";
-import { AstVariableReference } from "./AstVariableReference";
+﻿import { Location } from 'earley';
+import { AstVariableReference } from './AstVariableReference';
 
 /** @constructor */
 export class AstAssignStatement {

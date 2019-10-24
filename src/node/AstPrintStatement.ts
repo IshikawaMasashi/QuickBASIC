@@ -1,6 +1,6 @@
-﻿import { TreeNode, Location } from "earley";
-import { AstVariableReference } from "./AstVariableReference";
-import { AstPrintItem } from "./AstPrintItem";
+﻿import { Location } from 'earley';
+// import { AstVariableReference } from "./AstVariableReference";
+import { AstPrintItem } from './AstPrintItem';
 
 export class AstPrintStatement {
   /** @constructor */

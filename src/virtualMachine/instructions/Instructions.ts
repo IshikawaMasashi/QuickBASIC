@@ -1,13 +1,13 @@
-﻿import { VirtualMachine } from "../VirtualMachine";
-import { SystemFunctions } from "../../SystemFunctions";
-import { SystemSubroutines } from "../../SystemSubroutines";
-import { StackFrame } from "../../StackFrame";
-import { ArrayVariable } from "../../ArrayVariable";
-import { Dimension } from "../../Dimension";
-import { ScalarVariable } from "../../ScalarVariable";
-import { IStringDictionary } from "../../base/common/collections";
-import { Instruction } from "./instruction";
-import { getFile, setLineContent } from "../../file/file";
+﻿import { VirtualMachine } from '../VirtualMachine';
+import { SystemFunctions } from '../../SystemFunctions';
+import { SystemSubroutines } from '../../SystemSubroutines';
+import { StackFrame } from '../../StackFrame';
+import { ArrayVariable } from '../../ArrayVariable';
+import { Dimension } from '../../Dimension';
+import { ScalarVariable } from '../../ScalarVariable';
+import { IStringDictionary } from '../../base/common/collections';
+import { Instruction } from './instruction';
+import { setLineContent } from '../../file/file';
 
 /**
  Defines the instruction set of the virtual machine. Each entry is indexed by
@@ -30,7 +30,7 @@ import { getFile, setLineContent } from "../../file/file";
  */
 
 class ForLoop extends Instruction<number> {
-  name = "forloop";
+  name = 'forloop';
   addrLabel = true;
 
   constructor(public arg: number) {
@@ -70,7 +70,7 @@ class ForLoop extends Instruction<number> {
 }
 
 class CopyTop extends Instruction<any> {
-  name = "copytop";
+  name = 'copytop';
   numArgs = 0;
   execute(vm: VirtualMachine, arg: any) {
     // Duplicates the top of the stack
@@ -79,7 +79,7 @@ class CopyTop extends Instruction<any> {
 }
 
 class Restore extends Instruction<number> {
-  name = "restore";
+  name = 'restore';
   dataLabel = true;
   constructor(public arg: number) {
     super();
@@ -87,14 +87,14 @@ class Restore extends Instruction<number> {
   execute(vm: VirtualMachine, arg: any) {
     // Restore the data pointer to the given value.
     if (vm.debug) {
-      vm.trace.printf("RESTORE to %s\n", arg);
+      vm.trace.printf('RESTORE to %s\n', arg);
     }
     vm.dataPtr = arg;
   }
 }
 
 class PopVal extends Instruction {
-  name = "popval";
+  name = 'popval';
   constructor(public arg: string) {
     super();
   }
@@ -109,7 +109,7 @@ class PopVal extends Instruction {
 }
 
 class Pop extends Instruction {
-  name = "pop";
+  name = 'pop';
   numArgs = 0;
   constructor() {
     super();
@@ -120,7 +120,7 @@ class Pop extends Instruction {
 }
 
 class PushRef extends Instruction {
-  name = "pushref";
+  name = 'pushref';
   constructor(public arg: string) {
     super();
   }
@@ -132,7 +132,7 @@ class PushRef extends Instruction {
 }
 
 class PushValue extends Instruction {
-  readonly name = "pushvalue";
+  readonly name = 'pushvalue';
   constructor(public arg: string) {
     super();
   }
@@ -143,7 +143,7 @@ class PushValue extends Instruction {
   }
 }
 class PushType extends Instruction {
-  name = "pushtype";
+  name = 'pushtype';
   constructor(public arg: any) {
     super();
   }
@@ -156,7 +156,7 @@ class PushType extends Instruction {
 }
 
 class PopVar extends Instruction {
-  name = "popvar";
+  name = 'popvar';
   constructor(public arg: string) {
     super();
   }
@@ -168,7 +168,7 @@ class PopVar extends Instruction {
 }
 
 class New extends Instruction {
-  name = "new";
+  name = 'new';
   constructor(public arg: any) {
     super();
   }
@@ -181,7 +181,7 @@ class New extends Instruction {
 }
 
 class End extends Instruction {
-  name = "end";
+  name = 'end';
   numArgs = 0;
   execute(vm: VirtualMachine, arg: any) {
     // End the program. The CPU ends the program when the program
@@ -192,34 +192,34 @@ class End extends Instruction {
 }
 
 class UnaryOp extends Instruction {
-  name = "unary_op";
+  name = 'unary_op';
   constructor(public arg: string) {
     super();
   }
   execute(vm: VirtualMachine, arg: string) {
     const rhs = vm.stack.pop();
     let value;
-    if (arg == "NOT") {
+    if (arg == 'NOT') {
       // value = ~rhs;
       value = Number(!rhs);
-    } else if (arg == "-") {
+    } else if (arg == '-') {
       value = -rhs;
     } else {
-      vm.trace.printf("No such unary operator: %s\n", arg);
+      vm.trace.printf('No such unary operator: %s\n', arg);
     }
 
     vm.stack.push(value);
   }
 }
 class OperatorEquality extends Instruction {
-  name = "=";
+  name = '=';
   numArgs = 0;
   execute(vm: VirtualMachine, arg: any) {
     vm.stack.push(vm.stack.pop() === vm.stack.pop() ? -1 : 0);
   }
 }
 class OperatorLessThan extends Instruction {
-  name = "<";
+  name = '<';
   numArgs = 0;
   execute(vm: VirtualMachine, arg: any) {
     const rhs = vm.stack.pop();
@@ -228,7 +228,7 @@ class OperatorLessThan extends Instruction {
   }
 }
 class OperatorLessThanOrEqual extends Instruction {
-  name = "<=";
+  name = '<=';
   numArgs = 0;
   execute(vm: VirtualMachine, arg: any) {
     const rhs = vm.stack.pop();
@@ -238,7 +238,7 @@ class OperatorLessThanOrEqual extends Instruction {
 }
 
 class OperatorGreaterThan extends Instruction {
-  name = ">";
+  name = '>';
   numArgs = 0;
   execute(vm: VirtualMachine, arg: any) {
     const rhs = vm.stack.pop();
@@ -248,7 +248,7 @@ class OperatorGreaterThan extends Instruction {
 }
 
 class OperatorGreaterThanOrEqual extends Instruction {
-  name = ">=";
+  name = '>=';
   numArgs = 0;
   execute(vm: VirtualMachine, arg: any) {
     const rhs = vm.stack.pop();
@@ -257,7 +257,7 @@ class OperatorGreaterThanOrEqual extends Instruction {
   }
 }
 class OperatorNotEquality extends Instruction {
-  name = "<>";
+  name = '<>';
   numArgs = 0;
   execute(vm: VirtualMachine, arg: any) {
     vm.stack.push(vm.stack.pop() !== vm.stack.pop() ? -1 : 0);
@@ -265,7 +265,7 @@ class OperatorNotEquality extends Instruction {
 }
 
 class And extends Instruction {
-  name = "and";
+  name = 'and';
   numArgs = 0;
   execute(vm: VirtualMachine, arg: any) {
     vm.stack.push((<number>vm.stack.pop()) & (<number>vm.stack.pop()));
@@ -273,14 +273,14 @@ class And extends Instruction {
 }
 
 class Or extends Instruction {
-  name = "or";
+  name = 'or';
   numArgs = 0;
   execute(vm: VirtualMachine, arg: any) {
     vm.stack.push((<number>vm.stack.pop()) | (<number>vm.stack.pop()));
   }
 }
 class OperatorPlus extends Instruction {
-  name = "+";
+  name = '+';
   numArgs = 0;
   execute(vm: VirtualMachine, arg: any) {
     const rhs = <number>vm.stack.pop();
@@ -290,7 +290,7 @@ class OperatorPlus extends Instruction {
 }
 
 class OperatorMinus extends Instruction {
-  name = "-";
+  name = '-';
   numArgs = 0;
   execute(vm: VirtualMachine, arg: any) {
     const rhs = <number>vm.stack.pop();
@@ -300,14 +300,14 @@ class OperatorMinus extends Instruction {
 }
 
 class OperatorMultiply extends Instruction {
-  name = "*";
+  name = '*';
   numArgs = 0;
   execute(vm: VirtualMachine, arg: any) {
     vm.stack.push(<number>vm.stack.pop() * <number>vm.stack.pop());
   }
 }
 class OperatorDivide extends Instruction {
-  name = "/";
+  name = '/';
   numArgs = 0;
   execute(vm: VirtualMachine, arg: any) {
     // TODO: Division by 0 error. Javascript simply results in NaN
@@ -319,7 +319,7 @@ class OperatorDivide extends Instruction {
 }
 
 class OperatorCaret extends Instruction {
-  name = "^";
+  name = '^';
   numArgs = 0;
   execute(vm: VirtualMachine, arg: any) {
     // TODO: Division by 0 error. Javascript simply results in NaN
@@ -331,7 +331,7 @@ class OperatorCaret extends Instruction {
 }
 
 class MOD extends Instruction {
-  name = "mod";
+  name = 'mod';
   numArgs = 0;
   execute(vm: VirtualMachine, arg: any) {
     // TODO: Division by 0 error. Javascript simply results in NaN
@@ -342,7 +342,7 @@ class MOD extends Instruction {
 }
 
 class BZ extends Instruction<number> {
-  name = "bz";
+  name = 'bz';
   addrLabel = true;
   constructor(public arg: number) {
     super();
@@ -359,7 +359,7 @@ class BZ extends Instruction<number> {
 }
 
 class BNZ extends Instruction<number> {
-  name = "bnz";
+  name = 'bnz';
   addrLabel = true;
   constructor(public arg: number) {
     super();
@@ -375,7 +375,7 @@ class BNZ extends Instruction<number> {
 }
 
 class JMP extends Instruction<number> {
-  name = "jmp";
+  name = 'jmp';
   addrLabel = true;
   constructor(public arg: number) {
     super();
@@ -387,7 +387,7 @@ class JMP extends Instruction<number> {
 }
 
 class CALL extends Instruction<number> {
-  name = "call";
+  name = 'call';
   addrLabel = true;
   constructor(public arg: number) {
     super();
@@ -402,7 +402,7 @@ class CALL extends Instruction<number> {
 }
 
 class GOSUB extends Instruction<number> {
-  name = "gosub";
+  name = 'gosub';
   addrLabel = true;
   constructor(public arg: number) {
     super();
@@ -419,7 +419,7 @@ class GOSUB extends Instruction<number> {
 }
 
 class RET extends Instruction<any> {
-  name = "ret";
+  name = 'ret';
   numArgs = 0;
   execute(vm: VirtualMachine, arg: any) {
     // Return from a gosub, function, or subroutine call.
@@ -429,7 +429,7 @@ class RET extends Instruction<any> {
 }
 
 class PUSHCONST extends Instruction {
-  name = "pushconst";
+  name = 'pushconst';
   constructor(public arg: any) {
     super();
   }
@@ -442,7 +442,7 @@ class PUSHCONST extends Instruction {
 }
 
 class ARRAY_DEREF extends Instruction {
-  name = "array_deref";
+  name = 'array_deref';
   numArgs = 1;
   constructor(public arg: any) {
     super();
@@ -474,7 +474,7 @@ class ARRAY_DEREF extends Instruction {
 }
 
 class MEMBER_DEREF extends Instruction {
-  name = "member_deref";
+  name = 'member_deref';
   constructor(public arg: any) {
     super();
   }
@@ -491,7 +491,7 @@ class MEMBER_DEREF extends Instruction {
 }
 
 class MEMBER_VALUE extends Instruction {
-  name = "member_value";
+  name = 'member_value';
   constructor(public arg: any) {
     super();
   }
@@ -508,7 +508,7 @@ class MEMBER_VALUE extends Instruction {
 }
 
 class ASSIGN extends Instruction {
-  name = "assign";
+  name = 'assign';
   numArgs = 0;
   execute(vm: VirtualMachine, arg: any) {
     // Copy the value into the variable reference.
@@ -522,7 +522,7 @@ class ASSIGN extends Instruction {
   }
 }
 class SYSCALL extends Instruction<string> {
-  name = "syscall";
+  name = 'syscall';
   constructor(public arg: string) {
     super();
   }
@@ -535,13 +535,13 @@ class SYSCALL extends Instruction<string> {
     // Execute a system function or subroutine. The argument is a
     // javascript string containing the name of the routine.
     if (vm.debug) {
-      vm.trace.printf("Execute syscall %s\n", arg);
+      vm.trace.printf('Execute syscall %s\n', arg);
     }
 
-    if (arg === "print_file") {
+    if (arg === 'print_file') {
       const fileNumber = vm.stack.pop() as string;
       const length = vm.stack.pop() as number;
-      let value = "";
+      let value = '';
       for (let i = 0; i < length; ++i) {
         value = (vm.stack.pop() as string) + value;
       }
@@ -550,16 +550,16 @@ class SYSCALL extends Instruction<string> {
 
       return;
     }
-    if (arg == "print") {
+    if (arg == 'print') {
       const num = 1;
       for (i = 0; i < num; i++) {
         const what = vm.stack.pop();
         if (vm.debug) {
-          vm.trace.printf("printing %s\n", what);
+          vm.trace.printf('printing %s\n', what);
         }
-        vm.cons.print("" + what);
+        vm.cons.print('' + what);
       }
-    } else if (arg == "alloc_array") {
+    } else if (arg == 'alloc_array') {
       type = vm.stack.pop();
       const numDimensions = vm.stack.pop();
       const dimensions = [];
@@ -571,22 +571,22 @@ class SYSCALL extends Instruction<string> {
 
       variable = new ArrayVariable(type, dimensions);
       vm.stack.push(variable);
-    } else if (arg == "print_comma") {
+    } else if (arg == 'print_comma') {
       x = vm.cons.x;
-      spaces = "";
+      spaces = '';
       while (++x % 14) {
-        spaces += " ";
+        spaces += ' ';
       }
       vm.cons.print(spaces);
-    } else if (arg == "print_tab") {
+    } else if (arg == 'print_tab') {
       const col = <number>vm.stack.pop() - 1;
       x = vm.cons.x;
-      spaces = "";
+      spaces = '';
       while (++x < col) {
-        spaces += " ";
+        spaces += ' ';
       }
       vm.cons.print(spaces);
-    } else if (arg == "alloc_scalar") {
+    } else if (arg == 'alloc_scalar') {
       type = vm.stack.pop();
       variable = new ScalarVariable(type, type.createInstance());
       vm.stack.push(variable);
@@ -595,7 +595,7 @@ class SYSCALL extends Instruction<string> {
     } else if (SystemSubroutines[arg]) {
       SystemSubroutines[arg].action(vm);
     } else {
-      vm.cons.print("Unknown syscall: " + arg);
+      vm.cons.print('Unknown syscall: ' + arg);
     }
   }
 }
@@ -612,19 +612,19 @@ export const Instructions: IStringDictionary<(arg: any) => Instruction<any>> = {
   NEW: (arg: any) => new New(arg),
   END: () => new End(),
   UNARY_OP: (arg: string) => new UnaryOp(arg),
-  "=": () => new OperatorEquality(),
-  "<": () => new OperatorLessThan(),
-  "<=": () => new OperatorLessThanOrEqual(),
-  ">": () => new OperatorGreaterThan(),
-  ">=": () => new OperatorGreaterThanOrEqual(),
-  "<>": () => new OperatorNotEquality(),
+  '=': () => new OperatorEquality(),
+  '<': () => new OperatorLessThan(),
+  '<=': () => new OperatorLessThanOrEqual(),
+  '>': () => new OperatorGreaterThan(),
+  '>=': () => new OperatorGreaterThanOrEqual(),
+  '<>': () => new OperatorNotEquality(),
   AND: () => new And(),
   OR: () => new Or(),
-  "+": () => new OperatorPlus(),
-  "-": () => new OperatorMinus(),
-  "*": () => new OperatorMultiply(),
-  "/": () => new OperatorDivide(),
-  "^": () => new OperatorCaret(),
+  '+': () => new OperatorPlus(),
+  '-': () => new OperatorMinus(),
+  '*': () => new OperatorMultiply(),
+  '/': () => new OperatorDivide(),
+  '^': () => new OperatorCaret(),
   MOD: () => new MOD(),
   BZ: (arg: number) => new BZ(arg),
   BNZ: (arg: number) => new BNZ(arg),

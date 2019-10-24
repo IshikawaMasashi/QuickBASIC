@@ -1,4 +1,4 @@
-﻿import { VirtualMachine } from "../VirtualMachine";
+﻿import { VirtualMachine } from '../VirtualMachine';
 
 export abstract class Instruction<T = any> {
   addrLabel?: boolean;
@@ -14,7 +14,7 @@ export abstract class Instruction<T = any> {
       return this.name;
     }
     // if (this.arg) {
-    return this.name + " " + this.arg;
+    return this.name + ' ' + this.arg;
     // }
 
     // return this.name;

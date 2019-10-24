@@ -1,10 +1,10 @@
-﻿import { TreeNode, Location } from "earley";
+﻿import { Location } from 'earley';
 /** @constructor */
 export class AstPrintUsingStatement {
   constructor(
     public location: Location,
     public exprList: any,
-    public terminator: ";" | ","
+    public terminator: ';' | ','
   ) {
     // this.locus = locus;
     // this.exprList = exprList; // array of expressions. The first is used as the

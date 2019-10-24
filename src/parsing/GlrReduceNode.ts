@@ -1,6 +1,6 @@
-﻿import { TreeNode, Location } from "earley";
-import { dbg, sprintf } from "../qb";
-import { GlrInteriorNode } from "./GlrInteriorNode";
+﻿import { TreeNode, Location } from 'earley';
+import { dbg, sprintf } from '../qb';
+import { GlrInteriorNode } from './GlrInteriorNode';
 
 /** @constructor */
 export class GlrReduceNode {
@@ -30,7 +30,7 @@ export class GlrReduceNode {
       }
     }
     dbg.printf(
-      "Create new inode with state [%s] rule=%s and ref=[%s]\n",
+      'Create new inode with state [%s] rule=%s and ref=[%s]\n',
       this.state.id,
       rule,
       ref.state.id
@@ -41,7 +41,7 @@ export class GlrReduceNode {
 
   toString() {
     return sprintf(
-      "GlrReduceNode state=[%s] inodes=%s parents=%s",
+      'GlrReduceNode state=[%s] inodes=%s parents=%s',
       this.state.id,
       this.inodes.length,
       this.parents.length
@@ -51,7 +51,7 @@ export class GlrReduceNode {
   evaluate() {
     // choose any inode and return its value.
     if (this.inodes.length > 1) {
-      dbg.printf("Uh oh! Choice of inodes [%s]...\n", this.state.id);
+      dbg.printf('Uh oh! Choice of inodes [%s]...\n', this.state.id);
     }
     return this.inodes[0].evaluate();
   }

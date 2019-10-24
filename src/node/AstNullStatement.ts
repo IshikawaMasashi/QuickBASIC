@@ -1,12 +1,11 @@
-﻿import { TreeNode, Location } from "earley";
+﻿import { Location } from 'earley';
 /** @constructor */
 export class AstNullStatement {
-    constructor(public location: Location) {
-        // this.locus = locus;
+  constructor(public location: Location) {
+    // this.locus = locus;
+  }
 
-    }
-
-    accept(visitor: any) {
-        visitor.visitNullStatement(this);
-    }
+  accept(visitor: any) {
+    visitor.visitNullStatement(this);
+  }
 }

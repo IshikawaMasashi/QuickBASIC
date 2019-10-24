@@ -1,5 +1,5 @@
-﻿import { TreeNode, Location } from "earley";
-import { Type } from "../types/Type";
+﻿import { Location } from 'earley';
+import { Type } from '../types/Type';
 
 /** @constructor */
 export class AstMemberDeref {

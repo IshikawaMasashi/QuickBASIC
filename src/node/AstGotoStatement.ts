@@ -1,4 +1,4 @@
-﻿import { TreeNode, Location } from "earley";
+﻿import { Location } from 'earley';
 /** @constructor */
 export class AstGotoStatement {
   constructor(public location: Location, public label: string) {

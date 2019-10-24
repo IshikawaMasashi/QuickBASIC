@@ -1,4 +1,4 @@
-import { IStringDictionary } from "../base/common/collections";
+import { IStringDictionary } from '../base/common/collections';
 
 interface Position {
   lineNumber: number;
@@ -77,11 +77,11 @@ export function setLineContent(index: string, lineContent: string) {
   const splits = value.split(/\n/);
 
   if (splits.length < lineNumber) {
-    for (let i = 0; i < lineNumber - splits.length; ++i) splits.push("");
+    for (let i = 0; i < lineNumber - splits.length; ++i) splits.push('');
   }
   splits[lineNumber - 1] = lineContent;
   // ToDo : もっとシンプルに！
-  const result = splits.join("\n");
+  const result = splits.join('\n');
   // buffer.setValue(result);
   file.buffer.setValue(result);
   file.position.lineNumber++;

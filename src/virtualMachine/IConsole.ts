@@ -12,11 +12,11 @@ export default interface IConsole {
 
 export class DummyConsole implements IConsole {
   x: number;
-  public text = "";
+  public text = '';
   input(onInputDone: (input: string) => void) {}
   color(fg: number, bg: number) {}
   print(str: string) {
-    this.text = str;
+    this.text += str;
   }
   reset(testMode?: boolean) {}
   locate(row: number, col: number) {}

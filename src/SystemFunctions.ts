@@ -1,7 +1,7 @@
-﻿import { VirtualMachine } from "./virtualMachine/VirtualMachine";
-import { IStringDictionary } from "./base/common/collections";
+﻿import { VirtualMachine } from './virtualMachine/VirtualMachine';
+import { IStringDictionary } from './base/common/collections';
 
-import { getFile } from "./file/file";
+import { getFile } from './file/file';
 
 /**
     Defines the functions that can be called from a basic program. Functions
@@ -33,8 +33,8 @@ export interface ISystemFunction {
 }
 export const SystemFunctions: IStringDictionary<ISystemFunction> = {
   RND: {
-    type: "SINGLE",
-    args: ["INTEGER"],
+    type: 'SINGLE',
+    args: ['INTEGER'],
     minArgs: 0,
     action: function(vm: VirtualMachine) {
       const numArgs = vm.stack.pop();
@@ -51,8 +51,8 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
   },
 
   CHR$: {
-    type: "STRING",
-    args: ["INTEGER"],
+    type: 'STRING',
+    args: ['INTEGER'],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
       const num = <number>vm.stack.pop();
@@ -61,12 +61,12 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
   },
 
   INKEY$: {
-    type: "STRING",
+    type: 'STRING',
     args: [],
     minArgs: 0,
     action: function(vm: VirtualMachine) {
       const code = vm.cons.getKeyFromBuffer();
-      let result = "";
+      let result = '';
 
       if (code != -1) {
         result = String.fromCharCode(code);
@@ -80,8 +80,8 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
   },
 
   LEN: {
-    type: "INTEGER",
-    args: ["STRING"],
+    type: 'INTEGER',
+    args: ['STRING'],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
       vm.stack.push((<string>vm.stack.pop()).length);
@@ -89,8 +89,8 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
   },
 
   MID$: {
-    type: "STRING",
-    args: ["STRING", "INTEGER", "INTEGER"],
+    type: 'STRING',
+    args: ['STRING', 'INTEGER', 'INTEGER'],
     minArgs: 2,
     action: function(vm: VirtualMachine) {
       const numArgs = vm.stack.pop();
@@ -105,8 +105,8 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
   },
 
   LEFT$: {
-    type: "STRING",
-    args: ["STRING", "INTEGER"],
+    type: 'STRING',
+    args: ['STRING', 'INTEGER'],
     minArgs: 2,
     action: function(vm: VirtualMachine) {
       const num = <number>vm.stack.pop();
@@ -116,8 +116,8 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
   },
 
   RIGHT$: {
-    type: "STRING",
-    args: ["STRING", "INTEGER"],
+    type: 'STRING',
+    args: ['STRING', 'INTEGER'],
     minArgs: 2,
     action: function(vm: VirtualMachine) {
       const num = <number>vm.stack.pop();
@@ -127,7 +127,7 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
   },
 
   TIMER: {
-    type: "INTEGER",
+    type: 'INTEGER',
     args: [],
     minArgs: 0,
     action: function(vm: VirtualMachine) {
@@ -148,8 +148,8 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
   },
 
   PEEK: {
-    type: "INTEGER",
-    args: ["INTEGER"],
+    type: 'INTEGER',
+    args: ['INTEGER'],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
       // pop one argument off the stack and replace it with 0.
@@ -159,8 +159,8 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
   },
 
   LCASE$: {
-    type: "STRING",
-    args: ["STRING"],
+    type: 'STRING',
+    args: ['STRING'],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
       const str = <string>vm.stack.pop();
@@ -169,8 +169,8 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
   },
 
   UCASE$: {
-    type: "STRING",
-    args: ["STRING"],
+    type: 'STRING',
+    args: ['STRING'],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
       vm.stack.push((<string>vm.stack.pop()).toUpperCase());
@@ -178,48 +178,48 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
   },
 
   STR$: {
-    type: "STRING",
-    args: ["SINGLE"],
+    type: 'STRING',
+    args: ['SINGLE'],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
       const num = vm.stack.pop();
-      vm.stack.push("" + num);
+      vm.stack.push('' + num);
     }
   },
 
   SPACE$: {
-    type: "STRING",
-    args: ["INTEGER"],
+    type: 'STRING',
+    args: ['INTEGER'],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
       const numSpaces = vm.stack.pop();
-      let str = "";
+      let str = '';
       for (let i = 0; i < numSpaces; i++) {
-        str += " ";
+        str += ' ';
       }
       vm.stack.push(str);
     }
   },
 
   VAL: {
-    type: "SINGLE",
-    args: ["STRING"],
+    type: 'SINGLE',
+    args: ['STRING'],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
       vm.stack.push(parseFloat(<string>vm.stack.pop()));
     }
   },
   INT: {
-    type: "INTEGER",
-    args: ["SINGLE"],
+    type: 'INTEGER',
+    args: ['SINGLE'],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
       vm.stack.push(Math.floor(<number>vm.stack.pop()));
     }
   },
   ABS: {
-    type: "SINGLE",
-    args: ["SINGLE"],
+    type: 'SINGLE',
+    args: ['SINGLE'],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
       const value = vm.stack.pop() as number;
@@ -227,8 +227,8 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
     }
   },
   SIN: {
-    type: "SINGLE",
-    args: ["SINGLE"],
+    type: 'SINGLE',
+    args: ['SINGLE'],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
       const value = vm.stack.pop() as number;
@@ -236,8 +236,8 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
     }
   },
   COS: {
-    type: "SINGLE",
-    args: ["SINGLE"],
+    type: 'SINGLE',
+    args: ['SINGLE'],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
       const value = vm.stack.pop() as number;
@@ -245,8 +245,8 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
     }
   },
   TAN: {
-    type: "SINGLE",
-    args: ["SINGLE"],
+    type: 'SINGLE',
+    args: ['SINGLE'],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
       const value = vm.stack.pop() as number;
@@ -254,8 +254,8 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
     }
   },
   ASIN: {
-    type: "SINGLE",
-    args: ["SINGLE"],
+    type: 'SINGLE',
+    args: ['SINGLE'],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
       const value = vm.stack.pop() as number;
@@ -263,8 +263,8 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
     }
   },
   ACOS: {
-    type: "SINGLE",
-    args: ["SINGLE"],
+    type: 'SINGLE',
+    args: ['SINGLE'],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
       const value = vm.stack.pop() as number;
@@ -272,8 +272,8 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
     }
   },
   ATN: {
-    type: "SINGLE",
-    args: ["SINGLE"],
+    type: 'SINGLE',
+    args: ['SINGLE'],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
       const value = vm.stack.pop() as number;
@@ -282,8 +282,8 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
   },
 
   SQR: {
-    type: "SINGLE",
-    args: ["SINGLE"],
+    type: 'SINGLE',
+    args: ['SINGLE'],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
       const value = vm.stack.pop() as number;
@@ -293,8 +293,8 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
   },
 
   EOF: {
-    type: "INTEGER",
-    args: ["STRING"],
+    type: 'INTEGER',
+    args: ['STRING'],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
       const fileNumber = vm.stack.pop() as string;

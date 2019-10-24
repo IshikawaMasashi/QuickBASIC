@@ -1,5 +1,5 @@
-﻿import { TreeNode, Location } from "earley";
-import { AstConstantExpr } from "./AstConstantExpr";
+﻿import { Location } from 'earley';
+import { AstConstantExpr } from './AstConstantExpr';
 
 /** @constructor */
 export class AstDataStatement {

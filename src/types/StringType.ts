@@ -1,18 +1,17 @@
-﻿import { Type } from "./Type";
+﻿import { Type } from './Type';
 
 /** @constructor */
 export class StringType extends Type {
-    constructor() {
-        super();
-        this.name = "STRING";
-    }
+  constructor() {
+    super();
+    this.name = 'STRING';
+  }
 
+  createInstance() {
+    return '';
+  }
 
-    createInstance() {
-        return "";
-    }
-
-    copy(value: string) {
-        return value;
-    }
+  copy(value: string) {
+    return value;
+  }
 }

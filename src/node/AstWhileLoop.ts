@@ -1,5 +1,5 @@
-﻿import { TreeNode, Location } from "earley";
-import { Type } from "../types/Type";
+﻿import { TreeNode, Location } from 'earley';
+// import { Type } from "../types/Type";
 
 export class AstWhileLoop extends TreeNode {
   /** @constructor */

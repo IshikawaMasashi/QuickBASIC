@@ -1,5 +1,5 @@
-﻿import { IDoStatementVisitor } from "../IVisitor";
-import { TreeNode, Location } from "earley";
+﻿import { IDoStatementVisitor } from '../IVisitor';
+import { Location } from 'earley';
 
 //enum DoType {
 //}

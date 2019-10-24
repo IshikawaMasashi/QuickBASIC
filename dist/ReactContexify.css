@@ -14,6 +14,7 @@
     position: absolute;
     top: 0;
     pointer-events: none;
+    -webkit-transition: opacity 0.275s;
     transition: opacity 0.275s; }
   .react-contexify__submenu-arrow {
     font-size: 12px;
@@ -41,6 +42,7 @@
       opacity: .5; }
     .react-contexify__item__content {
       padding: 6px 12px;
+      display: -webkit-box;
       display: flex;
       text-align: left;
       white-space: nowrap;
@@ -83,27 +85,35 @@
 
 @-webkit-keyframes react-contexify__popIn {
   0% {
-    transform: scale(0); }
+    -webkit-transform: scale(0);
+            transform: scale(0); }
   100% {
-    transform: scale(1); } }
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
 
 @keyframes react-contexify__popIn {
   0% {
-    transform: scale(0); }
+    -webkit-transform: scale(0);
+            transform: scale(0); }
   100% {
-    transform: scale(1); } }
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
 
 @-webkit-keyframes react-contexify__popOut {
   0% {
-    transform: scale(1); }
+    -webkit-transform: scale(1);
+            transform: scale(1); }
   100% {
-    transform: scale(0); } }
+    -webkit-transform: scale(0);
+            transform: scale(0); } }
 
 @keyframes react-contexify__popOut {
   0% {
-    transform: scale(1); }
+    -webkit-transform: scale(1);
+            transform: scale(1); }
   100% {
-    transform: scale(0); } }
+    -webkit-transform: scale(0);
+            transform: scale(0); } }
 
 .react-contexify__will-enter--pop {
   -webkit-animation: react-contexify__popIn 0.3s cubic-bezier(0.51, 0.92, 0.24, 1.2);
@@ -116,14 +126,16 @@
 @-webkit-keyframes react-contexify__zoomIn {
   from {
     opacity: 0;
-    transform: scale3d(0.3, 0.3, 0.3); }
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+            transform: scale3d(0.3, 0.3, 0.3); }
   50% {
     opacity: 1; } }
 
 @keyframes react-contexify__zoomIn {
   from {
     opacity: 0;
-    transform: scale3d(0.3, 0.3, 0.3); }
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+            transform: scale3d(0.3, 0.3, 0.3); }
   50% {
     opacity: 1; } }
 
@@ -132,7 +144,8 @@
     opacity: 1; }
   50% {
     opacity: 0;
-    transform: scale3d(0.3, 0.3, 0.3); }
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+            transform: scale3d(0.3, 0.3, 0.3); }
   to {
     opacity: 0; } }
 
@@ -141,12 +154,14 @@
     opacity: 1; }
   50% {
     opacity: 0;
-    transform: scale3d(0.3, 0.3, 0.3); }
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+            transform: scale3d(0.3, 0.3, 0.3); }
   to {
     opacity: 0; } }
 
 .react-contexify__will-enter--zoom {
-  transform-origin: top left;
+  -webkit-transform-origin: top left;
+          transform-origin: top left;
   -webkit-animation: react-contexify__zoomIn 0.4s;
           animation: react-contexify__zoomIn 0.4s; }
 
@@ -188,54 +203,70 @@
 
 @-webkit-keyframes react-contexify__flipInX {
   from {
-    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+            transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
     -webkit-animation-timing-function: ease-in;
             animation-timing-function: ease-in; }
   40% {
-    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+            transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
     -webkit-animation-timing-function: ease-in;
             animation-timing-function: ease-in; }
   60% {
-    transform: perspective(400px) rotate3d(1, 0, 0, 10deg); }
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+            transform: perspective(400px) rotate3d(1, 0, 0, 10deg); }
   80% {
-    transform: perspective(400px) rotate3d(1, 0, 0, -5deg); }
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+            transform: perspective(400px) rotate3d(1, 0, 0, -5deg); }
   to {
-    transform: perspective(400px); } }
+    -webkit-transform: perspective(400px);
+            transform: perspective(400px); } }
 
 @keyframes react-contexify__flipInX {
   from {
-    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+            transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
     -webkit-animation-timing-function: ease-in;
             animation-timing-function: ease-in; }
   40% {
-    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+            transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
     -webkit-animation-timing-function: ease-in;
             animation-timing-function: ease-in; }
   60% {
-    transform: perspective(400px) rotate3d(1, 0, 0, 10deg); }
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+            transform: perspective(400px) rotate3d(1, 0, 0, 10deg); }
   80% {
-    transform: perspective(400px) rotate3d(1, 0, 0, -5deg); }
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+            transform: perspective(400px) rotate3d(1, 0, 0, -5deg); }
   to {
-    transform: perspective(400px); } }
+    -webkit-transform: perspective(400px);
+            transform: perspective(400px); } }
 
 @-webkit-keyframes react-contexify__flipOutX {
   from {
-    transform: perspective(400px); }
+    -webkit-transform: perspective(400px);
+            transform: perspective(400px); }
   30% {
-    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+            transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
     opacity: 1; }
   to {
-    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+            transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
     opacity: 0; } }
 
 @keyframes react-contexify__flipOutX {
   from {
-    transform: perspective(400px); }
+    -webkit-transform: perspective(400px);
+            transform: perspective(400px); }
   30% {
-    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+            transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
     opacity: 1; }
   to {
-    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+            transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
     opacity: 0; } }
 
 .react-contexify__will-enter--flip {
@@ -249,5 +280,74 @@
           animation: react-contexify__flipOutX 0.65s;
   -webkit-backface-visibility: visible !important;
           backface-visibility: visible !important; }
+
+div.react-console-container {
+  font-family: "Menlo", "Andale Mono", "DejaVu Sans Mono", "Droid Sans Mono", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+  /*width: 60em;*/
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  /*height: 20em;*/
+  height: 100%;
+  /*background: #efefef;*/
+  /*background: rgb(1,36,86);*/
+  background: #1a1a1a;
+  padding: 0.5em;
+  overflow: auto;
+  white-space: pre; }
+
+div.react-console-prompt-box {
+  /*color: #444;*/
+  color: white; }
+
+span.react-console-prompt-label {
+  font-weight: bold; }
+
+div.react-console-focus span.react-console-cursor {
+  background: #333;
+  color: #eee; }
+
+div.react-console-nofocus span.react-console-cursor {
+  background: none;
+  color: #444;
+  outline: 0.1em solid #333;
+  outline-offset: -0.1em; }
+
+div.react-console-focus span.react-console-cursor-idle {
+  -webkit-animation: react-console-cursor-animation 1s infinite;
+          animation: react-console-cursor-animation 1s infinite; }
+
+@-webkit-keyframes react-console-cursor-animation {
+  0% {
+    background: #333;
+    color: #eee; }
+  50% {
+    background: #333;
+    color: #eee; }
+  51% {
+    background: none;
+    color: #444; }
+  100% {
+    background: none;
+    color: #444; } }
+
+@keyframes react-console-cursor-animation {
+  0% {
+    background: #333;
+    color: #eee; }
+  50% {
+    background: #333;
+    color: #eee; }
+  51% {
+    background: none;
+    color: #444; }
+  100% {
+    background: none;
+    color: #444; } }
+
+div.react-console-message {
+  /*color: #999;*/
+  color: white;
+  padding: 0.1em; }
 
 /*# sourceMappingURL=ReactContexify.css.map */

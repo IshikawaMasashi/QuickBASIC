@@ -1,5 +1,5 @@
-﻿import { sprintf } from "../qb";
-import { TreeNode, Location } from "earley";
+﻿import { sprintf } from '../qb';
+import { TreeNode, Location } from 'earley';
 /** @constructor */
 export class GlrShiftNode {
   constructor(
@@ -25,7 +25,7 @@ export class GlrShiftNode {
   }
 
   toString() {
-    return sprintf("GlrShiftNode state=[%s] text=%s", this.state.id, this.text);
+    return sprintf('GlrShiftNode state=[%s] text=%s', this.state.id, this.text);
   }
 
   evaluate() {

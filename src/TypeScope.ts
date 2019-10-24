@@ -1,5 +1,5 @@
-﻿import { Type} from "./types/Type";
-import { IStringDictionary } from "./base/common/collections";
+﻿import { Type } from './types/Type';
+import { IStringDictionary } from './base/common/collections';
 /**
     Copyright 2010 Steve Hanov
 
@@ -24,9 +24,9 @@ import { IStringDictionary } from "./base/common/collections";
 //#include <qbasic.js>
 /** @constructor */
 export class TypeScope {
-    names: IStringDictionary<Type> = {};
-    constructor() {
-        // map from names to type objects.
-        // this.names = {};
-    }
+  names: IStringDictionary<Type> = {};
+  constructor() {
+    // map from names to type objects.
+    // this.names = {};
+  }
 }

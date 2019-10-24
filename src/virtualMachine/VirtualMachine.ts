@@ -1,14 +1,14 @@
-﻿import { IStringDictionary } from "../base/common/collections";
+﻿import { IStringDictionary } from '../base/common/collections';
 
-import { QBasicProgram, DeriveTypeNameFromVariable } from "../qb";
-import { _Console } from "../Console";
-import { Instruction } from "./Instructions/Instruction";
-import { TraceBuffer } from "../TraceBuffer";
-import { ArrayVariable } from "../ArrayVariable";
-import { StackFrame } from "../StackFrame";
-import { ScalarVariable } from "../ScalarVariable";
-import { Type } from "../types/Type";
-import IConsole from "./IConsole";
+import { QBasicProgram, DeriveTypeNameFromVariable } from '../qb';
+import { _Console } from '../Console';
+import { Instruction } from './Instructions/Instruction';
+import { TraceBuffer } from '../TraceBuffer';
+import { ArrayVariable } from '../ArrayVariable';
+import { StackFrame } from '../StackFrame';
+import { ScalarVariable } from '../ScalarVariable';
+import { Type } from '../types/Type';
+import IConsole from './IConsole';
 
 /**
     The global machine variable points to the current virtual machine, so that
@@ -122,7 +122,7 @@ export class VirtualMachine {
     this.frame = this.callstack[0];
     this.dataPtr = 0;
     this.suspended = false;
-    
+
     if (this.interval) {
       window.clearInterval(this.interval);
       this.interval = null;
@@ -196,7 +196,7 @@ export class VirtualMachine {
       ) {
         const instr = this.instructions[this.pc++];
         if (this.debug) {
-          this.trace.printf("Execute [%s] %s\n", this.pc - 1, instr);
+          this.trace.printf('Execute [%s] %s\n', this.pc - 1, instr);
         }
 
         instr.execute(this, instr.arg);
@@ -277,10 +277,10 @@ export class VirtualMachine {
     for (let i = 0; i < this.stack.length; i++) {
       const item = this.stack[i];
       let name = /*getObjectClass*/ item;
-      if (name == "ScalarVariable") {
-        name += " " + (<any>item).value;
+      if (name == 'ScalarVariable') {
+        name += ' ' + (<any>item).value;
       }
-      this.trace.printf("stack[%s]: %s\n", i, name);
+      this.trace.printf('stack[%s]: %s\n', i, name);
     }
   }
 

@@ -1,4 +1,4 @@
-﻿import { TreeNode, Location } from "earley";
+﻿import { Location } from 'earley';
 
 /** @constructor */
 export class AstPrintItem {

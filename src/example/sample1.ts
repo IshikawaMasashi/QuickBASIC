@@ -1,5 +1,4 @@
-export const code_Sample1 = 
-`This is the line of text number 0
+export const code_Sample1 = `This is the line of text number 0
 This is the line of text number 1
 This is the line of text number 2
 This is the line of text number 3

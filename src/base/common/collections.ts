@@ -1,12 +1,11 @@
 ﻿'use strict';
 
-
 /**
  * An interface for a JavaScript object that
  * acts a dictionary. The keys are strings.
  */
 export interface IStringDictionary<V> {
-    [name: string]: V;
+  [name: string]: V;
 }
 
 /**
@@ -14,5 +13,5 @@ export interface IStringDictionary<V> {
  * acts a dictionary. The keys are numbers.
  */
 export interface INumberDictionary<V> {
-    [idx: number]: V;
+  [idx: number]: V;
 }

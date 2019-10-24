@@ -1,4 +1,4 @@
-﻿import { dbg, sprintf } from "./qb";
+﻿import { dbg, sprintf } from './qb';
 /**
     Copyright 2010 Steve Hanov
 
@@ -20,26 +20,24 @@
 //#include <Types.js>
 /** @constructor */
 export class TraceBuffer {
-    readonly MAX_LINES = 200;
-    lines: string[] = [];
-    constructor() {
+  readonly MAX_LINES = 200;
+  lines: string[] = [];
+  constructor() {}
 
-    }
+  toString() {
+    return this.lines.join('');
+  }
 
-    toString() {
-        return this.lines.join("");
+  printf(...args: any[]) {
+    //var args = [];
+    //for (var i = 0; i < arguments.length; i++) {
+    //    args.push(arguments[i]);
+    //}
+    var str = sprintf(args);
+    this.lines.push(str);
+    if (this.lines.length > this.MAX_LINES) {
+      this.lines.shift();
     }
-
-    printf(...args: any[]) {
-        //var args = [];
-        //for (var i = 0; i < arguments.length; i++) {
-        //    args.push(arguments[i]);
-        //}
-        var str = sprintf(args);
-        this.lines.push(str);
-        if (this.lines.length > this.MAX_LINES) {
-            this.lines.shift();
-        }
-        dbg.printf("%s", str);
-    }
+    dbg.printf('%s', str);
+  }
 }

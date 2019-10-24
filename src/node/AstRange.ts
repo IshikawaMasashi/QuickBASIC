@@ -1,5 +1,5 @@
-﻿import { TreeNode, Location } from "earley";
-import { IRangeVisitor } from "../IVisitor";
+﻿import { Location } from 'earley';
+import { IRangeVisitor } from '../IVisitor';
 
 /** @constructor */
 export class AstRange {

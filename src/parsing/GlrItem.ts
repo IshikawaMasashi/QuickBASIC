@@ -25,25 +25,24 @@
  *****************************************************************************/
 /** @constructor */
 export class GlrItem {
-    key: any;
-    constructor(public rule: any, public position: any) {
-        // this.rule = rule;
-        // this.position = position;
-        this.key = "r" + this.rule.id + "_" + this.position;
-    }
+  key: any;
+  constructor(public rule: any, public position: any) {
+    // this.rule = rule;
+    // this.position = position;
+    this.key = 'r' + this.rule.id + '_' + this.position;
+  }
 
-
-    toString() {
-        var str = this.rule.name + ":";
-        for (var i = 0; i < this.rule.symbols.length; i++) {
-            if (i == this.position) {
-                str += ' .';
-            }
-            str += ' ' + this.rule.symbols[i];
-        }
-        if (this.position == this.rule.symbols.length) {
-            str += ' .';
-        }
-        return str;
+  toString() {
+    var str = this.rule.name + ':';
+    for (var i = 0; i < this.rule.symbols.length; i++) {
+      if (i == this.position) {
+        str += ' .';
+      }
+      str += ' ' + this.rule.symbols[i];
     }
+    if (this.position == this.rule.symbols.length) {
+      str += ' .';
+    }
+    return str;
+  }
 }

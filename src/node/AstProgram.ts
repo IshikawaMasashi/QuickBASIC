@@ -1,5 +1,5 @@
-﻿import { Location } from "earley";
-import { AstSubroutine } from "./AstSubroutine";
+﻿import { Location } from 'earley';
+import { AstSubroutine } from './AstSubroutine';
 
 /** @constructor */
 export class AstProgram {

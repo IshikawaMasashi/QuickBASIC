@@ -10,28 +10,11 @@ import { DummyConsole } from "../src/virtualMachine/IConsole";
 describe("<Console />", () => {
   const virtualMachine = new VirtualMachine(new DummyConsole());
 
-  describe("[Property] autofocus: ", () => {
+  describe("Text Output", () => {
     it("PRINT", () => {
       const quickBasicProgram = compile2(`PRINT "Hello World"`);
-      virtualMachine.run(quickBasicProgram, false);
-      expect(virtualMachine.cons.text).toBe("");
-      // const consoleRef = React.createRef<{
-      //   log: (text: string) => void;
-      //   enter: () => void;
-      // }>();
-      // var wrapper = mount(
-      //   <Console ref={consoleRef} handler={(command: string) => {}} />
-      // );
-      // // expect(wrapper.find(".react-console-nofocus")).length(1);
-      // // expect(wrapper.find(".react-console-focus")).length(0);
-      // // wrapper.simulate("click");
-      // // expect(wrapper.find(".react-console-focus")).length(1);
-      // // expect(wrapper.find(".react-console-nofocus")).length(0);
-      // expect(wrapper.find(".react-console-nofocus").length).toBe(1);
-      // expect(wrapper.find(".react-console-focus").length).toBe(0);
-      // wrapper.simulate("click");
-      // expect(wrapper.find(".react-console-focus").length).toBe(1);
-      // expect(wrapper.find(".react-console-nofocus").length).toBe(0);
+      virtualMachine.run(quickBasicProgram, true);
+      expect(virtualMachine.cons.text).toBe("Hello World\n");
     });
   });
   // describe("[Property] autofocus: ", function() {

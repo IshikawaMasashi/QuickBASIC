@@ -883,9 +883,10 @@ export class QBasicProgram {
         }
       );
       rules.addRule('ReferenceList: Reference');
-      rules.addRule('Reference: identifier', function(args: any, locus: any) {
-        return new AstVariableReference(locus, args[0]);
-      });
+      rules.addRule(
+        'Reference: identifier',
+        (args: any, locus: any) => new AstVariableReference(locus, args[0])
+      );
 
       rules.addRule('separator: endl+');
       rules.addRule('separator: comment endl');
@@ -1175,9 +1176,9 @@ export function compile2(code: string) {
 
 // create debug area
 // document.write("<div id='debug'></div>");
-export const dbg = new DebugConsole(<HTMLTextAreaElement>(
-  document.getElementById('footer')
-));
+export const dbg = new DebugConsole(
+  <HTMLTextAreaElement>document.getElementById('footer')
+);
 //var editor = (<any>window).monaco.editor.create(document.getElementById("sourcecode"), {
 //    value: input
 //});

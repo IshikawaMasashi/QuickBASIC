@@ -9,9 +9,9 @@ export class UserType {
   }
 
   createInstance() {
-    var user: any = {};
+    let user: any = {};
 
-    for (var name in this.members) {
+    for (let name in this.members) {
       user[name] = new ScalarVariable(
         this.members[name],
         this.members[name].createInstance()
@@ -22,8 +22,8 @@ export class UserType {
   }
 
   copy(value: any) {
-    var newValue: any = {};
-    for (var key in value) {
+    let newValue: any = {};
+    for (let key in value) {
       newValue[key] = value[key].copy();
     }
 

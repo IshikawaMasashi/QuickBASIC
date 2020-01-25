@@ -2,3 +2,13 @@
 export { setOpenFile, setFileStream } from './file/file';
 export { VirtualMachine } from './virtualMachine/VirtualMachine';
 export { _Console } from './Console';
+export { StackFrame, IStackFrame } from './StackFrame';
+export { ScalarVariable } from './ScalarVariable';
+export { code_Color } from './example/Color';
+export { code_Input } from './example/Input';
+export { code_Nibbles } from './example/Nibbles';
+export { code_Output } from './example/Output';
+export { code_PrintUsing } from './example/PrintUsing';
+export { code_Sample1 } from './example/sample1';
+export { ArrayVariable } from './ArrayVariable';
+export { IStringDictionary } from './base/common/collections';

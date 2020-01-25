@@ -9,7 +9,7 @@ const counter = (str: string, seq: string) => str.split(seq).length - 1;
 const getIntegerPart = (x: number) => String(x).split('.')[0];
 // const getFractionalPart = (x: number) => String(x).split(".")[(1];
 function printUsing(format: string, values: number[]) {
-  const splitPositions: ([number, number])[] = [];
+  const splitPositions: [number, number][] = [];
   let start = 0;
   let end = 0;
   let exponential = '';

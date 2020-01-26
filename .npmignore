@@ -11,3 +11,7 @@ jsdomSetup.js
 setupTests.js
 coverage/
 playground/
+
+
+src/
+docs/

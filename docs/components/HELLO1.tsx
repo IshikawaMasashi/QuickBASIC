@@ -40,15 +40,11 @@ function Example2({}: Props) {
   const classes = useStyles({});
   const model = monaco.editor.createModel(`PRINT "Hello World"`);
 
-  const containerRef = useRef<HTMLDivElement>(null);
-  const editorRef = useRef<monaco.editor.IStandaloneCodeEditor>();
   const consRef = useRef<_Console>();
   const virtualMachineRef = useRef<VirtualMachine>();
   const refCanvas = useRef<HTMLCanvasElement>(null);
 
   function onClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    // setRowHeights(createRowHeights());
-
     // const code = editorRef.current!.getValue();
     const code = model.getValue();
     const quickBasicProgram = compile2(code);
@@ -58,14 +54,6 @@ function Example2({}: Props) {
   }
 
   useEffect(() => {
-    if (editorRef.current) {
-      editorRef.current.layout();
-    }
-  });
-
-  useEffect(() => {
-    ensureEditor();
-
     if (!refCanvas.current) {
       return;
     }
@@ -78,86 +66,19 @@ function Example2({}: Props) {
       virtualMachineRef.current = new VirtualMachine(consRef.current);
     }
 
-    return () => {
-      editorRef.current!.dispose();
-    };
+    return () => {};
   }, []);
 
-  const ensureEditor = () => {
-    if (editorRef.current) {
-      return;
-    }
-    const options = Object.assign(
-      {
-        value: `PRINT "Hello World"`,
-        theme: "vs-dark",
-        minimap: {
-          enabled: false
-        },
-        fontWeight: "bold",
-        renderLineHighlight: "none"
-      },
-      {}
-    );
-    if (containerRef.current!.lastChild) {
-      containerRef.current!.removeChild(containerRef.current!.lastChild);
-    }
-
-    editorRef.current = monaco.editor.create(
-      containerRef.current!,
-      options as any
-    );
-    // editorRef.current.onDidFocusEditorText(() => enableEditorScroll());
-    // registerActions();
-    console.info("Created a new Monaco editor.");
-
-    // setupSyntaxWorker();
-    // setCompilerOptions();
-
-    editorRef.current.onDidChangeModelContent(e => {
-      if (e.isFlush) {
-        return;
-      }
-      // handleChange();
-    });
-    // editorRef.current.onDidChangeModel(() => {
-    //   handleChange();
-    // });
-
-    // editorRef.current.onMouseDown(e => {
-    //   const { lineNumber, column } = editorRef.current.getPosition(); //e.position;
-
-    //   if (viewRef.current) {
-    //     viewRef.current.setPosition(lineNumber, column);
-    //   }
-    //   // dispatch({
-    //   //   type: AppActionType.CURSOR_POSITION_CHANGED,
-    //   //   line: lineNumber,
-    //   //   column: column
-    //   // } as CursorPositionChangedAction);
-    // });
-
-    editorRef.current.onKeyUp(e => {
-      // const { lineNumber, column } = editorRef.current.getPosition(); //e.position;
-      // if (viewRef.current) {
-      //   viewRef.current.setPosition(lineNumber, column);
-      // }
-      // dispatch({
-      //   type: AppActionType.CURSOR_POSITION_CHANGED,
-      //   line: lineNumber,
-      //   column: column
-      // } as CursorPositionChangedAction);
-    });
-  };
-
-  const codeString = `PRINT "HELLO"`;
   return (
     <Paper className={classes.root}>
       <Typography variant="h6" noWrap>
         1. HELLO.BAS
       </Typography>
       <hr></hr>
-      <SyntaxHighlighter language="basic" code={codeString}></SyntaxHighlighter>
+      <SyntaxHighlighter
+        language="basic"
+        code={`PRINT "Hello World"`}
+      ></SyntaxHighlighter>
       <hr></hr>
       <Grid container spacing={2}>
         <Grid item xs>
@@ -172,10 +93,7 @@ function Example2({}: Props) {
       </Grid>
 
       <div style={{ display: "flex" }}>
-        <div
-          style={{ height: "400px", width: "400px", margin: "6px" }}
-          ref={containerRef}
-        />
+        <Monaco model={model} />
         <canvas
           ref={refCanvas}
           className="quick-basic-console-dialog__canvas"
@@ -192,10 +110,6 @@ function Example2({}: Props) {
         World" is the argument we pass-to the function.
       </p>
       <p>PRINT [Text to screen]</p>
-
-      <div style={{ display: "flex" }}>
-        <Monaco model={model} />
-      </div>
     </Paper>
   );
 }

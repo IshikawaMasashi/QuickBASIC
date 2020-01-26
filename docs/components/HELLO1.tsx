@@ -11,6 +11,7 @@ import { compile2 } from "../../src";
 import { VirtualMachine } from "../../src";
 import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 import SyntaxHighlighter from "./SyntaxHighlighter";
+import Monaco from "./monaco";
 
 // スタイルを定義
 const useStyles = makeStyles((theme: Theme) =>
@@ -34,9 +35,10 @@ const useStyles = makeStyles((theme: Theme) =>
 type Props = {};
 
 // コンポーネントを定義
-function Example2({  }: Props) {
+function Example2({}: Props) {
   // ここでクラス名を取得
   const classes = useStyles({});
+  const model = monaco.editor.createModel(`PRINT "Hello World"`);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<monaco.editor.IStandaloneCodeEditor>();
@@ -47,7 +49,8 @@ function Example2({  }: Props) {
   function onClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     // setRowHeights(createRowHeights());
 
-    const code = editorRef.current!.getValue();
+    // const code = editorRef.current!.getValue();
+    const code = model.getValue();
     const quickBasicProgram = compile2(code);
     if (quickBasicProgram.errors.length === 0) {
       virtualMachineRef.current.run(quickBasicProgram, false);
@@ -189,6 +192,10 @@ function Example2({  }: Props) {
         World" is the argument we pass-to the function.
       </p>
       <p>PRINT [Text to screen]</p>
+
+      <div style={{ display: "flex" }}>
+        <Monaco model={model} />
+      </div>
     </Paper>
   );
 }

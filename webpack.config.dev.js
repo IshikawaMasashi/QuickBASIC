@@ -26,19 +26,35 @@ module.exports = {
           }
         }
       },
+      // {
+      //   test: /\.s?css$/,
+      //   use: [
+      //     {
+      //       loader: "style-loader"
+      //     },
+      //     {
+      //       loader: "css-loader"
+      //     },
+      //     {
+      //       loader: "sass-loader"
+      //     }
+      //   ]
+      // },
       {
-        test: /\.s?css$/,
+        // 追加されたシリーズ
+        test: /\.css$/,
         use: [
           {
             loader: "style-loader"
           },
           {
             loader: "css-loader"
-          },
-          {
-            loader: "sass-loader"
           }
         ]
+      },
+      {
+        test: /\.ttf$/,
+        use: ["file-loader"]
       }
     ]
   },

@@ -62,7 +62,7 @@ const useStyles = makeStyles(theme => ({
       display: "none"
     }
   },
-  toolbar: theme.mixins.toolbar,
+  toolbar: { ...theme.mixins.toolbar },
   drawerPaper: {
     width: drawerWidth
   },
@@ -105,8 +105,9 @@ export default function ResponsiveDrawer(props: Props) {
   ];
 
   // const { container } = props;
-  const classes = useStyles({});
   const theme = useTheme();
+
+  const classes = useStyles(theme);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [open, setOpen] = useState(false);
   const [view, setView] = useState(View.Example1);

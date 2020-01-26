@@ -1,4 +1,4 @@
-﻿import { dbg, sprintf } from './qb';
+﻿import { dbg, sprintf } from "./qb";
 /**
     Copyright 2010 Steve Hanov
 
@@ -18,14 +18,15 @@
     along with qb.js.  If not, see <http://www.gnu.org/licenses/>.
 */
 //#include <Types.js>
-/** @constructor */
+
 export class TraceBuffer {
   readonly MAX_LINES = 200;
   lines: string[] = [];
+  /** @constructor */
   constructor() {}
 
   toString() {
-    return this.lines.join('');
+    return this.lines.join("");
   }
 
   printf(...args: any[]) {
@@ -33,11 +34,11 @@ export class TraceBuffer {
     //for (var i = 0; i < arguments.length; i++) {
     //    args.push(arguments[i]);
     //}
-    var str = sprintf(args);
+    const str = sprintf(args);
     this.lines.push(str);
     if (this.lines.length > this.MAX_LINES) {
       this.lines.shift();
     }
-    dbg.printf('%s', str);
+    dbg.printf("%s", str);
   }
 }

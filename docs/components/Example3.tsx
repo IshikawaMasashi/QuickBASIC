@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect, useRef } from "react";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Slider from "@material-ui/core/Slider";
@@ -8,8 +9,6 @@ import Paper from "@material-ui/core/Paper";
 import VolumeDown from "@material-ui/icons/VolumeDown";
 import VolumeUp from "@material-ui/icons/VolumeUp";
 // import { DIRECTION } from "../../src/components/constants";
-
-const { useEffect, useRef } = React;
 
 // スタイルを定義
 const useStyles = makeStyles((theme: Theme) =>
@@ -57,10 +56,7 @@ function Example3({ title }: Props) {
   //   );
   // };
 
-  return (
-    <div className={classes.root}>
-    </div>
-  );
+  return <div className={classes.root}></div>;
 }
 
 export default Example3;

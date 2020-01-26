@@ -1,12 +1,12 @@
-﻿import { Location } from 'earley';
-/** @constructor */
-export class AstReturnStatement {
-  constructor(public location: Location, public value?: any) {
-    // this.locus = locus;
-    // this.value = value;
-  }
+﻿import { Location } from "earley";
+import { CodeGenerator } from "../CodeGenerator";
+import { TypeChecker } from "../TypeChecker";
 
-  accept(visitor: any) {
+export class AstReturnStatement {
+  /** @constructor */
+  constructor(public location: Location, public value?: any) {}
+
+  accept(visitor: CodeGenerator | TypeChecker) {
     visitor.visitReturnStatement(this);
   }
 }

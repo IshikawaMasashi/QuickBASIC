@@ -190,6 +190,9 @@ export class CodeGenerator {
   visitSubroutine(node: AstSubroutine) {
     let skipLabel = null;
     this.map(node.location);
+
+    this.functionNames[node.name] = 1;
+
     if (node.name != "_main") {
       skipLabel = this.newLabel("skipsub");
       this.write("JMP", skipLabel);

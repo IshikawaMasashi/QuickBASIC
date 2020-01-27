@@ -192,7 +192,7 @@ function Example2({ title }: Props) {
       <hr></hr>
       <SyntaxHighlighter
         style={highlighterStyles.okaidia}
-        language="visual-basic"
+        language="basic"
       >
         {codeString}
       </SyntaxHighlighter>
@@ -227,6 +227,7 @@ function Example2({ title }: Props) {
         <p>This is what the program output should look like:</p>
       </Typography>
       <SyntaxHighlighter
+     
         style={highlighterStyles.okaidia}
       >{`Hello World   Hello Jupiter
 Good Bye      For Now

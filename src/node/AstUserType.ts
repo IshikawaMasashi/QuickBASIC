@@ -1,4 +1,4 @@
-﻿import { Location } from 'earley';
+﻿import { Location } from "earley";
 
 /** @constructor */
 export class AstUserType {

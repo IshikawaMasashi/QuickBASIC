@@ -12,7 +12,8 @@ export class AstDeclareFunction {
     public location: Location,
     public name: string,
     public args: AstArgument[],
-    public isFunction: boolean
+    public isFunction: boolean,
+    readonly typeName?: string
   ) {
     // this.locus = locus;
     // this.name = name;

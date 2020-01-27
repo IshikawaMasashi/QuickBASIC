@@ -367,12 +367,11 @@ export class QBasicProgram {
       ) {
         return new AstConstStatement(location, args[1], args[3]);
       });
-      rules.addRule("istatement: DECLARE FUNCTION identifier ArgList", function(
-        args: any,
-        location: Location
-      ) {
-        return new AstDeclareFunction(location, args[2], args[3], true);
-      });
+      rules.addRule(
+        "istatement: DECLARE FUNCTION identifier ArgList AsType?",
+        (args: any, location: Location) =>
+          new AstDeclareFunction(location, args[2], args[3], true, args[4])
+      );
       rules.addRule(
         "istatement: DECLARE SUB identifier ArgList",
         (args: any, location: Location) =>
@@ -392,16 +391,17 @@ export class QBasicProgram {
         }
       );
       rules.addRule(
-        "istatement: FUNCTION identifier ArgList statements END FUNCTION",
-        function(symbols: any, location: Location) {
-          return new AstSubroutine(
+        "istatement: FUNCTION identifier ArgList AsType? statements END FUNCTION",
+        (symbols: any, location: Location) =>
+          new AstSubroutine(
             location,
             symbols[1],
             symbols[2],
-            symbols[3],
-            true
-          );
-        }
+            symbols[4],
+            true,
+            false,
+            symbols[3]
+          )
       );
       rules.addRule("istatement: DEF SEG ('=' expr)?", function(
         args: any,

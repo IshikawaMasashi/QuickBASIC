@@ -1,10 +1,10 @@
-﻿import { Type } from './Type';
+﻿import { Type } from "./Type";
 
 /** @constructor */
 export class IntegerType extends Type {
   constructor() {
     super();
-    this.name = 'INTEGER';
+    this.name = "INTEGER";
   }
 
   createInstance() {

@@ -517,6 +517,57 @@ export class _Console implements IConsole {
     this.y += 1;
   }
 
+  // print(str: string) {
+  //   if (this.recording) {
+  //     this.recorded += str;
+  //   }
+
+  //   this.cursor(false);
+
+  //   const bgcolour = this.bgcolour;
+  //   const fgcolour = this.fgcolour;
+  //   const ctx = this.ctx;
+  //   ctx.fillStyle = bgcolour;
+  //   ctx.font = "16px Consolas";
+  //   ctx.textBaseline = "middle";
+  //   ctx.textAlign = "center";
+
+  //   const characterImageGenerator = this.characterImageGenerator;
+  //   for (let i = 0; i < str.length; i++) {
+  //     if (this.y == this.rows) {
+  //       this.scroll();
+  //     }
+
+  //     if (str[i] == "\n") {
+  //       this.newline();
+  //     } else {
+  //       ctx.fillStyle = bgcolour;
+
+  //       ctx.drawImage(
+  //         characterImageGenerator.toImage(" ", fgcolour, bgcolour),
+  //         this.x * this.charWidth,
+  //         this.y * this.charHeight
+  //       );
+
+  //       ctx.fillStyle = fgcolour;
+  //       {
+  //         ctx.drawImage(
+  //           characterImageGenerator.toImage(str[i], fgcolour, bgcolour),
+  //           this.x * this.charWidth,
+  //           this.y * this.charHeight
+  //         );
+  //       }
+  //       ctx.fillStyle = bgcolour;
+
+  //       this.x += 1;
+  //       if (this.x == this.cols) {
+  //         this.newline();
+  //       }
+  //     }
+  //   }
+  // }
+
+  // 高速版
   print(str: string) {
     if (this.recording) {
       this.recorded += str;
@@ -529,10 +580,8 @@ export class _Console implements IConsole {
     const ctx = this.ctx;
     ctx.fillStyle = bgcolour;
     ctx.font = "16px Consolas";
-    ctx.textBaseline = "middle";
-    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
 
-    const characterImageGenerator = this.characterImageGenerator;
     for (let i = 0; i < str.length; i++) {
       if (this.y == this.rows) {
         this.scroll();
@@ -542,21 +591,15 @@ export class _Console implements IConsole {
         this.newline();
       } else {
         ctx.fillStyle = bgcolour;
-
-        ctx.drawImage(
-          characterImageGenerator.toImage(" ", fgcolour, bgcolour),
+        ctx.fillRect(
           this.x * this.charWidth,
-          this.y * this.charHeight
+          this.y * this.charHeight,
+          this.charWidth + 1,
+          this.charHeight
         );
 
         ctx.fillStyle = fgcolour;
-        {
-          ctx.drawImage(
-            characterImageGenerator.toImage(str[i], fgcolour, bgcolour),
-            this.x * this.charWidth,
-            this.y * this.charHeight
-          );
-        }
+        ctx.fillText(str[i], this.x * this.charWidth, this.y * this.charHeight);
         ctx.fillStyle = bgcolour;
 
         this.x += 1;

@@ -8,9 +8,6 @@ export { ScalarVariable } from "./ScalarVariable";
 export { ArrayVariable } from "./ArrayVariable";
 export { IStringDictionary } from "./base/common/collections";
 
-import { COLOR, INPUT } from "./examples";
+import { COLOR, INPUT, NIBBLES, OUTPUT, PRINTUSING, SAMPLE1 } from "./examples";
 
-export const EXAMPLES = {
-  COLOR,
-  INPUT
-};
+export const EXAMPLES = { COLOR, INPUT, NIBBLES, OUTPUT, PRINTUSING, SAMPLE1 };

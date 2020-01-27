@@ -1,64 +1,64 @@
-﻿import { AstDeclareFunction } from './node/AstDeclareFunction';
-import { AstArgument } from './node/AstArgument';
-import { AstEndStatement } from './node/AstEndStatement';
-import { AstNullStatement } from './node/AstNullStatement';
-import { AstAssignStatement } from './node/AstAssignStatement';
-import { AstBinaryOp } from './node/AstBinaryOp';
-import { AstCallStatement } from './node/AstCallStatement';
-import { AstCaseStatement } from './node/AstCaseStatement';
-import { AstConstStatement } from './node/AstConstStatement';
-import { AstExitStatement } from './node/AstExitStatement';
-import { AstConstantExpr } from './node/AstConstantExpr';
-import { AstGosubStatement } from './node/AstGosubStatement';
-import { AstGotoStatement } from './node/AstGotoStatement';
-import { AstInputStatement } from './node/AstInputStatement';
-import { AstPrintItem } from './node/AstPrintItem';
-import { AstLabel } from './node/AstLabel';
-import { AstDoStatement } from './node/AstDoStatement';
-import { AstTypeMember } from './node/AstTypeMember';
-import { AstNextStatement } from './node/AstNextStatement';
-import { AstSelectStatement } from './node/AstSelectStatement';
-import { AstRestoreStatement } from './node/AstRestoreStatement';
-import { AstVariableReference } from './node/AstVariableReference';
-import { AstPrintStatement } from './node/AstPrintStatement';
-import { AstProgram } from './node/AstProgram';
-import { AstSubroutine } from './node/AstSubroutine';
-import { AstUserType } from './node/AstUserType';
-import { AstPrintUsingStatement } from './node/AstPrintUsingStatement';
-import { AstMemberDeref } from './node/AstMemberDeref';
-import { AstDataStatement } from './node/AstDataStatement';
-import { AstUnaryOperator } from './node/AstUnaryOperator';
-import { AstArrayDeref } from './node/AstArrayDeref';
-import { AstRange } from './node/AstRange';
+﻿import { AstDeclareFunction } from "./node/AstDeclareFunction";
+import { AstArgument } from "./node/AstArgument";
+import { AstEndStatement } from "./node/AstEndStatement";
+import { AstNullStatement } from "./node/AstNullStatement";
+import { AstAssignStatement } from "./node/AstAssignStatement";
+import { AstBinaryOp } from "./node/AstBinaryOp";
+import { AstCallStatement } from "./node/AstCallStatement";
+import { AstCaseStatement } from "./node/AstCaseStatement";
+import { AstConstStatement } from "./node/AstConstStatement";
+import { AstExitStatement } from "./node/AstExitStatement";
+import { AstConstantExpr } from "./node/AstConstantExpr";
+import { AstGosubStatement } from "./node/AstGosubStatement";
+import { AstGotoStatement } from "./node/AstGotoStatement";
+import { AstInputStatement } from "./node/AstInputStatement";
+import { AstPrintItem } from "./node/AstPrintItem";
+import { AstLabel } from "./node/AstLabel";
+import { AstDoStatement } from "./node/AstDoStatement";
+import { AstTypeMember } from "./node/AstTypeMember";
+import { AstNextStatement } from "./node/AstNextStatement";
+import { AstSelectStatement } from "./node/AstSelectStatement";
+import { AstRestoreStatement } from "./node/AstRestoreStatement";
+import { AstVariableReference } from "./node/AstVariableReference";
+import { AstPrintStatement } from "./node/AstPrintStatement";
+import { AstProgram } from "./node/AstProgram";
+import { AstSubroutine } from "./node/AstSubroutine";
+import { AstUserType } from "./node/AstUserType";
+import { AstPrintUsingStatement } from "./node/AstPrintUsingStatement";
+import { AstMemberDeref } from "./node/AstMemberDeref";
+import { AstDataStatement } from "./node/AstDataStatement";
+import { AstUnaryOperator } from "./node/AstUnaryOperator";
+import { AstArrayDeref } from "./node/AstArrayDeref";
+import { AstRange } from "./node/AstRange";
 
 import {
   AreTypesCompatible,
   IsArrayType,
   IsNumericType,
   IsStringType
-} from './qb';
-import { dbg, sprintf, DeriveTypeNameFromVariable, IsUserType } from './qb';
-import { SystemFunctions } from './SystemFunctions';
-import { SystemSubroutines } from './SystemSubroutines';
-import { TypeScope } from './TypeScope';
-import { Location } from 'earley';
-import { CheckedLabel } from './CheckedLabel';
-import { CheckedLoopContext } from './CheckedLoopContext';
-import { UserType } from './UserType';
-import { Type } from './types/Type';
-import { IntegerType } from './types/IntegerType';
-import { SingleType } from './types/SingleType';
-import { DoubleType } from './types/DoubleType';
-import { StringType } from './types/StringType';
-import { AnyType } from './types/AnyType';
-import { NullType } from './types/NullType';
-import { ArrayType } from './types/ArrayType';
-import { IStringDictionary } from './base/common/collections';
-import { AstOpenStatement } from './node/AstOpenStatement';
+} from "./qb";
+import { dbg, sprintf, DeriveTypeNameFromVariable, IsUserType } from "./qb";
+import { SystemFunctions } from "./SystemFunctions";
+import { SystemSubroutines } from "./SystemSubroutines";
+import { TypeScope } from "./TypeScope";
+import { Location } from "earley";
+import { CheckedLabel } from "./CheckedLabel";
+import { CheckedLoopContext } from "./CheckedLoopContext";
+import { UserType } from "./UserType";
+import { Type } from "./types/Type";
+import { IntegerType } from "./types/IntegerType";
+import { SingleType } from "./types/SingleType";
+import { DoubleType } from "./types/DoubleType";
+import { StringType } from "./types/StringType";
+import { AnyType } from "./types/AnyType";
+import { NullType } from "./types/NullType";
+import { ArrayType } from "./types/ArrayType";
+import { IStringDictionary } from "./base/common/collections";
+import { AstOpenStatement } from "./node/AstOpenStatement";
 
 /** @constructor */
 export class TypeChecker {
-  declaredSubs: IStringDictionary<AstDeclareFunction> = {};
+  private declaredSubs: IStringDictionary<AstDeclareFunction> = {};
   scopes = [new TypeScope()];
   shared = new TypeScope();
   labelsUsed: CheckedLabel[] = [];
@@ -70,7 +70,7 @@ export class TypeChecker {
     DOUBLE: new DoubleType(),
     STRING: new StringType(),
     ANY: new AnyType(),
-    ':NULL': new NullType()
+    ":NULL": new NullType()
   };
 
   // Changed to integer if DEFINT is present in the program (hack hack)
@@ -81,9 +81,9 @@ export class TypeChecker {
   constructor(public errors: string[]) {
     // map from name to AstDeclare
     // this.declaredSubs = {};
-    this.declaredSubs['_main'] = new AstDeclareFunction(
+    this.declaredSubs["_main"] = new AstDeclareFunction(
       new Location(0, 0),
-      '_main',
+      "_main",
       [],
       false
     );
@@ -105,7 +105,7 @@ export class TypeChecker {
     //};
 
     // Changed to integer if DEFINT is present in the program (hack hack)
-    this.defaultType = this.types['SINGLE'];
+    this.defaultType = this.types["SINGLE"];
 
     // stack of CheckedLoopContext. Most recent is 0.
     // this.loopStack = [];
@@ -122,9 +122,9 @@ export class TypeChecker {
     //for (var i = 1; i < arguments.length; i++) {
     //    args.push(arguments[i]);
     //}
-    const errorStr = 'Error at ' + object.location + ': ' + sprintf(args);
+    const errorStr = "Error at " + object.location + ": " + sprintf(args);
     this.errors.push(errorStr);
-    dbg.print(errorStr + '\n');
+    dbg.print(errorStr + "\n");
   }
 
   // _error(node:  AstNode, str: string) {
@@ -144,11 +144,11 @@ export class TypeChecker {
      */
   removeSuffix(name: string) {
     switch (name[name.length - 1]) {
-      case '%':
-      case '$':
-      case '!':
-      case '&':
-      case '#':
+      case "%":
+      case "$":
+      case "!":
+      case "&":
+      case "#":
         return name.substr(0, name.length - 1);
       default:
         return name;
@@ -187,7 +187,7 @@ export class TypeChecker {
     for (i = 0; i < this.labelsUsed.length; i++) {
       const label = this.labelsUsed[i];
       if (this.labelsDefined[label.name] === undefined) {
-        this.error(label.astNode, 'Label %s is not defined', label.name);
+        this.error(label.astNode, "Label %s is not defined", label.name);
       }
     }
 
@@ -213,7 +213,7 @@ export class TypeChecker {
     if (this.declaredSubs[declare.name] !== undefined) {
       this.error(
         declare,
-        'Subroutine %s is already declared on line %s',
+        "Subroutine %s is already declared on line %s",
         declare.name,
         this.declaredSubs[declare.name].location.line + 1
       );
@@ -222,7 +222,15 @@ export class TypeChecker {
     this.declaredSubs[declare.name] = declare;
     // declare.args.accept(this);
     this.accept(declare.args);
+
     if (declare.isFunction) {
+      if (declare.typeName) {
+        const type = this.types[declare.typeName];
+        if (type) {
+          declare.type = type;
+          return;
+        }
+      }
       declare.type = this.getTypeFromVariableName(declare.name);
     }
   }
@@ -231,7 +239,7 @@ export class TypeChecker {
     const subError = (declare: AstDeclareFunction) => {
       this.error(
         sub,
-        'Sub or function %s does not match declaration on ' + 'line %s',
+        "Sub or function %s does not match declaration on " + "line %s",
         sub.name,
         declare.location.line + 1
       );
@@ -242,14 +250,15 @@ export class TypeChecker {
         sub.location,
         sub.name,
         sub.args,
-        false
+        sub.isFunction,
+        sub.typeName
       );
       this.visitDeclareFunction(declare);
     }
 
     // error if the sub has not been declared.
     if (this.declaredSubs[sub.name] === undefined) {
-      this.error(sub, 'Subroutine %s is not declared', sub.name);
+      this.error(sub, "Subroutine %s is not declared", sub.name);
     } else {
       const declare = this.declaredSubs[sub.name];
 
@@ -265,7 +274,7 @@ export class TypeChecker {
           // don't compare variable names, it's okay if they differ.
           if (
             (sub.args[i].typeName != declare.args[i].typeName &&
-              declare.args[i].typeName != 'ANY') ||
+              declare.args[i].typeName != "ANY") ||
             sub.args[i].isArray != declare.args[i].isArray
           ) {
             subError(declare);
@@ -292,7 +301,7 @@ export class TypeChecker {
       //dbg.printf("Try to visit %s\n", getObjectClass( sub.statements[i]) );
       if (sub.statements[i].accept === undefined) {
         dbg.printf(
-          'ERROR: Could not visit object of type %s\n',
+          "ERROR: Could not visit object of type %s\n",
           /*getObjectClass*/ sub.statements[i]
         );
       } else {
@@ -309,7 +318,7 @@ export class TypeChecker {
   checkCallArguments(declare: any, args: any) {
     declare.used = true;
     if (declare.args.length != args.length) {
-      this.error(declare, 'Wrong number of arguments');
+      this.error(declare, "Wrong number of arguments");
     } else {
       for (let i = 0; i < args.length; i++) {
         args[i].wantRef = true;
@@ -317,8 +326,8 @@ export class TypeChecker {
         if (!AreTypesCompatible(args[i].type, declare.args[i].type)) {
           this.error(
             args[i],
-            'Type mismatch in argument %d of call to %s.' +
-              ' Expected %s but got %s',
+            "Type mismatch in argument %d of call to %s." +
+              " Expected %s but got %s",
             i + 1,
             declare.name,
             declare.args[i].type.name,
@@ -356,7 +365,7 @@ export class TypeChecker {
       // error if the typeName does not exist.
       type = this.types[argument.typeName];
       if (type === undefined) {
-        this.error(argument, 'Type %s is not defined', argument.typeName);
+        this.error(argument, "Type %s is not defined", argument.typeName);
         type = new UserType(argument.typeName, {});
         this.types[argument.typeName] = type;
       }
@@ -391,7 +400,7 @@ export class TypeChecker {
       if (i === 0 && !IsStringType(printUsing.exprList[i].type)) {
         this.error(
           printUsing.exprList[i],
-          'Format string must be STRING, not %s',
+          "Format string must be STRING, not %s",
           printUsing.exprList[i].type.name
         );
       } else if (
@@ -399,12 +408,12 @@ export class TypeChecker {
         !IsStringType(printUsing.exprList[i].type) &&
         !IsNumericType(printUsing.exprList[i].type)
       ) {
-        this.error(printUsing.exprList[i], 'Type Mismatch Error');
+        this.error(printUsing.exprList[i], "Type Mismatch Error");
       }
     }
 
     if (printUsing.exprList.length === 0) {
-      this.error(printUsing, 'PRINT USING requires at least one argument');
+      this.error(printUsing, "PRINT USING requires at least one argument");
     }
   }
 
@@ -428,13 +437,13 @@ export class TypeChecker {
   visitInputStatement(input: AstInputStatement) {
     // prompt must be null or a string.
     if (input.promptExprOrfileNumber) {
-      if (typeof input.promptExprOrfileNumber === 'string') {
+      if (typeof input.promptExprOrfileNumber === "string") {
         // this.error(input, "FileNumber must be a string");
         return;
       }
       input.promptExprOrfileNumber.accept(this);
       if (!IsStringType(input.promptExprOrfileNumber.type)) {
-        this.error(input, 'Prompt must be a string');
+        this.error(input, "Prompt must be a string");
       }
     }
 
@@ -460,7 +469,7 @@ export class TypeChecker {
   visitForLoop(loop: any) {
     // identifier must be numeric type.
     if (!IsNumericType(this.getTypeFromVariableName(loop.identifier))) {
-      this.error(loop, 'Loop counter must be a number');
+      this.error(loop, "Loop counter must be a number");
     }
 
     loop.startExpr.wantRef = true;
@@ -474,10 +483,10 @@ export class TypeChecker {
       !IsNumericType(loop.endExpr.type) ||
       !IsNumericType(loop.stepExpr.type)
     ) {
-      this.error(loop, 'Loop expression must be a number.');
+      this.error(loop, "Loop expression must be a number.");
     }
 
-    this.loopStack.unshift(new CheckedLoopContext('FOR', loop.identifier));
+    this.loopStack.unshift(new CheckedLoopContext("FOR", loop.identifier));
   }
 
   visitNextStatement(next: AstNextStatement) {
@@ -485,12 +494,12 @@ export class TypeChecker {
     // identifier must match loops.
     for (let i = 0; i < next.identifiers.length; i++) {
       if (this.loopStack.length === 0) {
-        this.error(next, 'NEXT without FOR');
+        this.error(next, "NEXT without FOR");
         break;
       }
-      if (this.loopStack[0].type !== 'FOR') {
+      if (this.loopStack[0].type !== "FOR") {
         // NEXT inside a DO loop?
-        this.error(next, 'NEXT without FOR');
+        this.error(next, "NEXT without FOR");
         break;
       }
       if (next.identifiers[i] != this.loopStack[0].counter) {
@@ -505,7 +514,7 @@ export class TypeChecker {
 
     if (next.identifiers.length === 0) {
       if (this.loopStack.length === 0) {
-        this.error(next, 'NEXT without FOR');
+        this.error(next, "NEXT without FOR");
       } else {
         this.loopStack.shift();
       }
@@ -515,14 +524,14 @@ export class TypeChecker {
   visitExitStatement(exit: AstExitStatement) {
     if (
       exit.what &&
-      exit.what != 'FOR' &&
-      exit.what != 'DO' &&
-      exit.what != 'WHILE'
+      exit.what != "FOR" &&
+      exit.what != "DO" &&
+      exit.what != "WHILE"
     ) {
-      this.error(exit, 'EXIT %s not supported', exit.what);
+      this.error(exit, "EXIT %s not supported", exit.what);
     }
     if (this.loopStack.length === 0) {
-      this.error(exit, 'EXIT without loop not supported');
+      this.error(exit, "EXIT without loop not supported");
     }
     if (exit.what && exit.what != this.loopStack[0].type) {
       this.error(
@@ -565,7 +574,7 @@ export class TypeChecker {
       ) {
         this.error(
           ref,
-          "Function '%s' called with wrong number of " + 'arguments',
+          "Function '%s' called with wrong number of " + "arguments",
           func.name
         );
       } else {
@@ -596,7 +605,7 @@ export class TypeChecker {
     for (i = 0; i < ref.parameters.length; i++) {
       ref.parameters[i].accept(this);
       if (!IsNumericType(ref.parameters[i].type)) {
-        this.error(ref.parameters[i], 'Array subscript must be numeric type');
+        this.error(ref.parameters[i], "Array subscript must be numeric type");
       }
     }
 
@@ -604,7 +613,7 @@ export class TypeChecker {
     // type becomes type of array elements.
     if (!IsArrayType(ref.expr.type)) {
       this.error(ref, "Subscript used on non-array '%s'", ref.expr.name);
-      ref.type = this.types['INTEGER'];
+      ref.type = this.types["INTEGER"];
     } else if (ref.parameters.length === 0) {
       ref.type = ref.expr.type;
     } else {
@@ -621,7 +630,7 @@ export class TypeChecker {
         "Tried to dereference non-user-type '%s'",
         ref.lhs.type.name
       );
-      ref.type = this.types['SINGLE'];
+      ref.type = this.types["SINGLE"];
     } else {
       // user type should contain the given identifier.
       ref.type = ref.lhs.type.members[ref.identifier];
@@ -632,7 +641,7 @@ export class TypeChecker {
           ref.lhs.type.name,
           ref.identifier
         );
-        ref.type = this.types['SINGLE'];
+        ref.type = this.types["SINGLE"];
       }
     }
   }
@@ -645,7 +654,7 @@ export class TypeChecker {
       func = this.declaredSubs[ref.name];
       if (!func.isFunction) {
         this.error(ref, "SUB '%s' used as a function", func.name);
-        ref.type = this.types['SINGLE'];
+        ref.type = this.types["SINGLE"];
       } else {
         ref.type = func.type;
       }
@@ -662,7 +671,7 @@ export class TypeChecker {
       !IsNumericType(range.lowerExpr.type) ||
       !IsNumericType(range.upperExpr.type)
     ) {
-      this.error(range, 'Expected a number.');
+      this.error(range, "Expected a number.");
     }
   }
 
@@ -730,10 +739,10 @@ export class TypeChecker {
       loop.expr.accept(this);
     }
     if (loop.expr !== null && !IsNumericType(loop.expr.type)) {
-      this.error(loop, 'Loop expression must be numeric');
+      this.error(loop, "Loop expression must be numeric");
     }
 
-    this.loopStack.unshift(new CheckedLoopContext('DO', null));
+    this.loopStack.unshift(new CheckedLoopContext("DO", null));
     loop.statements.accept(this);
     this.loopStack.shift();
   }
@@ -741,10 +750,10 @@ export class TypeChecker {
   visitWhileLoop(loop: any) {
     loop.expr.accept(this);
     if (!IsNumericType(loop.expr.type)) {
-      this.error(loop, 'Loop expression must be numeric');
+      this.error(loop, "Loop expression must be numeric");
     }
 
-    this.loopStack.unshift(new CheckedLoopContext('WHILE', null));
+    this.loopStack.unshift(new CheckedLoopContext("WHILE", null));
     loop.statements.accept(this);
     this.loopStack.shift();
   }
@@ -752,7 +761,7 @@ export class TypeChecker {
   visitIfStatement(ifStatement: any) {
     ifStatement.expr.accept(this);
     if (!IsNumericType(ifStatement.expr.type)) {
-      this.error(ifStatement, 'Expected numeric expression');
+      this.error(ifStatement, "Expected numeric expression");
     }
 
     ifStatement.statements.accept(this);
@@ -765,7 +774,7 @@ export class TypeChecker {
     // expr must be compatible with that of each case.
     select.expr.accept(this);
     if (!IsNumericType(select.expr.type) && !IsStringType(select.expr.type)) {
-      this.error(select, 'Select expression must be numeric or string');
+      this.error(select, "Select expression must be numeric or string");
     }
 
     for (let i = 0; i < select.cases.length; i++) {
@@ -778,7 +787,7 @@ export class TypeChecker {
         ) {
           this.error(
             caseStatement,
-            'CASE expression cannot be compared with SELECT'
+            "CASE expression cannot be compared with SELECT"
           );
         }
       }
@@ -881,16 +890,16 @@ export class TypeChecker {
       // operator must be +, <, >, <>, '='
       // bad |= op != '+' && op != '<' && op != '>' && op != '<>' && op != '=';
       bad =
-        bad || (op != '+' && op != '<' && op != '>' && op != '<>' && op != '=');
+        bad || (op != "+" && op != "<" && op != ">" && op != "<>" && op != "=");
     }
 
     if (IsUserType(binary.lhs.type)) {
       // bad |= op != '=';
-      bad = bad || op != '=';
+      bad = bad || op != "=";
     }
 
-    if (op == '=' || op == '<>' || op == '<' || op == '<=' || op == '>=') {
-      type = this.types['INTEGER'];
+    if (op == "=" || op == "<>" || op == "<" || op == "<=" || op == ">=") {
+      type = this.types["INTEGER"];
     }
 
     if (IsArrayType(binary.lhs.type)) {
@@ -922,11 +931,11 @@ export class TypeChecker {
 
   visitConstantExpr(expr: AstConstantExpr) {
     if (expr.value === null) {
-      expr.type = this.types[':NULL'];
+      expr.type = this.types[":NULL"];
     } else if (expr.value.constructor == String) {
-      expr.type = this.types['STRING'];
+      expr.type = this.types["STRING"];
     } else {
-      expr.type = this.types['SINGLE'];
+      expr.type = this.types["SINGLE"];
     }
   }
 

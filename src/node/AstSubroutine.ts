@@ -1,5 +1,7 @@
-﻿import { Location } from 'earley';
-import { AstArgument } from './AstArgument';
+﻿import { Location } from "earley";
+import { AstArgument } from "./AstArgument";
+import { TypeChecker } from "../TypeChecker";
+import { CodeGenerator } from "../CodeGenerator";
 /** @constructor */
 export class AstSubroutine {
   constructor(
@@ -7,8 +9,9 @@ export class AstSubroutine {
     public name: string,
     public args: AstArgument[],
     public /*statementList*/ statements: any,
-    public isFunction: any,
-    public isStatic?: boolean
+    public isFunction: boolean,
+    public isStatic?: boolean,
+    readonly typeName?: string
   ) {
     // this.locus = locus;
     // this.name = name;
@@ -18,7 +21,7 @@ export class AstSubroutine {
     // this.isStatic = isStatic;
   }
 
-  accept(visitor: any) {
+  accept(visitor: CodeGenerator | TypeChecker) {
     visitor.visitSubroutine(this);
   }
 }

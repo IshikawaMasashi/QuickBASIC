@@ -28,10 +28,13 @@ const useStyles = makeStyles((theme: Theme) =>
 // props の型を定義
 type Props = {
   model: monaco.editor.ITextModel;
+  width: number;
+  height: number;
 };
 
 // コンポーネントを定義
-export default function Monaco({ model }: Props) {
+export default function Monaco(props: Props) {
+  const { model, width, height } = props;
   // ここでクラス名を取得
   const classes = useStyles({});
 
@@ -90,7 +93,7 @@ export default function Monaco({ model }: Props) {
 
   return (
     <div
-      style={{ height: "400px", width: "400px", margin: "6px" }}
+      style={{ height: `${height}px`, width: `${width}px`, margin: "6px" }}
       ref={containerRef}
     />
   );

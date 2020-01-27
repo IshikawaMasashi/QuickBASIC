@@ -7,11 +7,8 @@ import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 
 import { _Console } from "../../src";
-import { compile2 } from "../../src";
-import { VirtualMachine } from "../../src";
-import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 import SyntaxHighlighter from "./SyntaxHighlighter";
-import Monaco from "./monaco";
+import QuickBasic from "./quickBasic";
 
 // スタイルを定義
 const useStyles = makeStyles((theme: Theme) =>
@@ -38,34 +35,9 @@ type Props = {};
 function Example2({}: Props) {
   // ここでクラス名を取得
   const classes = useStyles({});
-  const model = monaco.editor.createModel(`PRINT "Hello World"`);
-
-  const consRef = useRef<_Console>();
-  const virtualMachineRef = useRef<VirtualMachine>();
-  const refCanvas = useRef<HTMLCanvasElement>(null);
-
-  function onClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    // const code = editorRef.current!.getValue();
-    const code = model.getValue();
-    const quickBasicProgram = compile2(code);
-    if (quickBasicProgram.errors.length === 0) {
-      virtualMachineRef.current.run(quickBasicProgram, false);
-    }
-  }
+  const code = `PRINT "Hello World"`;
 
   useEffect(() => {
-    if (!refCanvas.current) {
-      return;
-    }
-
-    if (!consRef.current) {
-      consRef.current = new _Console(refCanvas.current);
-    }
-
-    if (!virtualMachineRef.current) {
-      virtualMachineRef.current = new VirtualMachine(consRef.current);
-    }
-
     return () => {};
   }, []);
 
@@ -80,25 +52,8 @@ function Example2({}: Props) {
         code={`PRINT "Hello World"`}
       ></SyntaxHighlighter>
       <hr></hr>
-      <Grid container spacing={2}>
-        <Grid item xs>
-          <Button
-            variant="contained"
-            className={classes.button}
-            onClick={onClick}
-          >
-            Run
-          </Button>
-        </Grid>
-      </Grid>
 
-      <div style={{ display: "flex" }}>
-        <Monaco model={model} />
-        <canvas
-          ref={refCanvas}
-          className="quick-basic-console-dialog__canvas"
-        />
-      </div>
+      <QuickBasic value={code} />
       <Typography variant="h6" noWrap>
         PRINT
       </Typography>

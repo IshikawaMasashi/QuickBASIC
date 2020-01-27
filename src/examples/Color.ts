@@ -25,5 +25,4 @@ PRINT 2^4
 
 ' Eample2)  Yellow(14) characters on Red(4) screen
 COLOR 14,4
-PRINT 10^4
-`;
+PRINT 10^4`;

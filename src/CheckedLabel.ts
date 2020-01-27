@@ -1,8 +1,8 @@
-﻿import { AstLabel } from './node/AstLabel';
+﻿import { AstLabel } from "./node/AstLabel";
 
 /** @constructor */
 export class CheckedLabel {
-  constructor(public name: string, public astNode: AstLabel) {
+  constructor(readonly name: string, readonly astNode: AstLabel) {
     // this.name = name;
     // this.astNode = astNode;
   }

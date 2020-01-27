@@ -1,42 +1,42 @@
-﻿import { VirtualMachine } from './virtualMachine/VirtualMachine';
+﻿import { VirtualMachine } from "./virtualMachine/VirtualMachine";
 // import { dbg, IsNumericType } from "./qb";
-import { ScalarVariable } from './ScalarVariable';
-import { IStringDictionary } from './base/common/collections';
-import { openFile, getFile, setSeekPosition } from './file/file';
+import { ScalarVariable } from "./ScalarVariable";
+import { IStringDictionary } from "./base/common/collections";
+import { openFile, getFile, setSeekPosition } from "./file/file";
 
 // 文字列中に含まれるある文字の個数を返す
 const counter = (str: string, seq: string) => str.split(seq).length - 1;
-const getIntegerPart = (x: number) => String(x).split('.')[0];
+const getIntegerPart = (x: number) => String(x).split(".")[0];
 // const getFractionalPart = (x: number) => String(x).split(".")[(1];
 function printUsing(format: string, values: number[]) {
   const splitPositions: [number, number][] = [];
   let start = 0;
   let end = 0;
-  let exponential = '';
+  let exponential = "";
 
-  if (format.includes('^^^^')) {
+  if (format.includes("^^^^")) {
     const str = values[0].toExponential();
-    const splits = str.split('e');
+    const splits = str.split("e");
     values[0] = Number(splits[0]);
-    exponential = 'E' + splits[1];
-    format = format.replace('^^^^', '');
+    exponential = "E" + splits[1];
+    format = format.replace("^^^^", "");
   }
 
   for (let i = 0; i < format.length; ++i) {
     let ch = format[i];
     let next = format[i + 1];
-    if (ch === '#' || (ch === '+' && next === '#')) {
+    if (ch === "#" || (ch === "+" && next === "#")) {
       start = i;
       for (++i; i < format.length; ++i) {
         ch = format[i];
-        if (ch === '#') {
+        if (ch === "#") {
           continue;
         }
 
-        if (ch === '.') {
+        if (ch === ".") {
           for (++i; i < format.length; ++i) {
             ch = format[i];
-            if (ch === '#') {
+            if (ch === "#") {
               continue;
             }
 
@@ -50,11 +50,11 @@ function printUsing(format: string, values: number[]) {
       for (; i < format.length; ++i) {
         ch = format[i];
         next = format[i + 1];
-        if (ch === '#') {
+        if (ch === "#") {
           continue;
         }
 
-        if (ch === ',' && next == '#') {
+        if (ch === "," && next == "#") {
           continue;
         }
 
@@ -72,9 +72,9 @@ function printUsing(format: string, values: number[]) {
 
     let str = format.substring(splitPosition[0], splitPosition[1]);
     // ##,###,###
-    if (value && str.includes(',')) {
+    if (value && str.includes(",")) {
       let integer = getIntegerPart(value);
-      const digit = counter(str, '#');
+      const digit = counter(str, "#");
 
       if (digit > parseInt(integer, 10).toString().length) {
         for (
@@ -82,7 +82,7 @@ function printUsing(format: string, values: number[]) {
           i < digit - parseInt(integer, 10).toString().length;
           ++i
         ) {
-          integer = ' ' + integer;
+          integer = " " + integer;
         }
       } else if (parseInt(integer, 10) > digit) {
         for (
@@ -90,29 +90,29 @@ function printUsing(format: string, values: number[]) {
           i < parseInt(integer, 10).toString().length - digit;
           ++i
         ) {
-          str = '#' + str;
+          str = "#" + str;
         }
       }
 
-      let result = '';
-      let lastNum = ' ';
+      let result = "";
+      let lastNum = " ";
       for (let i = 0; i < str.length; ++i) {
         const ch = str[i];
 
-        if (ch === '#') {
+        if (ch === "#") {
           const num = integer[0];
           result += num;
           lastNum = num;
           integer = integer.slice(1);
           continue;
         }
-        if (ch === ',') {
-          if (lastNum === ' ') {
-            result += ' ';
+        if (ch === ",") {
+          if (lastNum === " ") {
+            result += " ";
             continue;
           }
 
-          result += ','; // + result;
+          result += ","; // + result;
         }
       }
       const searchValue = format.substring(splitPosition[0], splitPosition[1]);
@@ -127,30 +127,30 @@ function printUsing(format: string, values: number[]) {
       // const fractionalPart = getFractionalPart(x);
 
       const digit = integerPart.length;
-      let sign = '';
-      if (str[0] === '+') {
+      let sign = "";
+      if (str[0] === "+") {
         if (Number(integerPart) >= 0) {
-          sign = '+';
+          sign = "+";
         } else {
-          sign = '-';
+          sign = "-";
         }
         str = str.substring(1);
       }
 
-      const splits = str.split('.');
+      const splits = str.split(".");
 
-      let result = '';
+      let result = "";
       if (digit > splits[0].length) {
-        result = '%' + integerPart;
+        result = "%" + integerPart;
       } else {
         for (let i = 0; i < splits[0].length - digit; ++i) {
-          result += ' ';
+          result += " ";
         }
         result += integerPart;
       }
       if (splits.length > 1) {
-        result += '.';
-        result += value.toFixed(splits[1].length).split('.')[1];
+        result += ".";
+        result += value.toFixed(splits[1].length).split(".")[1];
       }
 
       result = sign + result;
@@ -250,7 +250,7 @@ export const SystemSubroutines: IStringDictionary<ISystemSubroutine> = {
 
       const values: number[] = [];
       for (let i = 0; i < args.length; ++i) {
-        if (typeof args[i] === 'number') {
+        if (typeof args[i] === "number") {
           values.push(args[i]);
           continue;
         }
@@ -338,21 +338,21 @@ export const SystemSubroutines: IStringDictionary<ISystemSubroutine> = {
       //}
 
       vm.cons.print(output);
-      if (terminator === ',') {
+      if (terminator === ",") {
         let x = vm.cons.x;
-        let spaces = '';
+        let spaces = "";
         while (++x % 14) {
-          spaces += ' ';
+          spaces += " ";
         }
         vm.cons.print(spaces);
-      } else if (terminator !== ';') {
-        vm.cons.print('\n');
+      } else if (terminator !== ";") {
+        vm.cons.print("\n");
       }
     }
   },
 
   LOCATE: {
-    args: ['INTEGER', 'INTEGER'],
+    args: ["INTEGER", "INTEGER"],
     action: function(vm: VirtualMachine) {
       const col = (<ScalarVariable>vm.stack.pop()).value;
       const row = (<ScalarVariable>vm.stack.pop()).value;
@@ -361,7 +361,7 @@ export const SystemSubroutines: IStringDictionary<ISystemSubroutine> = {
   },
 
   COLOR: {
-    args: ['ANY', 'ANY'],
+    args: ["ANY", "ANY"],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
       const argCount = vm.stack.pop();
@@ -378,7 +378,7 @@ export const SystemSubroutines: IStringDictionary<ISystemSubroutine> = {
   READ: {
     // Actually, arguments must be STRING or NUMBER, but there is no way to
     // indicate that to the type checker at the moment.
-    args: ['ANY', 'ANY'],
+    args: ["ANY", "ANY"],
     minArgs: 1,
     action: function(vm: VirtualMachine) {
       const argCount = vm.stack.pop();
@@ -391,7 +391,7 @@ export const SystemSubroutines: IStringDictionary<ISystemSubroutine> = {
 
       // TODO: out of data error.
       for (i = 0; i < argCount; i++) {
-        vm.trace.printf('READ %s\n', vm.data[vm.dataPtr]);
+        vm.trace.printf("READ %s\n", vm.data[vm.dataPtr]);
         args[i].value = vm.data[vm.dataPtr++];
         if (args[i].value === null) {
           // user specified ,, in a data statement
@@ -414,7 +414,7 @@ export const SystemSubroutines: IStringDictionary<ISystemSubroutine> = {
       // user to numbers.
       const argCountOrFileNumber = vm.stack.pop();
 
-      if (typeof argCountOrFileNumber === 'string') {
+      if (typeof argCountOrFileNumber === "string") {
         const fileNumber = argCountOrFileNumber as string;
         const variable = vm.stack.pop() as ScalarVariable;
         const file = getFile(fileNumber);
@@ -432,7 +432,7 @@ export const SystemSubroutines: IStringDictionary<ISystemSubroutine> = {
         const splits = value.split(/\n/);
         // ToDo : もっとシンプルに！
         const result = splits.slice(file.position.lineNumber);
-        variable.value = result.join('\n');
+        variable.value = result.join("\n");
         file.position.lineNumber += result.length;
         return;
       }
@@ -440,7 +440,7 @@ export const SystemSubroutines: IStringDictionary<ISystemSubroutine> = {
       const argCount = argCountOrFileNumber as number;
       const args: any[] = [];
 
-      vm.trace.printf('Argcount=%s\n', argCount);
+      vm.trace.printf("Argcount=%s\n", argCount);
 
       for (let i = 0; i < argCount; i++) {
         args.unshift(vm.stack.pop());
@@ -457,8 +457,8 @@ export const SystemSubroutines: IStringDictionary<ISystemSubroutine> = {
 
   SWAP: {
     action: function(vm: VirtualMachine) {
-      const lhs = <ScalarVariable>vm.stack.pop();
-      const rhs = <ScalarVariable>vm.stack.pop();
+      const lhs = vm.stack.pop() as ScalarVariable;
+      const rhs = vm.stack.pop() as ScalarVariable;
       const temp = lhs.value;
       lhs.value = rhs.value;
       rhs.value = temp;

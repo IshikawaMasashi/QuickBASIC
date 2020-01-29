@@ -38,7 +38,9 @@ export default function QuickBasic(props: Props) {
   const { value, editorWidth = 400, editorHeight = 400 } = props;
   // ここでクラス名を取得
   const classes = useStyles({});
+
   const model = monaco.editor.createModel(value);
+  monaco.editor.setModelLanguage(model, "quickbasic");
 
   const consRef = useRef<_Console>();
   const virtualMachineRef = useRef<VirtualMachine>();
@@ -50,6 +52,9 @@ export default function QuickBasic(props: Props) {
     const quickBasicProgram = compile2(code);
     if (quickBasicProgram.errors.length === 0) {
       virtualMachineRef.current.run(quickBasicProgram, false);
+    }
+    for (let i = 0; i < quickBasicProgram.errors.length; i++) {
+      consRef.current.print(quickBasicProgram.errors[i] + "\n");
     }
   }
 

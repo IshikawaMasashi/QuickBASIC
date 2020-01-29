@@ -11,3 +11,5 @@ export { IStringDictionary } from "./base/common/collections";
 import { COLOR, INPUT, NIBBLES, OUTPUT, PRINTUSING, SAMPLE1 } from "./examples";
 
 export const EXAMPLES = { COLOR, INPUT, NIBBLES, OUTPUT, PRINTUSING, SAMPLE1 };
+
+export { QuickBASIC } from "./extensions/languageConfiguration";

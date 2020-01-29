@@ -1,17 +1,18 @@
-﻿import { Dimension } from './Dimension';
-import { ScalarVariable } from './ScalarVariable';
-import { DoubleType } from './types/DoubleType';
-import { IntegerType } from './types/IntegerType';
-import { NullType } from './types/NullType';
-import { SingleType } from './types/SingleType';
-import { StringType } from './types/StringType';
-import Variable from './Variable';
+﻿import { Dimension } from "./Dimension";
+import { ScalarVariable } from "./ScalarVariable";
+import { DoubleType } from "./types/DoubleType";
+import { IntegerType } from "./types/IntegerType";
+import { NullType } from "./types/NullType";
+import { SingleType } from "./types/SingleType";
+import { StringType } from "./types/StringType";
+import Variable from "./Variable";
 
-/** @constructor */
 export class ArrayVariable extends Variable {
   value?: any; // コンパイルを通すため一時的な措置
   values: ScalarVariable[] = [];
   _values: ScalarVariable[] = [];
+
+  /** @constructor */
   constructor(
     public type: DoubleType | IntegerType | NullType | SingleType | StringType,
     public dimensions: Dimension[]
@@ -51,13 +52,13 @@ export class ArrayVariable extends Variable {
   }
 
   assign(indexes: number[], value: ScalarVariable) {
-    let index = this.getIndex(indexes);
+    const index = this.getIndex(indexes);
     //dbg.printf("Assign %s to array index %d\n", value, index);
     this.values[index] = value;
   }
 
   access(indexes: number[] /*, value*/) {
-    let index = this.getIndex(indexes);
+    const index = this.getIndex(indexes);
     //dbg.printf("access array index %d\n", index);
 
     return this.values[index];

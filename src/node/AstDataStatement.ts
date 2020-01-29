@@ -1,7 +1,7 @@
-﻿import { Location } from "earley";
-import { AstConstantExpr } from "./AstConstantExpr";
-import { CodeGenerator } from "../CodeGenerator";
-import { TypeChecker } from "../TypeChecker";
+﻿import { Location } from 'earley';
+import { AstConstantExpr } from './AstConstantExpr';
+import { CodeGenerator } from '../CodeGenerator';
+import { TypeChecker } from '../TypeChecker';
 
 /** @constructor */
 export class AstDataStatement {

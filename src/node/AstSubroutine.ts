@@ -1,7 +1,7 @@
-﻿import { Location } from "earley";
-import { AstArgument } from "./AstArgument";
-import { TypeChecker } from "../TypeChecker";
-import { CodeGenerator } from "../CodeGenerator";
+﻿import { Location } from 'earley';
+import { AstArgument } from './AstArgument';
+import { TypeChecker } from '../TypeChecker';
+import { CodeGenerator } from '../CodeGenerator';
 /** @constructor */
 export class AstSubroutine {
   constructor(

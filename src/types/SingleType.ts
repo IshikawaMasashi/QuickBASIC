@@ -1,10 +1,10 @@
-﻿import { Type } from "./Type";
+﻿import { Type } from './Type';
 
 export class SingleType extends Type {
   /** @constructor */
   constructor() {
     super();
-    this.name = "SINGLE";
+    this.name = 'SINGLE';
   }
 
   createInstance() {

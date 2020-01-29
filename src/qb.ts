@@ -1,61 +1,61 @@
-﻿import { Location, RuleParser } from "earley";
-import EarleyParser from "earley";
+﻿import { Location, RuleParser } from 'earley';
+import EarleyParser from 'earley';
 
-import { AstDeclareFunction } from "./node/AstDeclareFunction";
-import { AstArgument } from "./node/AstArgument";
-import { AstEndStatement } from "./node/AstEndStatement";
-import { AstNullStatement } from "./node/AstNullStatement";
-import { AstAssignStatement } from "./node/AstAssignStatement";
-import { AstBinaryOp } from "./node/AstBinaryOp";
-import { AstCallStatement } from "./node/AstCallStatement";
-import { AstCaseStatement } from "./node/AstCaseStatement";
-import { AstConstStatement } from "./node/AstConstStatement";
-import { AstExitStatement } from "./node/AstExitStatement";
-import { AstConstantExpr } from "./node/AstConstantExpr";
-import { AstGosubStatement } from "./node/AstGosubStatement";
-import { AstGotoStatement } from "./node/AstGotoStatement";
-import { AstInputStatement } from "./node/AstInputStatement";
-import { AstPrintItem } from "./node/AstPrintItem";
-import { AstLabel } from "./node/AstLabel";
-import { AstDoStatement } from "./node/AstDoStatement";
-import { AstTypeMember } from "./node/AstTypeMember";
-import { AstNextStatement } from "./node/AstNextStatement";
-import { AstDataStatement } from "./node/AstDataStatement";
-import { AstForLoop } from "./node/AstForLoop";
-import { AstIfStatement } from "./node/AstIfStatement";
-import { AstMemberDeref } from "./node/AstMemberDeref";
-import { AstPrintStatement } from "./node/AstPrintStatement";
-import { AstPrintUsingStatement } from "./node/AstPrintUsingStatement";
-import { AstReturnStatement } from "./node/AstReturnStatement";
-import { AstSelectStatement } from "./node/AstSelectStatement";
-import { AstSubroutine } from "./node/AstSubroutine";
-import { AstUnaryOperator } from "./node/AstUnaryOperator";
-import { AstVariableReference } from "./node/AstVariableReference";
-import { AstWhileLoop } from "./node/AstWhileLoop";
-import { AstRange } from "./node/AstRange";
-import { AstDimStatement } from "./node/AstDimStatement";
-import { AstProgram } from "./node/AstProgram";
-import { AstDefTypeStatement } from "./node/AstDefTypeStatement";
-import { AstRestoreStatement } from "./node/AstRestoreStatement";
-import { AstUserType } from "./node/AstUserType";
-import { AstArrayDeref } from "./node/AstArrayDeref";
+import { AstDeclareFunction } from './node/AstDeclareFunction';
+import { AstArgument } from './node/AstArgument';
+import { AstEndStatement } from './node/AstEndStatement';
+import { AstNullStatement } from './node/AstNullStatement';
+import { AstAssignStatement } from './node/AstAssignStatement';
+import { AstBinaryOp } from './node/AstBinaryOp';
+import { AstCallStatement } from './node/AstCallStatement';
+import { AstCaseStatement } from './node/AstCaseStatement';
+import { AstConstStatement } from './node/AstConstStatement';
+import { AstExitStatement } from './node/AstExitStatement';
+import { AstConstantExpr } from './node/AstConstantExpr';
+import { AstGosubStatement } from './node/AstGosubStatement';
+import { AstGotoStatement } from './node/AstGotoStatement';
+import { AstInputStatement } from './node/AstInputStatement';
+import { AstPrintItem } from './node/AstPrintItem';
+import { AstLabel } from './node/AstLabel';
+import { AstDoStatement } from './node/AstDoStatement';
+import { AstTypeMember } from './node/AstTypeMember';
+import { AstNextStatement } from './node/AstNextStatement';
+import { AstDataStatement } from './node/AstDataStatement';
+import { AstForLoop } from './node/AstForLoop';
+import { AstIfStatement } from './node/AstIfStatement';
+import { AstMemberDeref } from './node/AstMemberDeref';
+import { AstPrintStatement } from './node/AstPrintStatement';
+import { AstPrintUsingStatement } from './node/AstPrintUsingStatement';
+import { AstReturnStatement } from './node/AstReturnStatement';
+import { AstSelectStatement } from './node/AstSelectStatement';
+import { AstSubroutine } from './node/AstSubroutine';
+import { AstUnaryOperator } from './node/AstUnaryOperator';
+import { AstVariableReference } from './node/AstVariableReference';
+import { AstWhileLoop } from './node/AstWhileLoop';
+import { AstRange } from './node/AstRange';
+import { AstDimStatement } from './node/AstDimStatement';
+import { AstProgram } from './node/AstProgram';
+import { AstDefTypeStatement } from './node/AstDefTypeStatement';
+import { AstRestoreStatement } from './node/AstRestoreStatement';
+import { AstUserType } from './node/AstUserType';
+import { AstArrayDeref } from './node/AstArrayDeref';
 
-import { VirtualMachine } from "./virtualMachine/VirtualMachine";
-import { Instruction } from "./virtualMachine/instructions/instruction";
-import { CodeGenerator } from "./CodeGenerator";
+import { VirtualMachine } from './virtualMachine/VirtualMachine';
+import { Instruction } from './virtualMachine/instructions/instruction';
+import { CodeGenerator } from './CodeGenerator';
 
 // import { RuleParser } from "./RuleParser";
-import { _Console } from "./Console";
-import { TypeChecker } from "./TypeChecker";
+import { _Console } from './Console';
+import { TypeChecker } from './TypeChecker';
 // import { Locus } from "./Locus";
-import { UserType } from "./UserType";
-import { DebugConsole } from "./DebugConsole";
+import { UserType } from './UserType';
+import { DebugConsole } from './DebugConsole';
 // import { Editor } from "./Editor";
-import { Type } from "./types/Type";
-import { ArrayType } from "./types/ArrayType";
-import { NullType } from "./types/NullType";
-import { IStringDictionary } from "./base/common/collections";
-import { AstOpenStatement } from "./node/AstOpenStatement";
+import { Type } from './types/Type';
+import { ArrayType } from './types/ArrayType';
+import { NullType } from './types/NullType';
+import { IStringDictionary } from './base/common/collections';
+import { AstOpenStatement } from './node/AstOpenStatement';
 // import { number } from "prop-types";
 
 // import { selectBasicCodeTab } from "../Tabs/Tabs";
@@ -72,7 +72,7 @@ export function sprintf(...args: any[]) {
     args = args[0];
   }
   const format = args[0];
-  let output = "";
+  let output = '';
 
   const segments = format.split(/%[^%]/);
   for (let i = 0; i < segments.length; i++) {
@@ -85,52 +85,30 @@ export function sprintf(...args: any[]) {
   return output;
 }
 
-// export var globalConsole: _Console;
-
-/**
-    Copyright 2010 Steve Hanov
-
-    This file is part of qb.js
-
-    qb.js is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    qb.js is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with qb.js.  If not, see <http://www.gnu.org/licenses/>.
-*/
-//#include <debug.js>
-
 export function DeriveTypeNameFromVariable(name: string) {
   switch (name[name.length - 1]) {
-    case "$":
-      return "STRING";
-    case "%":
-      return "INTEGER";
-    case "&":
-      return "LONG";
-    case "#":
-      return "DOUBLE";
-    case "!":
-      return "SINGLE";
+    case '$':
+      return 'STRING';
+    case '%':
+      return 'INTEGER';
+    case '&':
+      return 'LONG';
+    case '#':
+      return 'DOUBLE';
+    case '!':
+      return 'SINGLE';
   }
   return null; // Must use default type from DEFINT or single.
 }
 
 export function IsNumericType(type: Type) {
   return (
-    type.name == "INTEGER" || type.name == "SINGLE" || type.name == "DOUBLE"
+    type.name == 'INTEGER' || type.name == 'SINGLE' || type.name == 'DOUBLE'
   );
 }
 
 export function IsStringType(type: Type) {
-  return type.name == "STRING";
+  return type.name == 'STRING';
 }
 
 export function IsArrayType(type: Type) {
@@ -151,37 +129,14 @@ export function AreTypesCompatible(type1: Type, type2: Type) {
     (IsNumericType(type1) && IsNumericType(type2)) ||
     (IsArrayType(type1) &&
       IsArrayType(type2) &&
-      ((<any>type1).elementType.name == "ANY" ||
-        (<any>type2).elementType.name == "ANY")) ||
+      ((<any>type1).elementType.name == 'ANY' ||
+        (<any>type2).elementType.name == 'ANY')) ||
     (!IsArrayType(type1) &&
       !IsArrayType(type2) &&
-      (type1.name == "ANY" || type2.name == "ANY"))
+      (type1.name == 'ANY' || type2.name == 'ANY'))
   );
 }
 
-/**
-    Copyright 2010 Steve Hanov
-
-    This file is part of qb.js
-
-    qb.js is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    qb.js is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with qb.js.  If not, see <http://www.gnu.org/licenses/>.
-*/
-//#include <debug.js>
-//#include <RuleParser.js>
-//#include <TypeChecker.js>
-//#include <CodeGenerator.js>
-//#include <EarleyParser.js>
 (<any>Array.prototype).accept = function(
   visitor: any // You didn't see that.
 ) {
@@ -196,10 +151,10 @@ export function AreTypesCompatible(type1: Type, type2: Type) {
 function onProgram(symbols: any, location: Location) {
   const program = new AstProgram(
     location,
-    new AstSubroutine(location, "_main", [], symbols[0], false)
+    new AstSubroutine(location, '_main', [], symbols[0], false)
   );
   dbg.printf(
-    "Program successfully parsed. %d statements.\n",
+    'Program successfully parsed. %d statements.\n',
     program.subs[0].statements.length
   );
   return program;
@@ -272,95 +227,95 @@ export class QBasicProgram {
     // Create the parser if one doesn't already exist.
     if (QBasicProgram.parser === undefined) {
       const rules = new RuleParser(dbg);
-      rules.addRule("start: program");
-      rules.addToken("AND", "AND");
-      rules.addToken("AS", "AS");
-      rules.addToken("CASE", "CASE");
-      rules.addToken("CONST", "CONST");
-      rules.addToken("DATA", "DATA");
-      rules.addToken("DECLARE", "DECLARE");
-      rules.addToken("DEF", "DEF");
-      rules.addToken("DEFINT", "DEFINT");
-      rules.addToken("DIM", "DIM");
-      rules.addToken("DO", "DO");
-      rules.addToken("ELSE", "ELSE");
-      rules.addToken("END", "END");
-      rules.addToken("EXIT", "EXIT");
-      rules.addToken("FOR", "FOR");
-      rules.addToken("FUNCTION", "FUNCTION");
-      rules.addToken("GOSUB", "GOSUB");
-      rules.addToken("GOTO", "GOTO");
-      rules.addToken("IF", "IF");
-      rules.addToken("INPUT", "INPUT");
-      rules.addToken("LINE", "LINE");
-      rules.addToken("LOOP", "LOOP");
-      rules.addToken("MOD", "MOD");
-      rules.addToken("NEXT", "NEXT");
-      rules.addToken("NOT", "NOT");
-      rules.addToken("OR", "OR");
-      rules.addToken("POKE", "POKE");
-      rules.addToken("PRINT", "PRINT");
-      rules.addToken("RESTORE", "RESTORE");
-      rules.addToken("RETURN", "RETURN");
-      rules.addToken("SEG", "SEG");
-      rules.addToken("SELECT", "SELECT");
-      rules.addToken("SHARED", "SHARED");
-      rules.addToken("STATIC", "STATIC");
-      rules.addToken("STEP", "STEP");
-      rules.addToken("SUB", "SUB");
-      rules.addToken("TAB", "TAB");
-      rules.addToken("THEN", "THEN");
-      rules.addToken("TO", "TO");
-      rules.addToken("TYPE", "TYPE");
-      rules.addToken("UNTIL", "UNTIL");
-      rules.addToken("USING", "USING");
-      rules.addToken("VIEW", "VIEW");
-      rules.addToken("WEND", "WEND");
-      rules.addToken("WHILE", "WHILE");
+      rules.addRule('start: program');
+      rules.addToken('AND', 'AND');
+      rules.addToken('AS', 'AS');
+      rules.addToken('CASE', 'CASE');
+      rules.addToken('CONST', 'CONST');
+      rules.addToken('DATA', 'DATA');
+      rules.addToken('DECLARE', 'DECLARE');
+      rules.addToken('DEF', 'DEF');
+      rules.addToken('DEFINT', 'DEFINT');
+      rules.addToken('DIM', 'DIM');
+      rules.addToken('DO', 'DO');
+      rules.addToken('ELSE', 'ELSE');
+      rules.addToken('END', 'END');
+      rules.addToken('EXIT', 'EXIT');
+      rules.addToken('FOR', 'FOR');
+      rules.addToken('FUNCTION', 'FUNCTION');
+      rules.addToken('GOSUB', 'GOSUB');
+      rules.addToken('GOTO', 'GOTO');
+      rules.addToken('IF', 'IF');
+      rules.addToken('INPUT', 'INPUT');
+      rules.addToken('LINE', 'LINE');
+      rules.addToken('LOOP', 'LOOP');
+      rules.addToken('MOD', 'MOD');
+      rules.addToken('NEXT', 'NEXT');
+      rules.addToken('NOT', 'NOT');
+      rules.addToken('OR', 'OR');
+      rules.addToken('POKE', 'POKE');
+      rules.addToken('PRINT', 'PRINT');
+      rules.addToken('RESTORE', 'RESTORE');
+      rules.addToken('RETURN', 'RETURN');
+      rules.addToken('SEG', 'SEG');
+      rules.addToken('SELECT', 'SELECT');
+      rules.addToken('SHARED', 'SHARED');
+      rules.addToken('STATIC', 'STATIC');
+      rules.addToken('STEP', 'STEP');
+      rules.addToken('SUB', 'SUB');
+      rules.addToken('TAB', 'TAB');
+      rules.addToken('THEN', 'THEN');
+      rules.addToken('TO', 'TO');
+      rules.addToken('TYPE', 'TYPE');
+      rules.addToken('UNTIL', 'UNTIL');
+      rules.addToken('USING', 'USING');
+      rules.addToken('VIEW', 'VIEW');
+      rules.addToken('WEND', 'WEND');
+      rules.addToken('WHILE', 'WHILE');
 
-      rules.addToken("OPEN", "OPEN");
-      rules.addToken("OUTPUT", "OUTPUT");
+      rules.addToken('OPEN', 'OPEN');
+      rules.addToken('OUTPUT', 'OUTPUT');
 
-      rules.addToken("minus", "\\-");
-      rules.addToken("endl", "\\n");
-      rules.addToken("comment", "'.*$");
+      rules.addToken('minus', '\\-');
+      rules.addToken('endl', '\\n');
+      rules.addToken('comment', "'.*$");
       // rules.addToken("comment", "REM .*$");
-      rules.addToken("hexconstant", "\\&H\\d+");
-      rules.addToken("floatconstant", "\\d*\\.\\d+");
+      rules.addToken('hexconstant', '\\&H\\d+');
+      rules.addToken('floatconstant', '\\d*\\.\\d+');
       // rules.addToken("intconstant", "-?\\d+");
-      rules.addToken("intconstant", "\\d+");
-      rules.addToken("stringconstant", '"[^"]*"');
-      rules.addToken("label", "^([a-zA-Z][a-zA-Z0-9_]*:|\\d+)");
-      rules.addToken("identifier", "[a-zA-Z_][a-zA-Z0-9_]*(\\$|%|#|&|!)?");
+      rules.addToken('intconstant', '\\d+');
+      rules.addToken('stringconstant', '"[^"]*"');
+      rules.addToken('label', '^([a-zA-Z][a-zA-Z0-9_]*:|\\d+)');
+      rules.addToken('identifier', '[a-zA-Z_][a-zA-Z0-9_]*(\\$|%|#|&|!)?');
 
-      rules.addToken("filenumber", "\\#\\d+");
+      rules.addToken('filenumber', '\\#\\d+');
       // rules.addToken("space", "\\s");
 
-      rules.addRule("program: statements", onProgram);
-      rules.addRule("statements: statement*");
+      rules.addRule('program: statements', onProgram);
+      rules.addRule('statements: statement*');
       //rules.addRule( "statement: intconstant istatement separator" );
-      rules.addRule("statement: label istatement separator", function(
+      rules.addRule('statement: label istatement separator', function(
         args: string[],
         location: Location
       ) {
         let label = args[0];
-        if (label.substr(-1) == ":") {
+        if (label.substr(-1) == ':') {
           label = label.substr(0, label.length - 1);
         }
         return [new AstLabel(location, label), args[1]];
       });
-      rules.addRule("statement: label", function(
+      rules.addRule('statement: label', function(
         args: string[],
         location: Location
       ) {
         let label = args[0];
-        if (label.substr(-1) == ":") {
+        if (label.substr(-1) == ':') {
           label = label.substr(0, label.length - 1);
         }
         return new AstLabel(location, label);
       });
 
-      rules.addRule("statement: istatement ? separator");
+      rules.addRule('statement: istatement ? separator');
       rules.addRule("istatement: CONST identifier '=' expr", function(
         args: any,
         location: Location
@@ -368,17 +323,17 @@ export class QBasicProgram {
         return new AstConstStatement(location, args[1], args[3]);
       });
       rules.addRule(
-        "istatement: DECLARE FUNCTION identifier ArgList AsType?",
+        'istatement: DECLARE FUNCTION identifier ArgList AsType?',
         (args: any, location: Location) =>
           new AstDeclareFunction(location, args[2], args[3], true, args[4])
       );
       rules.addRule(
-        "istatement: DECLARE SUB identifier ArgList",
+        'istatement: DECLARE SUB identifier ArgList',
         (args: any, location: Location) =>
           new AstDeclareFunction(location, args[2], args[3], false)
       );
       rules.addRule(
-        "istatement: SUB identifier ArgList STATIC? statements END SUB",
+        'istatement: SUB identifier ArgList STATIC? statements END SUB',
         function(args: any, location: Location) {
           return new AstSubroutine(
             location,
@@ -391,7 +346,7 @@ export class QBasicProgram {
         }
       );
       rules.addRule(
-        "istatement: FUNCTION identifier ArgList AsType? statements END FUNCTION",
+        'istatement: FUNCTION identifier ArgList AsType? statements END FUNCTION',
         (symbols: any, location: Location) =>
           new AstSubroutine(
             location,
@@ -415,21 +370,21 @@ export class QBasicProgram {
       ) {
         return new AstNullStatement(location);
       });
-      rules.addRule("istatement: DEFINT identifier minus identifier", function(
+      rules.addRule('istatement: DEFINT identifier minus identifier', function(
         args: any,
         location: Location
       ) {
         // TODO: Implement completely
-        return new AstDefTypeStatement(location, "INTEGER");
+        return new AstDefTypeStatement(location, 'INTEGER');
       });
-      rules.addRule("istatement: VIEW PRINT", function(
+      rules.addRule('istatement: VIEW PRINT', function(
         args: any,
         location: Location
       ) {
         return new AstNullStatement(location);
       });
-      rules.addRule("istatement: DIM DimList", UseSecond);
-      rules.addRule("istatement: DIM SHARED DimList", function(
+      rules.addRule('istatement: DIM DimList', UseSecond);
+      rules.addRule('istatement: DIM SHARED DimList', function(
         args: any,
         location: Location
       ) {
@@ -439,12 +394,12 @@ export class QBasicProgram {
         return args[2];
       });
       rules.addRule(
-        "istatement: WHILE expr separator statements WEND",
+        'istatement: WHILE expr separator statements WEND',
         function(args: string[], location: Location) {
           return new AstWhileLoop(location, args[1], args[3]);
         }
       );
-      rules.addRule("istatement: DO separator statements LOOP", function(
+      rules.addRule('istatement: DO separator statements LOOP', function(
         args: any,
         location: Location
       ) {
@@ -456,7 +411,7 @@ export class QBasicProgram {
         );
       });
       rules.addRule(
-        "istatement: DO separator statements LOOP WHILE expr",
+        'istatement: DO separator statements LOOP WHILE expr',
         function(args: any, location: Location) {
           return new AstDoStatement(
             location,
@@ -467,7 +422,7 @@ export class QBasicProgram {
         }
       );
       rules.addRule(
-        "istatement: DO separator statements LOOP UNTIL expr",
+        'istatement: DO separator statements LOOP UNTIL expr',
         function(args: any, location: Location) {
           return new AstDoStatement(
             location,
@@ -478,7 +433,7 @@ export class QBasicProgram {
         }
       );
       rules.addRule(
-        "istatement: DO WHILE expr separator statements LOOP",
+        'istatement: DO WHILE expr separator statements LOOP',
         function(args: any, location: Location) {
           return new AstWhileLoop(location, args[2], args[4]);
         }
@@ -501,7 +456,7 @@ export class QBasicProgram {
           return new AstForLoop(location, args[1], args[3], args[5], args[7]);
         }
       );
-      rules.addRule("istatement: NEXT identifiers?", function(
+      rules.addRule('istatement: NEXT identifiers?', function(
         args: any,
         location: Location
       ) {
@@ -510,78 +465,78 @@ export class QBasicProgram {
         }
         return new AstNextStatement(location, args[1]);
       });
-      rules.addRule("istatement: EXIT (FOR|DO)", function(
+      rules.addRule('istatement: EXIT (FOR|DO)', function(
         args: any,
         location: Location
       ) {
         return new AstExitStatement(location, args[1]);
       });
-      rules.addRule("identifiers: MoreIdentifiers* identifier", JoinListsLR);
+      rules.addRule('identifiers: MoreIdentifiers* identifier', JoinListsLR);
       rules.addRule("MoreIdentifiers: identifier ','", UseFirst);
-      rules.addRule("istatement: END", function(
+      rules.addRule('istatement: END', function(
         _args: string[],
         location: Location
       ) {
         return new AstEndStatement(location);
       });
-      rules.addRule("istatement: GOSUB identifier", function(
+      rules.addRule('istatement: GOSUB identifier', function(
         args: any,
         location: Location
       ) {
         return new AstGosubStatement(location, args[1]);
       });
-      rules.addRule("istatement: GOTO identifier", function(
+      rules.addRule('istatement: GOTO identifier', function(
         args: any,
         location: Location
       ) {
         return new AstGotoStatement(location, args[1]);
       });
-      rules.addRule("istatement: IF expr THEN istatement", function(
+      rules.addRule('istatement: IF expr THEN istatement', function(
         args: any,
         location: Location
       ) {
         return new AstIfStatement(location, args[1], args[3], null);
       });
       rules.addRule(
-        "istatement: IF expr THEN separator statements ElseClause END IF",
+        'istatement: IF expr THEN separator statements ElseClause END IF',
         function(args: any, location: Location) {
           return new AstIfStatement(location, args[1], args[4], args[5]);
         }
       );
       rules.addRule(
-        "ElseClause: ELSE IF expr THEN separator statements ElseClause",
+        'ElseClause: ELSE IF expr THEN separator statements ElseClause',
         function(args: any, location: Location) {
           return new AstIfStatement(location, args[2], args[5], args[6]);
         }
       );
 
-      rules.addRule("ElseClause: ELSE statements", UseSecond);
+      rules.addRule('ElseClause: ELSE statements', UseSecond);
 
-      rules.addRule("ElseClause:", function(args: any, location: Location) {
+      rules.addRule('ElseClause:', function(args: any, location: Location) {
         return new AstNullStatement(location);
       });
       rules.addRule(
-        "istatement: SELECT CASE expr separator case* END SELECT",
+        'istatement: SELECT CASE expr separator case* END SELECT',
         function(args: any, location: Location) {
           return new AstSelectStatement(location, args[2], args[4]);
         }
       );
 
-      rules.addRule("case: CASE exprList separator statements", function(
+      rules.addRule('case: CASE exprList separator statements', function(
         args: any,
         location: Location
       ) {
         return new AstCaseStatement(location, args[1], args[3]);
       });
 
-      rules.addRule("case: CASE ELSE separator statements", function(
+      rules.addRule('case: CASE ELSE separator statements', function(
         args: any,
         location: Location
       ) {
         return new AstCaseStatement(location, [], args[3]);
       });
 
-      rules.addRule("exprList: moreExpr* expr", JoinListsLR);
+      rules.addRule('exprList: moreExpr* expr', JoinListsLR);
 
       rules.addRule("moreExpr: expr ','", UseFirst);
 
@@ -591,7 +546,7 @@ export class QBasicProgram {
           return new AstInputStatement(
             location,
             args[1],
-            args[2] == ";",
+            args[2] == ';',
             args[3]
           );
         }
@@ -604,7 +559,7 @@ export class QBasicProgram {
           new AstInputStatement(
             location,
             args[2],
-            args[3] == ";",
+            args[3] == ';',
             args[4],
             !!args[0]
           )
@@ -616,7 +571,7 @@ export class QBasicProgram {
           new AstPrintStatement(location, args[3], args[1])
       );
 
-      rules.addRule("istatement: LINE? INPUT identifiers", function(
+      rules.addRule('istatement: LINE? INPUT identifiers', function(
         args: any,
         location: Location
       ) {
@@ -635,13 +590,13 @@ export class QBasicProgram {
           new AstOpenStatement(location, args[1], args[3], args[5])
       );
 
-      rules.addRule("istatement: PRINT", function(
+      rules.addRule('istatement: PRINT', function(
         args: any,
         location: Location
       ) {
         return new AstPrintStatement(location, []);
       });
-      rules.addRule("istatement: PRINT PrintItems", function(
+      rules.addRule('istatement: PRINT PrintItems', function(
         args: any,
         location: Location
       ) {
@@ -653,7 +608,7 @@ export class QBasicProgram {
       ) {
         return new AstPrintUsingStatement(location, args[2], args[3]);
       });
-      rules.addRule("PrintItems: PrintItem", function(
+      rules.addRule('PrintItems: PrintItem', function(
         args: any,
         _location: Location
       ) {
@@ -675,7 +630,7 @@ export class QBasicProgram {
         return args[0];
       });
 
-      rules.addRule("PrintItem: expr", function(args: any, location: Location) {
+      rules.addRule('PrintItem: expr', function(args: any, location: Location) {
         return new AstPrintItem(location, AstPrintItem.EXPR, args[0], null);
       });
 
@@ -686,7 +641,7 @@ export class QBasicProgram {
         return new AstPrintItem(location, AstPrintItem.TAB, args[2], null);
       });
 
-      rules.addRule("PrintItem:", function(args: any, location: Location) {
+      rules.addRule('PrintItem:', function(args: any, location: Location) {
         return new AstPrintItem(location, AstPrintItem.EXPR, null, null);
       });
 
@@ -696,14 +651,14 @@ export class QBasicProgram {
       //     new AstPrintItem(locus, AstPrintItem.EXPR, args[0], null)
       // );
 
-      rules.addRule("istatement: RESTORE identifier?", function(
+      rules.addRule('istatement: RESTORE identifier?', function(
         args: any,
         location: Location
       ) {
         return new AstRestoreStatement(location, args[1]);
       });
       rules.addRule(
-        "istatement: RETURN expr2?",
+        'istatement: RETURN expr2?',
         (args: any, location: Location) =>
           new AstReturnStatement(location, args[1])
       );
@@ -713,53 +668,53 @@ export class QBasicProgram {
       ) {
         return new AstDataStatement(location, args[1]);
       });
-      rules.addRule("DataConstant: identifier", function(
+      rules.addRule('DataConstant: identifier', function(
         args: any,
         location: Location
       ) {
         return new AstConstantExpr(location, args[0]);
       });
-      rules.addRule("DataConstant: constant");
-      rules.addRule("DataConstant:", function(args: any, location: Location) {
+      rules.addRule('DataConstant: constant');
+      rules.addRule('DataConstant:', function(args: any, location: Location) {
         return new AstConstantExpr(location, null);
       });
       rules.addRule(
-        "istatement: TYPE identifier separator TypeMembers END TYPE",
+        'istatement: TYPE identifier separator TypeMembers END TYPE',
         function(args: any, location: Location) {
           return new AstUserType(location, args[1], args[3]);
         }
       );
-      rules.addRule("istatement: AssignStatement");
+      rules.addRule('istatement: AssignStatement');
       rules.addRule("AssignStatement: ReferenceList '=' expr2", function(
         args: any,
         location: Location
       ) {
         return new AstAssignStatement(location, args[0], args[2]);
       });
-      rules.addRule("istatement: identifier Parameters", function(
+      rules.addRule('istatement: identifier Parameters', function(
         args: any,
         location: Location
       ) {
         return new AstCallStatement(location, args[0], args[1]);
       });
-      rules.addRule("Parameters: ", EmptyList);
+      rules.addRule('Parameters: ', EmptyList);
       rules.addRule("Parameters: '\\(' ParameterList '\\)'", UseSecond);
-      rules.addRule("Parameters: ParameterList");
+      rules.addRule('Parameters: ParameterList');
       rules.addRule("ParameterList: [Parameter,',']");
-      rules.addRule("Parameter: expr");
-      rules.addRule("Parameter:", function(args: any, location: Location) {
+      rules.addRule('Parameter: expr');
+      rules.addRule('Parameter:', function(args: any, location: Location) {
         return new AstConstantExpr(location, null);
       });
 
       rules.addRule(
-        "Parameter: filenumber",
+        'Parameter: filenumber',
         (args: any, location: Location) =>
           new AstConstantExpr(location, args[0])
       );
 
-      rules.addRule("DimList: Dim MoreDims*", JoinLists);
+      rules.addRule('DimList: Dim MoreDims*', JoinLists);
       rules.addRule("MoreDims: ',' Dim", UseSecond);
-      rules.addRule("Dim: identifier AsType?", function(
+      rules.addRule('Dim: identifier AsType?', function(
         args: any,
         location: Location
       ) {
@@ -771,16 +726,16 @@ export class QBasicProgram {
       ) {
         return new AstDimStatement(location, args[0], args[2], args[4]);
       });
-      rules.addRule("AsType: AS identifier", UseSecond);
-      rules.addRule("RangeList:", function(
+      rules.addRule('AsType: AS identifier', UseSecond);
+      rules.addRule('RangeList:', function(
         args: any,
         _location: Location
       ): any {
         return null;
       });
-      rules.addRule("RangeList: Range MoreRanges*", JoinLists);
+      rules.addRule('RangeList: Range MoreRanges*', JoinLists);
       rules.addRule("MoreRanges: ',' Range", UseSecond);
-      rules.addRule("Range: expr EndRange?", function(
+      rules.addRule('Range: expr EndRange?', function(
         symbols: any,
         location: Location
       ) {
@@ -794,79 +749,81 @@ export class QBasicProgram {
           );
         }
       });
-      rules.addRule("EndRange: TO expr", UseSecond);
-      rules.addRule("TypeMembers: TypeMember*");
-      rules.addRule("TypeMember: identifier AS identifier separator", function(
+      rules.addRule('EndRange: TO expr', UseSecond);
+      rules.addRule('TypeMembers: TypeMember*');
+      rules.addRule('TypeMember: identifier AS identifier separator', function(
         args: any,
         location: Location
       ) {
         return new AstTypeMember(location, args[0], args[2]);
       });
-      rules.addRule("ArgList:", function(_args: any, _location: Location): any {
-        return [];
-      });
+
+      rules.addRule(
+        'ArgList:',
+        (_args: [], _location: Location) => [] as any[]
+      );
       rules.addRule("ArgList: '\\(' [ Argument , ',' ] '\\)'", function(
         args: any,
         _location: Location
       ) {
         return args[1];
       });
-      rules.addRule("Argument: identifier OptParen? AS identifier", function(
+      rules.addRule('Argument: identifier OptParen? AS identifier', function(
         args: any,
         location: Location
       ) {
         return new AstArgument(location, args[0], args[3], args[1] !== null);
       });
-      rules.addRule("Argument: identifier OptParen?", function(
+      rules.addRule('Argument: identifier OptParen?', function(
         args: any,
         locus: any
       ) {
         return new AstArgument(locus, args[0], null, args[1] !== null);
       });
       rules.addRule("OptParen: '\\(' '\\)'");
-      rules.addRule("expr: expr2");
-      rules.addRule("expr2: expr2 OR expr3", onBinaryOp);
-      rules.addRule("expr2: expr3");
-      rules.addRule("expr3: expr3 AND expr4", onBinaryOp);
-      rules.addRule("expr3: expr4");
+      rules.addRule('expr: expr2');
+      rules.addRule('expr2: expr2 OR expr3', onBinaryOp);
+      rules.addRule('expr2: expr3');
+      rules.addRule('expr3: expr3 AND expr4', onBinaryOp);
+      rules.addRule('expr3: expr4');
       rules.addRule("expr4: expr4 '=' expr5", onBinaryOp);
       rules.addRule("expr4: expr4 '<>' expr5", onBinaryOp);
       rules.addRule("expr4: expr4 '>' expr5", onBinaryOp);
       rules.addRule("expr4: expr4 '<' expr5", onBinaryOp);
       rules.addRule("expr4: expr4 '<=' expr5", onBinaryOp);
       rules.addRule("expr4: expr4 '>=' expr5", onBinaryOp);
-      rules.addRule("expr4: expr5");
-      rules.addRule("expr5: expr5 MOD expr6", onBinaryOp);
-      rules.addRule("expr5: expr6");
+      rules.addRule('expr4: expr5');
+      rules.addRule('expr5: expr5 MOD expr6', onBinaryOp);
+      rules.addRule('expr5: expr6');
       rules.addRule("expr6: expr6 '\\+' expr7", onBinaryOp);
       rules.addRule("expr6: expr6 '\\-' expr7", onBinaryOp);
-      rules.addRule("expr6: expr7");
+      rules.addRule('expr6: expr7');
       rules.addRule("expr7: expr7 '\\*' expr8", onBinaryOp);
       rules.addRule("expr7: expr7 '\\/' expr8", onBinaryOp);
       rules.addRule("expr7: expr7 '\\^' expr8", onBinaryOp);
-      rules.addRule("expr7: expr8");
+      rules.addRule('expr7: expr8');
       rules.addRule("expr8: '\\(' expr '\\)'", onBracketExpr);
       //rules.addRule( "expr8: expr8 '\\.' expr10", onBinaryOp );
-      rules.addRule("expr8: NOT expr9", function(
+      rules.addRule('expr8: NOT expr9', function(
         args: string[],
         location: Location
       ) {
-        return new AstUnaryOperator(location, "NOT", args[1]);
+        return new AstUnaryOperator(location, 'NOT', args[1]);
       });
       rules.addRule("expr8: '\\-' expr9", function(
         args: string[],
         location: Location
       ) {
-        return new AstUnaryOperator(location, "-", args[1]);
+        return new AstUnaryOperator(location, '-', args[1]);
       });
-      rules.addRule("expr8: expr9");
-      rules.addRule("expr9: constant");
-      rules.addRule("expr9: expr10");
-      rules.addRule("expr10: ReferenceList");
-      rules.addRule("constant: hexconstant", onNumber);
-      rules.addRule("constant: intconstant", onNumber);
-      rules.addRule("constant: floatconstant", onNumber);
-      rules.addRule("constant: stringconstant", onString);
+      rules.addRule('expr8: expr9');
+      rules.addRule('expr9: constant');
+      rules.addRule('expr9: expr10');
+      rules.addRule('expr10: ReferenceList');
+      rules.addRule('constant: hexconstant', onNumber);
+      rules.addRule('constant: intconstant', onNumber);
+      rules.addRule('constant: floatconstant', onNumber);
+      rules.addRule('constant: stringconstant', onString);
       rules.addRule("ReferenceList: ReferenceList '\\.' identifier", function(
         args: any,
         location: Location
@@ -880,19 +837,19 @@ export class QBasicProgram {
           return new AstArrayDeref(locus, args[0], args[2]);
         }
       );
-      rules.addRule("ReferenceList: Reference");
+      rules.addRule('ReferenceList: Reference');
       rules.addRule(
-        "Reference: identifier",
+        'Reference: identifier',
         (args: any, locus: any) => new AstVariableReference(locus, args[0])
       );
 
-      rules.addRule("separator: endl+");
-      rules.addRule("separator: comment endl");
+      rules.addRule('separator: endl+');
+      rules.addRule('separator: comment endl');
       rules.addRule("separator: ':'");
 
       rules.buildSet.check(this.errors);
       for (let i = 0; i < this.errors.length; i++) {
-        dbg.printf("%s\n", this.errors[i]);
+        dbg.printf('%s\n', this.errors[i]);
       }
 
       rules.buildSet.finalize();
@@ -901,13 +858,13 @@ export class QBasicProgram {
       //QBasicProgram.parser.debug = true;
     }
 
-    input += "\n"; // parse doesn't handle no newline at end of input.
+    input += '\n'; // parse doesn't handle no newline at end of input.
 
     // Parse the program into abstract syntax tree.
     const astProgram = QBasicProgram.parser.parse(input);
     if (astProgram === null) {
       this.errors = QBasicProgram.parser.errors;
-      dbg.printf("Parse failed.\n");
+      dbg.printf('Parse failed.\n');
       return;
     }
 
@@ -916,7 +873,7 @@ export class QBasicProgram {
     astProgram.accept(typeChecker);
 
     if (this.errors.length > 0) {
-      dbg.printf("There were errors.\n");
+      dbg.printf('There were errors.\n');
       return;
     }
 
@@ -969,27 +926,27 @@ export class QBasicProgram {
     this.fromSourceCodeLineNumberToProgramCounter.clear();
 
     if (!this.instructions) {
-      return "";
+      return '';
     }
-    const source = this.sourcecode.split("\n");
+    const source = this.sourcecode.split('\n');
     const lines: string[] = [];
     let location: Location;
     for (let i = 0; i < this.instructions.length; i++) {
       location = this.lineMap[i] ? this.lineMap[i] : location;
       if (this.lineMap[i]) {
         lines.push(
-          "   ' L" + (location.line + 1) + " " + source[location.line]
+          "   ' L" + (location.line + 1) + ' ' + source[location.line]
         );
       }
 
-      const instruction = this.instructions[i].toString().replace("\n", "↵");
-      lines.push("[" + i + "] " + instruction);
+      const instruction = this.instructions[i].toString().replace('\n', '↵');
+      lines.push('[' + i + '] ' + instruction);
       this.toByteCodeLineNumber.set(i, lines.length - 1);
       this.toSourceCodeLineNumber.set(i, location.line);
       this.fromSourceCodeLineNumberToProgramCounter.set(location.line, i);
     }
 
-    return lines.join("\n");
+    return lines.join('\n');
   }
 }
 
@@ -1151,8 +1108,8 @@ export function compile(
 
   virtualMachine.reset(null);
   for (let i = 0; i < program.errors.length; i++) {
-    cons.print(program.errors[i] + "\n");
-    dbg.print(program.errors[i] + "\n");
+    cons.print(program.errors[i] + '\n');
+    dbg.print(program.errors[i] + '\n');
   }
   cons.enableCursor(true);
 
@@ -1175,7 +1132,7 @@ export function compile2(code: string) {
 // create debug area
 // document.write("<div id='debug'></div>");
 export const dbg = new DebugConsole(
-  <HTMLTextAreaElement>document.getElementById("footer")
+  document.getElementById('footer') as HTMLTextAreaElement
 );
 //var editor = (<any>window).monaco.editor.create(document.getElementById("sourcecode"), {
 //    value: input
@@ -1200,11 +1157,3 @@ export const dbg = new DebugConsole(
 //    canvas.style.height = rect.height + "px";
 //    canvas.style.width = rect.height * (640 / 400) + "px";
 //}
-
-//window.addEventListener("resize", () => {
-//    onResize();
-//});
-
-//setTimeout(() => {
-//    selectBasicCodeTab();
-//}, 200);

@@ -55,7 +55,7 @@ export default function About({}: Props) {
         <Typography variant="h6">
           <p>QuickBasic are programming languages for beginners.</p>
         </Typography>
-        <QuickBasic value={EXAMPLES.NIBBLES} />
+        <QuickBasic value={EXAMPLES.NIBBLES} editorWidth={640} />
       </Paper>
     </React.Fragment>
   );

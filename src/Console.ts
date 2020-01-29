@@ -1,8 +1,8 @@
-﻿import { dbg /*ScriptSrc*/ } from "./qb";
-import { ImageManipulator } from "./ImageManipulator";
-import { INumberDictionary } from "./base/common/collections";
-import CharacterImageGenerator from "./CharacterImageGenerator";
-import IConsole from "./virtualMachine/IConsole";
+﻿import { dbg /*ScriptSrc*/ } from './qb';
+import { ImageManipulator } from './ImageManipulator';
+import { INumberDictionary } from './base/common/collections';
+import CharacterImageGenerator from './CharacterImageGenerator';
+import IConsole from './virtualMachine/IConsole';
 
 export var globalConsole: _Console;
 /** @constructor */
@@ -36,14 +36,14 @@ export class _Console implements IConsole {
   height: number;
 
   recording: boolean;
-  recorded = "";
+  recorded = '';
 
   readonly characterImageGenerator: CharacterImageGenerator;
   constructor(public canvas: HTMLCanvasElement) {
     this.canvas.width = 640;
     this.canvas.height = 400;
     this.canvas.tabIndex = 0;
-    this.ctx = this.canvas.getContext("2d")!;
+    this.ctx = this.canvas.getContext('2d')!;
     this.ctx.setTransform(1, 0, 0, 1, 0, 0);
     // this.charImg = document.createElement("img");
     // this.charImg.setAttribute("src", ScriptSrc + "charmap.png");
@@ -75,7 +75,7 @@ export class _Console implements IConsole {
     //});
 
     canvas.onclick = event => {
-      canvas.style.borderColor = "#008800";
+      canvas.style.borderColor = '#008800';
       // $(canvas).focus();
       canvas.focus();
       self.hasFocus = true;
@@ -90,17 +90,17 @@ export class _Console implements IConsole {
 
     window.onclick = (_event: MouseEvent) => {
       this.hasFocus = false;
-      canvas.style.borderColor = "rgba(14,99,156,0.8)";
+      canvas.style.borderColor = 'rgba(14,99,156,0.8)';
     };
     //$(window).click(function (event) {
     //    self.hasFocus = false;
     //    canvas.style.borderColor = "#888888";
     //});
-    canvas.style.borderWidth = "1px";
+    canvas.style.borderWidth = '1px';
     // $(canvas).css("border-width", "5px");
-    canvas.style.borderColor = "#888888";
+    canvas.style.borderColor = '#888888';
     // $(canvas).css("border-color", "#888888");
-    canvas.style.borderStyle = "solid";
+    canvas.style.borderStyle = 'solid';
     // $(canvas).css("border-style", "solid");
 
     this.cls();
@@ -112,22 +112,22 @@ export class _Console implements IConsole {
   }
 
   Colours = [
-    "#000000", // Black
-    "#000088", // Dark Blue
-    "#008800", // Green
-    "#008888", // Dark Cyan
-    "#880000", // Dark Red
-    "#880088", // Dark Magenta
-    "#884400", // Brown
-    "#888888", // Grey
-    "#444444", // Charcoal
-    "#0000ff", // Blue
-    "#00ff00", // Green
-    "#00ffff", // Cyan
-    "#ff0000", // Red
-    "#ff00ff", // Magenta
-    "#ffff00", // Yellow
-    "#ffffff" // White
+    '#000000', // Black
+    '#000088', // Dark Blue
+    '#008800', // Green
+    '#008888', // Dark Cyan
+    '#880000', // Dark Red
+    '#880088', // Dark Magenta
+    '#884400', // Brown
+    '#888888', // Grey
+    '#444444', // Charcoal
+    '#0000ff', // Blue
+    '#00ff00', // Green
+    '#00ffff', // Cyan
+    '#ff0000', // Red
+    '#ff00ff', // Magenta
+    '#ffff00', // Yellow
+    '#ffffff' // White
   ];
 
   ScreenDimensions: any = {
@@ -323,11 +323,11 @@ export class _Console implements IConsole {
       this.ctx.getImageData(0, 0, this.width, this.height)
     );
 
-    dbg.printf("%s\n", image.get(10, 10));
+    dbg.printf('%s\n', image.get(10, 10));
   }
 
   cls() {
-    this.record("[CLS]");
+    this.record('[CLS]');
     this.cursor(false);
     this.x = 0;
     this.y = 0;
@@ -336,16 +336,16 @@ export class _Console implements IConsole {
   }
 
   locate(row: number, col: number) {
-    this.record("[L" + row + "," + col + "]");
+    this.record('[L' + row + ',' + col + ']');
     this.cursor(false);
     this.x = Math.floor(col) - 1;
     this.y = Math.floor(row) - 1;
   }
 
   color(fg = this.fgcolourNum, bg = this.bgcolourNum) {
-    this.record("[C" + fg);
-    this.record("," + bg);
-    this.record("]\n");
+    this.record('[C' + fg);
+    this.record(',' + bg);
+    this.record(']\n');
 
     this.fgcolourNum = fg;
     this.fgcolour = this.Colours[fg];
@@ -378,7 +378,7 @@ export class _Console implements IConsole {
 
   input(onInputDone: (input: string) => void) {
     if (this.recording) {
-      let str = "";
+      let str = '';
       while (this.keyBuffer.length > 0) {
         str += String.fromCharCode(this.keyBuffer.shift());
       }
@@ -388,7 +388,7 @@ export class _Console implements IConsole {
       this.enableCursor(true);
       this.onInputDone = onInputDone;
       this.inputMode = true;
-      this.inputStr = "";
+      this.inputStr = '';
       this.inputPos = 0;
     }
   }
@@ -418,7 +418,7 @@ export class _Console implements IConsole {
             (<string>this.inputStr).length - 1
           );
           this.backup(1);
-          this.print(" ");
+          this.print(' ');
           this.backup(1);
         }
       }
@@ -426,7 +426,7 @@ export class _Console implements IConsole {
       if (event.keyCode === 13) {
         // done
         this.inputMode = false;
-        this.print("\n");
+        this.print('\n');
         this.enableCursor(false);
         this.onInputDone(this.inputStr);
       }
@@ -579,15 +579,15 @@ export class _Console implements IConsole {
     const fgcolour = this.fgcolour;
     const ctx = this.ctx;
     ctx.fillStyle = bgcolour;
-    ctx.font = "16px Consolas";
-    ctx.textBaseline = "top";
+    ctx.font = '16px Consolas';
+    ctx.textBaseline = 'top';
 
     for (let i = 0; i < str.length; i++) {
       if (this.y == this.rows) {
         this.scroll();
       }
 
-      if (str[i] == "\n") {
+      if (str[i] == '\n') {
         this.newline();
       } else {
         ctx.fillStyle = bgcolour;

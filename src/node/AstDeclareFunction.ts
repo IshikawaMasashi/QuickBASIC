@@ -1,7 +1,7 @@
-﻿import { Location } from "earley";
-import { AstArgument } from "./AstArgument";
-import { CodeGenerator } from "../CodeGenerator";
-import { TypeChecker } from "../TypeChecker";
+﻿import { Location } from 'earley';
+import { AstArgument } from './AstArgument';
+import { CodeGenerator } from '../CodeGenerator';
+import { TypeChecker } from '../TypeChecker';
 
 export class AstDeclareFunction {
   type: any = null; // calculated later

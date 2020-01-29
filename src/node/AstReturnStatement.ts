@@ -1,6 +1,6 @@
-﻿import { Location } from "earley";
-import { CodeGenerator } from "../CodeGenerator";
-import { TypeChecker } from "../TypeChecker";
+﻿import { Location } from 'earley';
+import { CodeGenerator } from '../CodeGenerator';
+import { TypeChecker } from '../TypeChecker';
 
 export class AstReturnStatement {
   /** @constructor */

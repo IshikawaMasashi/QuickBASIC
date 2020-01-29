@@ -1,4 +1,4 @@
-﻿import { dbg, sprintf } from "./qb";
+﻿import { dbg, sprintf } from './qb';
 /**
     Copyright 2010 Steve Hanov
 
@@ -26,7 +26,7 @@ export class TraceBuffer {
   constructor() {}
 
   toString() {
-    return this.lines.join("");
+    return this.lines.join('');
   }
 
   printf(...args: any[]) {
@@ -39,6 +39,6 @@ export class TraceBuffer {
     if (this.lines.length > this.MAX_LINES) {
       this.lines.shift();
     }
-    dbg.printf("%s", str);
+    dbg.printf('%s', str);
   }
 }

@@ -6,7 +6,7 @@ import { _Console } from "../../../src";
 import { compile2 } from "../../../src";
 import { VirtualMachine } from "../../../src";
 import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
-
+import { QuickBASIC } from "../../../src";
 // スタイルを定義
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,6 +49,21 @@ export default function Monaco(props: Props) {
   });
 
   useEffect(() => {
+    // QuickBASIC
+    // monaco.languages.onLanguage("quickbasic", () => {
+    //   monaco.languages.setMonarchTokensProvider(
+    //     "quickbasic",
+    //     QuickBASIC.MonarchDefinitions
+    //   );
+    // });
+    monaco.languages.register({
+      id: "quickbasic"
+    });
+    monaco.languages.setMonarchTokensProvider(
+      "quickbasic",
+      QuickBASIC.MonarchDefinitions
+    );
+
     ensureEditor();
 
     return () => {
@@ -60,25 +75,31 @@ export default function Monaco(props: Props) {
     if (editorRef.current) {
       return;
     }
-    const options = Object.assign(
-      {
-        theme: "vs-dark",
-        minimap: {
-          enabled: false
-        },
-        fontWeight: "bold",
-        renderLineHighlight: "none"
-      },
-      {}
-    );
+    // const options = Object.assign(
+    //   {
+    //     theme: "vs-dark",
+    //     minimap: {
+    //       enabled: false
+    //     },
+    //     fontWeight: "bold",
+    //     renderLineHighlight: "none",
+    //     language: "quickbasic"
+    //   },
+    //   {}
+    // );
     if (containerRef.current!.lastChild) {
       containerRef.current!.removeChild(containerRef.current!.lastChild);
     }
 
-    editorRef.current = monaco.editor.create(
-      containerRef.current!,
-      options as any
-    );
+    editorRef.current = monaco.editor.create(containerRef.current!, {
+      theme: "vs-dark",
+      minimap: {
+        enabled: false
+      },
+      fontWeight: "bold",
+      renderLineHighlight: "none",
+      language: "quickbasic"
+    });
 
     editorRef.current.setModel(model);
 

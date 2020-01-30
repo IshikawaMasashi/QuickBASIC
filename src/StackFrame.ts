@@ -1,6 +1,6 @@
-﻿import { IStringDictionary } from "./base/common/collections";
-import { ScalarVariable } from "./ScalarVariable";
-import { ArrayVariable } from "./ArrayVariable";
+﻿import { IStringDictionary } from './base/common/collections';
+import { ScalarVariable } from './ScalarVariable';
+import { ArrayVariable } from './ArrayVariable';
 
 export interface IStackFrame {
   pc: number;

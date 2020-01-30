@@ -56,15 +56,6 @@ import { ArrayType } from './types/ArrayType';
 import { NullType } from './types/NullType';
 import { IStringDictionary } from './base/common/collections';
 import { AstOpenStatement } from './node/AstOpenStatement';
-// import { number } from "prop-types";
-
-// import { selectBasicCodeTab } from "../Tabs/Tabs";
-// import { FileMenu } from "../Menu/FileMenu";
-// import { EditMenu } from "../Menu/EditMenu";
-// import { HelpMenu } from "../Menu/HelpMenu";
-// new FileMenu(document.getElementById("file-menu")!, document.getElementById("file-menu-backdrop")!, document.getElementById("file-menu-list")!);
-// new EditMenu(document.getElementById("edit-menu")!, document.getElementById("edit-menu-backdrop")!, document.getElementById("edit-menu-list")!);
-// new HelpMenu(document.getElementById("help-menu")!, document.getElementById("help-menu-backdrop")!, document.getElementById("help-menu-list")!);
 
 export function sprintf(...args: any[]) {
   // var args = arguments;
@@ -218,7 +209,8 @@ export class QBasicProgram {
   readonly callMap = new Map<number, { name: string; location: Location }>();
   readonly codeGenerator: CodeGenerator;
   static parser: EarleyParser; // = null;
-  private breakpoints: number[] = [];
+  private byteCodeBreakpoints: number[] = [];
+  private sourceCodeBreakpoints: number[] = [];
   private byteCode: string;
   constructor(input: any, public testMode?: any) {
     // this.errors = [];
@@ -894,21 +886,35 @@ export class QBasicProgram {
     this.byteCode = this.getByteCodeAsString();
   }
 
-  public setBreakpoints(breakpoints: number[]) {
-    const byteCodeBreakpoints = breakpoints.map(value =>
+  public setSourceCodeBreakpoints(sourceCodeBreakpoints: number[]) {
+    this.sourceCodeBreakpoints = sourceCodeBreakpoints;
+    this.byteCodeBreakpoints = sourceCodeBreakpoints.map(value =>
       this.fromSourceCodeLineNumberToProgramCounter.get(value - 1)
     );
-    this.breakpoints = byteCodeBreakpoints;
   }
 
-  public getBreakpoints() {
-    return this.breakpoints;
+  public getSourceCodeBreakpoints() {
+    return this.sourceCodeBreakpoints;
   }
 
+  public getByteCodeBreakpoints() {
+    return this.byteCodeBreakpoints;
+  }
+
+  public toggleSourceCodeBreakpoint(lineNumber: number) {
+    const sourceCodeBreakpoints = this.sourceCodeBreakpoints;
+    if (sourceCodeBreakpoints.includes(lineNumber)) {
+      const result = sourceCodeBreakpoints.filter(n => n !== lineNumber);
+      this.setSourceCodeBreakpoints(result);
+      return;
+    }
+    this.byteCodeBreakpoints.push(
+      this.fromSourceCodeLineNumberToProgramCounter.get(lineNumber - 1)
+    );
+  }
   public getByteCode() {
     return this.byteCode;
   }
-  // QBasicProgram.parser = null;
 
   readonly toByteCodeLineNumber = new Map<number, number>();
   readonly toSourceCodeLineNumber = new Map<number, number>();
@@ -949,23 +955,6 @@ export class QBasicProgram {
     return lines.join('\n');
   }
 }
-
-export const ScriptSrc = (function(/*scripts*/) {
-  // const scripts = document.getElementsByTagName("script"),
-  //   script = scripts[scripts.length - 1];
-  // if (script.getAttribute.length !== undefined) {
-  //   var src = script.src;
-  // } else {
-  //   var src = <string>script.getAttribute("src" /*, -1*/);
-  // }
-  // const i = src.lastIndexOf("/");
-  // if (i >= 0) {
-  //   src = src.substr(0, i + 1);
-  // } else {
-  //   src = "";
-  // }
-  // return src;
-})();
 
 // var tabs = new TabView();
 //var cons = new _Console();
@@ -1134,26 +1123,3 @@ export function compile2(code: string) {
 export const dbg = new DebugConsole(
   document.getElementById('footer') as HTMLTextAreaElement
 );
-//var editor = (<any>window).monaco.editor.create(document.getElementById("sourcecode"), {
-//    value: input
-//});
-
-// export var editor = new Editor(document.getElementById("editor"), { value: input, theme: "vs-dark", });
-// var bytecode = new Editor(document.getElementById("bytecode"), { readOnly: true, theme: "vs-dark", });
-
-// GUI
-//let canvas = document.getElementById("canvas");
-//let screenElement = document.getElementById("screen");
-//export function onResize() {
-//    // editor.layout();
-//    // bytecode.layout();
-
-//    let rect = screenElement.getBoundingClientRect();
-//    if (rect.width < rect.height * (640 / 400)) {
-//        canvas.style.width = rect.width + "px";
-//        canvas.style.height = rect.width * (400 / 640) + "px";
-//        return;
-//    }
-//    canvas.style.height = rect.height + "px";
-//    canvas.style.width = rect.height * (640 / 400) + "px";
-//}

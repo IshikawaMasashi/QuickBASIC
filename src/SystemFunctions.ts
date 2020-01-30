@@ -1,7 +1,7 @@
 ﻿import { VirtualMachine } from './virtualMachine/VirtualMachine';
 import { IStringDictionary } from './base/common/collections';
 
-import { getFile } from './file/file';
+import { getFileStream } from './file/file';
 
 /**
     Defines the functions that can be called from a basic program. Functions
@@ -300,10 +300,11 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
       const fileNumber = vm.stack.pop() as string;
       // Returns the square root of a numeric expression.
       // vm.stack.push(Math.sqrt(value));
-      const file = getFile(fileNumber);
+      const fileStream = getFileStream(fileNumber);
+      const file = fileStream.file;
       // const lineCount = file.view.file.getBuffer().getLineCount();
-      const lineCount = file.buffer.getLineCount();
-      if (file.position.lineNumber > lineCount) {
+      const lineCount = file.getLineCount();
+      if (fileStream.position.lineNumber > lineCount) {
         vm.stack.push(1);
         return;
       }

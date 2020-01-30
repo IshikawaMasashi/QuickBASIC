@@ -5,25 +5,26 @@ interface Position {
   column: number;
 }
 
-interface Buffer {
-  getValue: () => string;
-  setValue: (value: string) => void;
+// interface Buffer {
+//   getValue: () => string;
+//   setValue: (value: string) => void;
+//   getLineContent: (lineNumber: number) => string;
+//   getLineCount: () => number;
+// }
+
+interface File {
   getLineContent: (lineNumber: number) => string;
   getLineCount: () => number;
+  getValue: () => string;
+  setValue: (value: string) => void;
 }
 
 interface FileStream {
-  // view: View;
-  buffer: Buffer;
+  file: File;
   position: Position;
 }
 
-const files: IStringDictionary<FileStream> = {};
-
-// let tabGroups: Group[];
-// export function setTabGroups(grougps: Group[]) {
-//   tabGroups = grougps;
-// }
+const fileStreams: IStringDictionary<FileStream> = {};
 
 let openFileFunc = (name: string, fileNumber: string) => {};
 
@@ -34,12 +35,12 @@ export function setOpenFile(func: (name: string, fileNumber: string) => void) {
   openFileFunc = func;
 }
 
-export function setFileStream(buffer: Buffer, fileNumber: string) {
-  const file: FileStream = {
-    buffer: buffer,
-    position: { lineNumber: 1, column: 0 }
+export function setFileStream(file: File, fileNumber: string) {
+  const fileStream: FileStream = {
+    file: file,
+    position: { lineNumber: 1, column: 1 }
   };
-  files[fileNumber] = file;
+  fileStreams[fileNumber] = fileStream;
 }
 // export function openFile(name: string, fileNumber: string) {
 //   // let tabGroups = appStore.getTabGroups();
@@ -57,23 +58,24 @@ export function setFileStream(buffer: Buffer, fileNumber: string) {
 //   }
 // }
 
-export function getFile(fileNumber: string) {
-  return files[fileNumber];
+export function getFileStream(fileNumber: string) {
+  return fileStreams[fileNumber];
 }
 
 export function getLineContent(index: string, lineNumber: number) {
-  const file = files[index];
-  const buffer = file.buffer;
-  const lineContent = buffer.getLineContent(lineNumber);
+  const fileStream = fileStreams[index];
+  const file = fileStream.file;
+  const lineContent = file.getLineContent(lineNumber);
   return lineContent;
 }
 
 export function setLineContent(index: string, lineContent: string) {
-  const file = files[index];
-  const lineNumber = file.position.lineNumber;
+  const fileStream = fileStreams[index];
+  const file = fileStream.file;
+  const lineNumber = fileStream.position.lineNumber;
   // const buffer = file.view.file.getBuffer();
   // const lineContent = buffer.getLineContent(lineNumber);
-  const value = file.buffer.getValue();
+  const value = file.getValue();
   const splits = value.split(/\n/);
 
   if (splits.length < lineNumber) {
@@ -83,11 +85,11 @@ export function setLineContent(index: string, lineContent: string) {
   // ToDo : もっとシンプルに！
   const result = splits.join('\n');
   // buffer.setValue(result);
-  file.buffer.setValue(result);
-  file.position.lineNumber++;
+  file.setValue(result);
+  fileStream.position.lineNumber++;
 }
 
 export function setSeekPosition(index: string, position: Position) {
-  const fileStream = files[index];
+  const fileStream = fileStreams[index];
   fileStream.position = position;
 }

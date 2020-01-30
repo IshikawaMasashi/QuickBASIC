@@ -2,7 +2,7 @@
 // import { dbg, IsNumericType } from "./qb";
 import { ScalarVariable } from './ScalarVariable';
 import { IStringDictionary } from './base/common/collections';
-import { openFile, getFile, setSeekPosition } from './file/file';
+import { openFile, getFileStream, setSeekPosition } from './file/file';
 
 // 文字列中に含まれるある文字の個数を返す
 const counter = (str: string, seq: string) => str.split(seq).length - 1;
@@ -417,23 +417,23 @@ export const SystemSubroutines: IStringDictionary<ISystemSubroutine> = {
       if (typeof argCountOrFileNumber === 'string') {
         const fileNumber = argCountOrFileNumber as string;
         const variable = vm.stack.pop() as ScalarVariable;
-        const file = getFile(fileNumber);
-
+        const fileStream = getFileStream(fileNumber);
+        const file = fileStream.file;
         // const buffer = file.view.file.getBuffer();
         const isLine = vm.stack.pop() as number;
         if (isLine) {
           // variable.value =  splits[file.seekPosition.lineNumber++];
-          variable.value = file.buffer.getLineContent(
-            file.position.lineNumber++
+          variable.value = file.getLineContent(
+            fileStream.position.lineNumber++
           );
           return;
         }
-        const value = file.buffer.getValue();
+        const value = file.getValue();
         const splits = value.split(/\n/);
         // ToDo : もっとシンプルに！
-        const result = splits.slice(file.position.lineNumber);
+        const result = splits.slice(fileStream.position.lineNumber);
         variable.value = result.join('\n');
-        file.position.lineNumber += result.length;
+        fileStream.position.lineNumber += result.length;
         return;
       }
 

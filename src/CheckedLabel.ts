@@ -1,4 +1,4 @@
-﻿import { AstLabel } from "./node/AstLabel";
+﻿import { AstLabel } from './node/AstLabel';
 
 /** @constructor */
 export class CheckedLabel {

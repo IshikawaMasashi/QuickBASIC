@@ -87,7 +87,7 @@ export class VirtualMachine {
   debug: boolean; // = true;
   asynchronous: boolean;
 
-  private breakpoints: number[] = [];
+  private byteCodeBreakpoints: number[] = [];
 
   constructor(readonly cons: IConsole) {
     // The console.
@@ -142,8 +142,8 @@ export class VirtualMachine {
  
    In asynchronous mode, it returns immediately.
    */
-  run(program: QBasicProgram, synchronous: any) {
-    this.breakpoints = program.getBreakpoints();
+  run(program: QBasicProgram, synchronous: boolean) {
+    this.byteCodeBreakpoints = program.getByteCodeBreakpoints();
     this.reset(program);
     this.asynchronous = !synchronous;
 
@@ -201,7 +201,7 @@ export class VirtualMachine {
 
         instr.execute(this, instr.arg);
 
-        if (this.breakpoints.includes(this.pc)) {
+        if (this.byteCodeBreakpoints.includes(this.pc)) {
           this.suspend();
           return;
         }

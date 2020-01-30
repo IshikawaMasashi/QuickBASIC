@@ -1,12 +1,12 @@
-import * as React from "react";
-import { useEffect, useRef } from "react";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import * as React from 'react';
+import { useEffect, useRef } from 'react';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
-import { _Console } from "../../../src";
-import { compile2 } from "../../../src";
-import { VirtualMachine } from "../../../src";
-import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
-import { QuickBASIC } from "../../../src";
+import { _Console } from '../../../src';
+import { compile2 } from '../../../src';
+import { VirtualMachine } from '../../../src';
+import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+import { QuickBASIC } from '../../extensions/languageConfiguration';
 // スタイルを定義
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -50,17 +50,11 @@ export default function Monaco(props: Props) {
 
   useEffect(() => {
     // QuickBASIC
-    // monaco.languages.onLanguage("quickbasic", () => {
-    //   monaco.languages.setMonarchTokensProvider(
-    //     "quickbasic",
-    //     QuickBASIC.MonarchDefinitions
-    //   );
-    // });
     monaco.languages.register({
-      id: "quickbasic"
+      id: 'quickbasic'
     });
     monaco.languages.setMonarchTokensProvider(
-      "quickbasic",
+      'quickbasic',
       QuickBASIC.MonarchDefinitions
     );
 
@@ -92,13 +86,13 @@ export default function Monaco(props: Props) {
     }
 
     editorRef.current = monaco.editor.create(containerRef.current!, {
-      theme: "vs-dark",
+      theme: 'vs-dark',
       minimap: {
         enabled: false
       },
-      fontWeight: "bold",
-      renderLineHighlight: "none",
-      language: "quickbasic"
+      fontWeight: 'bold',
+      renderLineHighlight: 'none',
+      language: 'quickbasic'
     });
 
     editorRef.current.setModel(model);
@@ -114,7 +108,7 @@ export default function Monaco(props: Props) {
 
   return (
     <div
-      style={{ height: `${height}px`, width: `${width}px`, margin: "6px" }}
+      style={{ height: `${height}px`, width: `${width}px`, margin: '6px' }}
       ref={containerRef}
     />
   );

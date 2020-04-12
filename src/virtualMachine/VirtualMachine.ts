@@ -74,7 +74,7 @@ export class VirtualMachine {
   readonly INTERVAL_MS = 50;
 
   // Number of instructions to run in an interval
-  instructionsPerInterval = 2048;
+  readonly instructionsPerInterval = 2048;
 
   //this.debug = true;
 
@@ -87,7 +87,9 @@ export class VirtualMachine {
   debug: boolean; // = true;
   asynchronous: boolean;
 
-  private byteCodeBreakpoints: number[] = [];
+  private byteCodeBreakpoints: Map<number, boolean>;
+
+  public onDidChangeProgramCounter = (pc: number) => {};
 
   constructor(readonly cons: IConsole) {
     // The console.
@@ -185,7 +187,6 @@ export class VirtualMachine {
    Runs some instructions during asynchronous mode.
    */
   runSome() {
-    // var start = (new Date()).getTime();
     try {
       for (
         let i = 0;
@@ -201,10 +202,13 @@ export class VirtualMachine {
 
         instr.execute(this, instr.arg);
 
-        if (this.byteCodeBreakpoints.includes(this.pc)) {
+        if (this.byteCodeBreakpoints.has(this.pc)) {
           this.suspend();
+          this.onDidChangeProgramCounter(this.pc);
           return;
         }
+
+        this.onDidChangeProgramCounter(this.pc);
       }
     } catch (e) {
       //    this.suspend();
@@ -237,6 +241,8 @@ export class VirtualMachine {
 
     // instr.instr.execute(this, instr.arg);
     instr.execute(this, instr.arg);
+
+    this.onDidChangeProgramCounter(this.pc);
   }
 
   setVariable(name: string, value: any) {

@@ -1,5 +1,6 @@
-﻿import { IDoStatementVisitor } from '../IVisitor';
-import { Location } from 'earley';
+﻿import { Location } from 'earley';
+import { CodeGenerator } from '../CodeGenerator';
+import { TypeChecker } from '../TypeChecker';
 
 //enum DoType {
 //}
@@ -25,7 +26,7 @@ export class AstDoStatement {
   //AstDoStatement.UNTIL = 2;
   //AstDoStatement.WHILE_AT_END = 3;
 
-  accept(visitor: IDoStatementVisitor) {
+  accept(visitor: CodeGenerator | TypeChecker) {
     visitor.visitDoStatement(this);
   }
 }

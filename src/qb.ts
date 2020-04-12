@@ -209,7 +209,7 @@ export class QBasicProgram {
   readonly callMap = new Map<number, { name: string; location: Location }>();
   readonly codeGenerator: CodeGenerator;
   static parser: EarleyParser; // = null;
-  private byteCodeBreakpoints: number[] = [];
+  private byteCodeBreakpoints = new Map<number, boolean>(); //: number[] = [];
   private sourceCodeBreakpoints = new Map<number, boolean>();
   private byteCode: string;
   constructor(input: any, public testMode?: any) {
@@ -887,10 +887,21 @@ export class QBasicProgram {
   }
 
   public setSourceCodeBreakpoints(lineNumbers: number[]) {
-    const sourceCodeBreakpoints = this.sourceCodeBreakpoints;
+    const {
+      sourceCodeBreakpoints,
+      byteCodeBreakpoints,
+      fromSourceCodeLineNumberToProgramCounter
+    } = this;
+
     sourceCodeBreakpoints.clear();
+    byteCodeBreakpoints.clear();
+
     for (const lineNumber of lineNumbers) {
       sourceCodeBreakpoints.set(lineNumber, true);
+      byteCodeBreakpoints.set(
+        fromSourceCodeLineNumberToProgramCounter.get(lineNumber - 1),
+        true
+      );
     }
   }
 
@@ -902,32 +913,31 @@ export class QBasicProgram {
   }
 
   public getByteCodeBreakpoints() {
-    const sourceCodeBreakpoints = this.sourceCodeBreakpoints;
-    const keys = Array.from(sourceCodeBreakpoints.keys());
-    this.byteCodeBreakpoints = keys.map(value =>
-      this.fromSourceCodeLineNumberToProgramCounter.get(value - 1)
-    );
-
     return this.byteCodeBreakpoints;
   }
 
   public toggleSourceCodeBreakpoint(lineNumber: number) {
-    const sourceCodeBreakpoints = this.sourceCodeBreakpoints;
+    const {
+      sourceCodeBreakpoints,
+      byteCodeBreakpoints,
+      fromSourceCodeLineNumberToProgramCounter
+    } = this;
+
     if (sourceCodeBreakpoints.has(lineNumber)) {
       sourceCodeBreakpoints.delete(lineNumber);
+      byteCodeBreakpoints.delete(
+        fromSourceCodeLineNumberToProgramCounter.get(lineNumber - 1)
+      );
       return;
     }
-    sourceCodeBreakpoints.set(lineNumber, true);
 
-    // if (sourceCodeBreakpoints.includes(lineNumber)) {
-    //   const result = sourceCodeBreakpoints.filter(n => n !== lineNumber);
-    //   this.setSourceCodeBreakpoints(result);
-    //   return;
-    // }
-    // this.byteCodeBreakpoints.push(
-    //   this.fromSourceCodeLineNumberToProgramCounter.get(lineNumber - 1)
-    // );
+    sourceCodeBreakpoints.set(lineNumber, true);
+    byteCodeBreakpoints.set(
+      fromSourceCodeLineNumberToProgramCounter.get(lineNumber - 1),
+      true
+    );
   }
+
   public getByteCode() {
     return this.byteCode;
   }

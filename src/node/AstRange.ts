@@ -1,5 +1,6 @@
 ﻿import { Location } from 'earley';
-import { IRangeVisitor } from '../IVisitor';
+import { CodeGenerator } from '../CodeGenerator';
+import { TypeChecker } from '../TypeChecker';
 
 /** @constructor */
 export class AstRange {
@@ -15,7 +16,7 @@ export class AstRange {
     // this.upperExpr = upperExpr;
   }
 
-  accept(visitor: IRangeVisitor) {
+  accept(visitor: CodeGenerator | TypeChecker) {
     visitor.visitRange(this);
   }
 }

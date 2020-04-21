@@ -128,7 +128,7 @@ export function AreTypesCompatible(type1: Type, type2: Type) {
   );
 }
 
-(<any>Array.prototype).accept = function(
+(<any>Array.prototype).accept = function (
   visitor: any // You didn't see that.
 ) {
   for (let i = 0; i < this.length; i++) {
@@ -286,7 +286,7 @@ export class QBasicProgram {
       rules.addRule('program: statements', onProgram);
       rules.addRule('statements: statement*');
       //rules.addRule( "statement: intconstant istatement separator" );
-      rules.addRule('statement: label istatement separator', function(
+      rules.addRule('statement: label istatement separator', function (
         args: string[],
         location: Location
       ) {
@@ -296,7 +296,7 @@ export class QBasicProgram {
         }
         return [new AstLabel(location, label), args[1]];
       });
-      rules.addRule('statement: label', function(
+      rules.addRule('statement: label', function (
         args: string[],
         location: Location
       ) {
@@ -308,7 +308,7 @@ export class QBasicProgram {
       });
 
       rules.addRule('statement: istatement ? separator');
-      rules.addRule("istatement: CONST identifier '=' expr", function(
+      rules.addRule("istatement: CONST identifier '=' expr", function (
         args: any,
         location: Location
       ) {
@@ -326,7 +326,7 @@ export class QBasicProgram {
       );
       rules.addRule(
         'istatement: SUB identifier ArgList STATIC? statements END SUB',
-        function(args: any, location: Location) {
+        function (args: any, location: Location) {
           return new AstSubroutine(
             location,
             args[1],
@@ -350,33 +350,33 @@ export class QBasicProgram {
             symbols[3]
           )
       );
-      rules.addRule("istatement: DEF SEG ('=' expr)?", function(
+      rules.addRule("istatement: DEF SEG ('=' expr)?", function (
         args: any,
         location: Location
       ) {
         return new AstNullStatement(location);
       });
-      rules.addRule("istatement: DEF identifier ArgList '=' expr", function(
+      rules.addRule("istatement: DEF identifier ArgList '=' expr", function (
         args: any,
         location: Location
       ) {
         return new AstNullStatement(location);
       });
-      rules.addRule('istatement: DEFINT identifier minus identifier', function(
+      rules.addRule('istatement: DEFINT identifier minus identifier', function (
         args: any,
         location: Location
       ) {
         // TODO: Implement completely
         return new AstDefTypeStatement(location, 'INTEGER');
       });
-      rules.addRule('istatement: VIEW PRINT', function(
+      rules.addRule('istatement: VIEW PRINT', function (
         args: any,
         location: Location
       ) {
         return new AstNullStatement(location);
       });
       rules.addRule('istatement: DIM DimList', UseSecond);
-      rules.addRule('istatement: DIM SHARED DimList', function(
+      rules.addRule('istatement: DIM SHARED DimList', function (
         args: any,
         location: Location
       ) {
@@ -387,11 +387,11 @@ export class QBasicProgram {
       });
       rules.addRule(
         'istatement: WHILE expr separator statements WEND',
-        function(args: string[], location: Location) {
+        function (args: string[], location: Location) {
           return new AstWhileLoop(location, args[1], args[3]);
         }
       );
-      rules.addRule('istatement: DO separator statements LOOP', function(
+      rules.addRule('istatement: DO separator statements LOOP', function (
         args: any,
         location: Location
       ) {
@@ -404,7 +404,7 @@ export class QBasicProgram {
       });
       rules.addRule(
         'istatement: DO separator statements LOOP WHILE expr',
-        function(args: any, location: Location) {
+        function (args: any, location: Location) {
           return new AstDoStatement(
             location,
             args[2],
@@ -415,7 +415,7 @@ export class QBasicProgram {
       );
       rules.addRule(
         'istatement: DO separator statements LOOP UNTIL expr',
-        function(args: any, location: Location) {
+        function (args: any, location: Location) {
           return new AstDoStatement(
             location,
             args[2],
@@ -426,11 +426,11 @@ export class QBasicProgram {
       );
       rules.addRule(
         'istatement: DO WHILE expr separator statements LOOP',
-        function(args: any, location: Location) {
+        function (args: any, location: Location) {
           return new AstWhileLoop(location, args[2], args[4]);
         }
       );
-      rules.addRule("istatement: FOR identifier '=' expr TO expr", function(
+      rules.addRule("istatement: FOR identifier '=' expr TO expr", function (
         args: any,
         location: Location
       ) {
@@ -444,11 +444,11 @@ export class QBasicProgram {
       });
       rules.addRule(
         "istatement: FOR identifier '=' expr TO expr STEP expr",
-        function(args: any, location: Location) {
+        function (args: any, location: Location) {
           return new AstForLoop(location, args[1], args[3], args[5], args[7]);
         }
       );
-      rules.addRule('istatement: NEXT identifiers?', function(
+      rules.addRule('istatement: NEXT identifiers?', function (
         args: any,
         location: Location
       ) {
@@ -457,7 +457,7 @@ export class QBasicProgram {
         }
         return new AstNextStatement(location, args[1]);
       });
-      rules.addRule('istatement: EXIT (FOR|DO)', function(
+      rules.addRule('istatement: EXIT (FOR|DO)', function (
         args: any,
         location: Location
       ) {
@@ -465,25 +465,25 @@ export class QBasicProgram {
       });
       rules.addRule('identifiers: MoreIdentifiers* identifier', JoinListsLR);
       rules.addRule("MoreIdentifiers: identifier ','", UseFirst);
-      rules.addRule('istatement: END', function(
+      rules.addRule('istatement: END', function (
         _args: string[],
         location: Location
       ) {
         return new AstEndStatement(location);
       });
-      rules.addRule('istatement: GOSUB identifier', function(
+      rules.addRule('istatement: GOSUB identifier', function (
         args: any,
         location: Location
       ) {
         return new AstGosubStatement(location, args[1]);
       });
-      rules.addRule('istatement: GOTO identifier', function(
+      rules.addRule('istatement: GOTO identifier', function (
         args: any,
         location: Location
       ) {
         return new AstGotoStatement(location, args[1]);
       });
-      rules.addRule('istatement: IF expr THEN istatement', function(
+      rules.addRule('istatement: IF expr THEN istatement', function (
         args: any,
         location: Location
       ) {
@@ -491,37 +491,37 @@ export class QBasicProgram {
       });
       rules.addRule(
         'istatement: IF expr THEN separator statements ElseClause END IF',
-        function(args: any, location: Location) {
+        function (args: any, location: Location) {
           return new AstIfStatement(location, args[1], args[4], args[5]);
         }
       );
       rules.addRule(
         'ElseClause: ELSE IF expr THEN separator statements ElseClause',
-        function(args: any, location: Location) {
+        function (args: any, location: Location) {
           return new AstIfStatement(location, args[2], args[5], args[6]);
         }
       );
 
       rules.addRule('ElseClause: ELSE statements', UseSecond);
 
-      rules.addRule('ElseClause:', function(args: any, location: Location) {
+      rules.addRule('ElseClause:', function (args: any, location: Location) {
         return new AstNullStatement(location);
       });
       rules.addRule(
         'istatement: SELECT CASE expr separator case* END SELECT',
-        function(args: any, location: Location) {
+        function (args: any, location: Location) {
           return new AstSelectStatement(location, args[2], args[4]);
         }
       );
 
-      rules.addRule('case: CASE exprList separator statements', function(
+      rules.addRule('case: CASE exprList separator statements', function (
         args: any,
         location: Location
       ) {
         return new AstCaseStatement(location, args[1], args[3]);
       });
 
-      rules.addRule('case: CASE ELSE separator statements', function(
+      rules.addRule('case: CASE ELSE separator statements', function (
         args: any,
         location: Location
       ) {
@@ -534,7 +534,7 @@ export class QBasicProgram {
 
       rules.addRule(
         "istatement: INPUT constant? (';'|',') identifiers",
-        function(args: any, location: Location) {
+        function (args: any, location: Location) {
           return new AstInputStatement(
             location,
             args[1],
@@ -563,13 +563,13 @@ export class QBasicProgram {
           new AstPrintStatement(location, args[3], args[1])
       );
 
-      rules.addRule('istatement: LINE? INPUT identifiers', function(
+      rules.addRule('istatement: LINE? INPUT identifiers', function (
         args: any,
         location: Location
       ) {
         return new AstInputStatement(location, null, false, args[2]);
       });
-      rules.addRule("istatement: POKE expr ',' expr", function(
+      rules.addRule("istatement: POKE expr ',' expr", function (
         _args: any,
         location: Location
       ) {
@@ -582,25 +582,25 @@ export class QBasicProgram {
           new AstOpenStatement(location, args[1], args[3], args[5])
       );
 
-      rules.addRule('istatement: PRINT', function(
+      rules.addRule('istatement: PRINT', function (
         args: any,
         location: Location
       ) {
         return new AstPrintStatement(location, []);
       });
-      rules.addRule('istatement: PRINT PrintItems', function(
+      rules.addRule('istatement: PRINT PrintItems', function (
         args: any,
         location: Location
       ) {
         return new AstPrintStatement(location, args[1]);
       });
-      rules.addRule("istatement: PRINT USING [expr,';'] (';'|',')?", function(
+      rules.addRule("istatement: PRINT USING [expr,';'] (';'|',')?", function (
         args: any,
         location: Location
       ) {
         return new AstPrintUsingStatement(location, args[2], args[3]);
       });
-      rules.addRule('PrintItems: PrintItem', function(
+      rules.addRule('PrintItems: PrintItem', function (
         args: any,
         _location: Location
       ) {
@@ -608,13 +608,13 @@ export class QBasicProgram {
       });
       rules.addRule(
         "PrintItems: MorePrintItems* PrintItem (';'|',')?",
-        function(args: any, _location: Location) {
+        function (args: any, _location: Location) {
           args[1].terminator = args[2];
           args[0].push(args[1]);
           return args[0];
         }
       );
-      rules.addRule("MorePrintItems: PrintItem (';'|',')", function(
+      rules.addRule("MorePrintItems: PrintItem (';'|',')", function (
         args: any,
         location: Location
       ) {
@@ -622,18 +622,21 @@ export class QBasicProgram {
         return args[0];
       });
 
-      rules.addRule('PrintItem: expr', function(args: any, location: Location) {
+      rules.addRule('PrintItem: expr', function (
+        args: any,
+        location: Location
+      ) {
         return new AstPrintItem(location, AstPrintItem.EXPR, args[0], null);
       });
 
-      rules.addRule("PrintItem: TAB '\\(' expr '\\)'", function(
+      rules.addRule("PrintItem: TAB '\\(' expr '\\)'", function (
         args: any,
         location: Location
       ) {
         return new AstPrintItem(location, AstPrintItem.TAB, args[2], null);
       });
 
-      rules.addRule('PrintItem:', function(args: any, location: Location) {
+      rules.addRule('PrintItem:', function (args: any, location: Location) {
         return new AstPrintItem(location, AstPrintItem.EXPR, null, null);
       });
 
@@ -643,7 +646,7 @@ export class QBasicProgram {
       //     new AstPrintItem(locus, AstPrintItem.EXPR, args[0], null)
       // );
 
-      rules.addRule('istatement: RESTORE identifier?', function(
+      rules.addRule('istatement: RESTORE identifier?', function (
         args: any,
         location: Location
       ) {
@@ -654,36 +657,36 @@ export class QBasicProgram {
         (args: any, location: Location) =>
           new AstReturnStatement(location, args[1])
       );
-      rules.addRule("istatement: DATA [DataConstant,',']", function(
+      rules.addRule("istatement: DATA [DataConstant,',']", function (
         args: any,
         location: Location
       ) {
         return new AstDataStatement(location, args[1]);
       });
-      rules.addRule('DataConstant: identifier', function(
+      rules.addRule('DataConstant: identifier', function (
         args: any,
         location: Location
       ) {
         return new AstConstantExpr(location, args[0]);
       });
       rules.addRule('DataConstant: constant');
-      rules.addRule('DataConstant:', function(args: any, location: Location) {
+      rules.addRule('DataConstant:', function (args: any, location: Location) {
         return new AstConstantExpr(location, null);
       });
       rules.addRule(
         'istatement: TYPE identifier separator TypeMembers END TYPE',
-        function(args: any, location: Location) {
+        function (args: any, location: Location) {
           return new AstUserType(location, args[1], args[3]);
         }
       );
       rules.addRule('istatement: AssignStatement');
-      rules.addRule("AssignStatement: ReferenceList '=' expr2", function(
+      rules.addRule("AssignStatement: ReferenceList '=' expr2", function (
         args: any,
         location: Location
       ) {
         return new AstAssignStatement(location, args[0], args[2]);
       });
-      rules.addRule('istatement: identifier Parameters', function(
+      rules.addRule('istatement: identifier Parameters', function (
         args: any,
         location: Location
       ) {
@@ -694,7 +697,7 @@ export class QBasicProgram {
       rules.addRule('Parameters: ParameterList');
       rules.addRule("ParameterList: [Parameter,',']");
       rules.addRule('Parameter: expr');
-      rules.addRule('Parameter:', function(args: any, location: Location) {
+      rules.addRule('Parameter:', function (args: any, location: Location) {
         return new AstConstantExpr(location, null);
       });
 
@@ -706,20 +709,20 @@ export class QBasicProgram {
 
       rules.addRule('DimList: Dim MoreDims*', JoinLists);
       rules.addRule("MoreDims: ',' Dim", UseSecond);
-      rules.addRule('Dim: identifier AsType?', function(
+      rules.addRule('Dim: identifier AsType?', function (
         args: any,
         location: Location
       ) {
         return new AstDimStatement(location, args[0], [], args[1]);
       });
-      rules.addRule("Dim: identifier '\\(' RangeList '\\)' AsType?", function(
+      rules.addRule("Dim: identifier '\\(' RangeList '\\)' AsType?", function (
         args: any,
         location: Location
       ) {
         return new AstDimStatement(location, args[0], args[2], args[4]);
       });
       rules.addRule('AsType: AS identifier', UseSecond);
-      rules.addRule('RangeList:', function(
+      rules.addRule('RangeList:', function (
         args: any,
         _location: Location
       ): any {
@@ -727,7 +730,7 @@ export class QBasicProgram {
       });
       rules.addRule('RangeList: Range MoreRanges*', JoinLists);
       rules.addRule("MoreRanges: ',' Range", UseSecond);
-      rules.addRule('Range: expr EndRange?', function(
+      rules.addRule('Range: expr EndRange?', function (
         symbols: any,
         location: Location
       ) {
@@ -743,7 +746,7 @@ export class QBasicProgram {
       });
       rules.addRule('EndRange: TO expr', UseSecond);
       rules.addRule('TypeMembers: TypeMember*');
-      rules.addRule('TypeMember: identifier AS identifier separator', function(
+      rules.addRule('TypeMember: identifier AS identifier separator', function (
         args: any,
         location: Location
       ) {
@@ -754,19 +757,19 @@ export class QBasicProgram {
         'ArgList:',
         (_args: [], _location: Location) => [] as any[]
       );
-      rules.addRule("ArgList: '\\(' [ Argument , ',' ] '\\)'", function(
+      rules.addRule("ArgList: '\\(' [ Argument , ',' ] '\\)'", function (
         args: any,
         _location: Location
       ) {
         return args[1];
       });
-      rules.addRule('Argument: identifier OptParen? AS identifier', function(
+      rules.addRule('Argument: identifier OptParen? AS identifier', function (
         args: any,
         location: Location
       ) {
         return new AstArgument(location, args[0], args[3], args[1] !== null);
       });
-      rules.addRule('Argument: identifier OptParen?', function(
+      rules.addRule('Argument: identifier OptParen?', function (
         args: any,
         locus: any
       ) {
@@ -796,13 +799,13 @@ export class QBasicProgram {
       rules.addRule('expr7: expr8');
       rules.addRule("expr8: '\\(' expr '\\)'", onBracketExpr);
       //rules.addRule( "expr8: expr8 '\\.' expr10", onBinaryOp );
-      rules.addRule('expr8: NOT expr9', function(
+      rules.addRule('expr8: NOT expr9', function (
         args: string[],
         location: Location
       ) {
         return new AstUnaryOperator(location, 'NOT', args[1]);
       });
-      rules.addRule("expr8: '\\-' expr9", function(
+      rules.addRule("expr8: '\\-' expr9", function (
         args: string[],
         location: Location
       ) {
@@ -816,7 +819,7 @@ export class QBasicProgram {
       rules.addRule('constant: intconstant', onNumber);
       rules.addRule('constant: floatconstant', onNumber);
       rules.addRule('constant: stringconstant', onString);
-      rules.addRule("ReferenceList: ReferenceList '\\.' identifier", function(
+      rules.addRule("ReferenceList: ReferenceList '\\.' identifier", function (
         args: any,
         location: Location
       ) {
@@ -825,7 +828,7 @@ export class QBasicProgram {
 
       rules.addRule(
         "ReferenceList: ReferenceList '\\(' ParameterList '\\)'",
-        function(args: any, locus: any) {
+        function (args: any, locus: any) {
           return new AstArrayDeref(locus, args[0], args[2]);
         }
       );
@@ -890,7 +893,7 @@ export class QBasicProgram {
     const {
       sourceCodeBreakpoints,
       byteCodeBreakpoints,
-      fromSourceCodeLineNumberToProgramCounter
+      fromSourceCodeLineNumberToProgramCounter,
     } = this;
 
     sourceCodeBreakpoints.clear();
@@ -920,7 +923,7 @@ export class QBasicProgram {
     const {
       sourceCodeBreakpoints,
       byteCodeBreakpoints,
-      fromSourceCodeLineNumberToProgramCounter
+      fromSourceCodeLineNumberToProgramCounter,
     } = this;
 
     if (sourceCodeBreakpoints.has(lineNumber)) {

@@ -1,15 +1,16 @@
 const webpack = require('webpack');
 const { join } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const playgroundBasedir = join(__dirname, 'docs');
+const devBasedir = join(__dirname, 'dev');
+const docsBasedir = join(__dirname, 'docs');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: join(playgroundBasedir, 'index.tsx'),
+  entry: join(devBasedir, 'index.tsx'),
   output: {
-    path: playgroundBasedir,
-    filename: 'ReactContexify.js',
+    path: docsBasedir,
+    filename: 'bundle.js',
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
@@ -60,7 +61,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: join(playgroundBasedir, 'index.html'),
+      template: join(devBasedir, 'index.html'),
     }),
     new webpack.HotModuleReplacementPlugin(),
     new MonacoWebpackPlugin(),

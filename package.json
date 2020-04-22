@@ -21,7 +21,8 @@
     "sass": "node-sass scss/main.scss dist/ReactContexify.css",
     "postsass": "postcss dist/ReactContexify.css --use autoprefixer -m -o dist/ReactContexify.css",
     "style": "npm run sass && cssnano dist/ReactContexify.css dist/ReactContexify.min.css --no-zindex --no-reduceIdents",
-    "publish": "yarn build && npm publish --access=public"
+    "publish": "yarn build && npm publish --access=public",
+    "build:web": "rimraf docs/* && webpack --config ./webpack.config.docs.js"
   },
   "repository": {
     "type": "git",

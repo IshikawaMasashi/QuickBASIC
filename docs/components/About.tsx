@@ -1,10 +1,10 @@
-import * as React from "react";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import QuickBasic from "./quickBasic";
+import * as React from 'react';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import QuickBasic from './quickBasic';
 
-import { EXAMPLES } from "../../src";
+import { EXAMPLES } from '../../src';
 // import { Card, CardContent, CardActions, Button } from "@material-ui/core";
 
 // スタイルを定義
@@ -12,28 +12,28 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       padding: theme.spacing(6),
-      width: "100%"
+      width: '100%',
     },
     title: {
-      borderBottom: `2px solid ${theme.palette.primary.main}`
+      borderBottom: `2px solid ${theme.palette.primary.main}`,
     },
     paper: {
-      padding: 18
+      padding: 18,
     },
     card: {
-      minWidth: 275
+      minWidth: 275,
     },
     bullet: {
-      display: "inline-block",
-      margin: "0 2px",
-      transform: "scale(0.8)"
+      display: 'inline-block',
+      margin: '0 2px',
+      transform: 'scale(0.8)',
     },
     // title: {
     //   fontSize: 14
     // },
     pos: {
-      marginBottom: 12
-    }
+      marginBottom: 12,
+    },
   })
 );
 

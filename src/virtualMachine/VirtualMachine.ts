@@ -96,8 +96,8 @@ export class VirtualMachine {
     // this.cons = cons;
 
     if (!this.debug) {
-      this.printStack = function() {};
-      this.trace = <any>{ printf: function() {} };
+      this.printStack = function () {};
+      this.trace = <any>{ printf: function () {} };
     }
 
     // globalMachine = this;

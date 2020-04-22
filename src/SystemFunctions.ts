@@ -36,7 +36,7 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
     type: 'SINGLE',
     args: ['INTEGER'],
     minArgs: 0,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       const numArgs = vm.stack.pop();
       let n = 1;
       if (numArgs == 1) {
@@ -47,24 +47,24 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
       } else {
         vm.stack.push(Math.random());
       }
-    }
+    },
   },
 
   CHR$: {
     type: 'STRING',
     args: ['INTEGER'],
     minArgs: 1,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       const num = <number>vm.stack.pop();
       vm.stack.push(String.fromCharCode(num));
-    }
+    },
   },
 
   INKEY$: {
     type: 'STRING',
     args: [],
     minArgs: 0,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       const code = vm.cons.getKeyFromBuffer();
       let result = '';
 
@@ -76,23 +76,23 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
       }
 
       vm.stack.push(result);
-    }
+    },
   },
 
   LEN: {
     type: 'INTEGER',
     args: ['STRING'],
     minArgs: 1,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       vm.stack.push((<string>vm.stack.pop()).length);
-    }
+    },
   },
 
   MID$: {
     type: 'STRING',
     args: ['STRING', 'INTEGER', 'INTEGER'],
     minArgs: 2,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       const numArgs = vm.stack.pop();
       let len: any;
       if (numArgs == 3) {
@@ -101,36 +101,36 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
       const start = <number>vm.stack.pop();
       const str = <string>vm.stack.pop();
       vm.stack.push(str.substr(start - 1, len));
-    }
+    },
   },
 
   LEFT$: {
     type: 'STRING',
     args: ['STRING', 'INTEGER'],
     minArgs: 2,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       const num = <number>vm.stack.pop();
       const str = <string>vm.stack.pop();
       vm.stack.push(str.substr(0, num));
-    }
+    },
   },
 
   RIGHT$: {
     type: 'STRING',
     args: ['STRING', 'INTEGER'],
     minArgs: 2,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       const num = <number>vm.stack.pop();
       const str = <string>vm.stack.pop();
       vm.stack.push(str.substr(str.length - num));
-    }
+    },
   },
 
   TIMER: {
     type: 'INTEGER',
     args: [],
     minArgs: 0,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       // return number of seconds since midnight. DEVIATION: We return a
       // floating point value rather than an integer, so that nibbles
       // will work properly when its timing loop returns a value less
@@ -144,159 +144,159 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
         date.getHours() * 60 * 60;
 
       vm.stack.push(result);
-    }
+    },
   },
 
   PEEK: {
     type: 'INTEGER',
     args: ['INTEGER'],
     minArgs: 1,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       // pop one argument off the stack and replace it with 0.
       vm.stack.pop();
       vm.stack.push(0);
-    }
+    },
   },
 
   LCASE$: {
     type: 'STRING',
     args: ['STRING'],
     minArgs: 1,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       const str = <string>vm.stack.pop();
       vm.stack.push(str.toLowerCase());
-    }
+    },
   },
 
   UCASE$: {
     type: 'STRING',
     args: ['STRING'],
     minArgs: 1,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       vm.stack.push((<string>vm.stack.pop()).toUpperCase());
-    }
+    },
   },
 
   STR$: {
     type: 'STRING',
     args: ['SINGLE'],
     minArgs: 1,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       const num = vm.stack.pop();
       vm.stack.push('' + num);
-    }
+    },
   },
 
   SPACE$: {
     type: 'STRING',
     args: ['INTEGER'],
     minArgs: 1,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       const numSpaces = vm.stack.pop();
       let str = '';
       for (let i = 0; i < numSpaces; i++) {
         str += ' ';
       }
       vm.stack.push(str);
-    }
+    },
   },
 
   VAL: {
     type: 'SINGLE',
     args: ['STRING'],
     minArgs: 1,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       vm.stack.push(parseFloat(<string>vm.stack.pop()));
-    }
+    },
   },
   INT: {
     type: 'INTEGER',
     args: ['SINGLE'],
     minArgs: 1,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       vm.stack.push(Math.floor(<number>vm.stack.pop()));
-    }
+    },
   },
   ABS: {
     type: 'SINGLE',
     args: ['SINGLE'],
     minArgs: 1,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       const value = vm.stack.pop() as number;
       vm.stack.push(Math.abs(value));
-    }
+    },
   },
   SIN: {
     type: 'SINGLE',
     args: ['SINGLE'],
     minArgs: 1,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       const value = vm.stack.pop() as number;
       vm.stack.push(Math.sin(value));
-    }
+    },
   },
   COS: {
     type: 'SINGLE',
     args: ['SINGLE'],
     minArgs: 1,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       const value = vm.stack.pop() as number;
       vm.stack.push(Math.cos(value));
-    }
+    },
   },
   TAN: {
     type: 'SINGLE',
     args: ['SINGLE'],
     minArgs: 1,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       const value = vm.stack.pop() as number;
       vm.stack.push(Math.tan(value));
-    }
+    },
   },
   ASIN: {
     type: 'SINGLE',
     args: ['SINGLE'],
     minArgs: 1,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       const value = vm.stack.pop() as number;
       vm.stack.push(Math.asin(value));
-    }
+    },
   },
   ACOS: {
     type: 'SINGLE',
     args: ['SINGLE'],
     minArgs: 1,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       const value = vm.stack.pop() as number;
       vm.stack.push(Math.acos(value));
-    }
+    },
   },
   ATN: {
     type: 'SINGLE',
     args: ['SINGLE'],
     minArgs: 1,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       const value = vm.stack.pop() as number;
       vm.stack.push(Math.atan(value));
-    }
+    },
   },
 
   SQR: {
     type: 'SINGLE',
     args: ['SINGLE'],
     minArgs: 1,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       const value = vm.stack.pop() as number;
       // Returns the square root of a numeric expression.
       vm.stack.push(Math.sqrt(value));
-    }
+    },
   },
 
   EOF: {
     type: 'INTEGER',
     args: ['STRING'],
     minArgs: 1,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       const fileNumber = vm.stack.pop() as string;
       // Returns the square root of a numeric expression.
       // vm.stack.push(Math.sqrt(value));
@@ -309,6 +309,6 @@ export const SystemFunctions: IStringDictionary<ISystemFunction> = {
         return;
       }
       vm.stack.push(0);
-    }
-  }
+    },
+  },
 };

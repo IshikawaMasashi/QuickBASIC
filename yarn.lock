@@ -243,6 +243,22 @@
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/@emotion/hash/-/hash-0.8.0.tgz#bbbff68978fefdbe68ccb533bc8cbe1d1afb5413"
 
+"@ishikawa_masashi/react-hooks@^1.0.1":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@ishikawa_masashi/react-hooks/-/react-hooks-1.1.4.tgz#ffadea2f88ad7a78568bb6c7e7877ff932ee0c94"
+  dependencies:
+    classnames "^2.2.6"
+    react-router-dom "^5.1.2"
+    resize-observer-polyfill "^1.5.1"
+
+"@ishikawa_masashi/react-monaco-editor@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@ishikawa_masashi/react-monaco-editor/-/react-monaco-editor-1.0.7.tgz#7a566e46684b78d0886612a32e6fd66846730ff9"
+  dependencies:
+    "@ishikawa_masashi/react-hooks" "^1.0.1"
+    classnames "^2.2.6"
+    monaco-editor "^0.20.0"
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.0.0.tgz#10602de5570baea82f8afbfa2630b24e7a8cfe5b"
@@ -7208,6 +7224,10 @@ require-main-filename@^2.0.0:
 requires-port@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
+
+resize-observer-polyfill@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
 
 resolve-cwd@^2.0.0:
   version "2.0.0"

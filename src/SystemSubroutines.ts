@@ -187,49 +187,49 @@ export interface ISystemSubroutine {
 
 export const SystemSubroutines: IStringDictionary<ISystemSubroutine> = {
   BEEP: {
-    action: function(_vm: VirtualMachine) {
+    action: function (_vm: VirtualMachine) {
       // NOT IMPLEMENTED
-    }
+    },
   },
 
   CLS: {
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       // clears the console screen.
       vm.cons.cls();
-    }
+    },
   },
 
   RANDOMIZE: {
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       // NOT IMPLEMENTED. Seeding the random number generator
       // is not possible using the built-in Javascript functions.
       vm.stack.pop();
-    }
+    },
   },
 
   PLAY: {
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       // NOT IMPLEMENTED
       vm.stack.pop();
-    }
+    },
   },
 
   SLEEP: {
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       // NOT IMPLEMENTED
       vm.stack.pop();
-    }
+    },
   },
 
   SYSTEM: {
-    action: function(_vm: VirtualMachine) {
+    action: function (_vm: VirtualMachine) {
       // NOT IMPLEMENTED
       //vm.stack.pop();
-    }
+    },
   },
 
   print_using: {
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       // pop # args
       const argCount = vm.stack.pop() as number;
 
@@ -348,22 +348,22 @@ export const SystemSubroutines: IStringDictionary<ISystemSubroutine> = {
       } else if (terminator !== ';') {
         vm.cons.print('\n');
       }
-    }
+    },
   },
 
   LOCATE: {
     args: ['INTEGER', 'INTEGER'],
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       const col = (<ScalarVariable>vm.stack.pop()).value;
       const row = (<ScalarVariable>vm.stack.pop()).value;
       vm.cons.locate(<number>row, <number>col);
-    }
+    },
   },
 
   COLOR: {
     args: ['ANY', 'ANY'],
     minArgs: 1,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       const argCount = vm.stack.pop();
 
       let bg;
@@ -372,7 +372,7 @@ export const SystemSubroutines: IStringDictionary<ISystemSubroutine> = {
       }
       const fg = (<ScalarVariable>vm.stack.pop()).value;
       vm.cons.color(<number>fg, <any>bg);
-    }
+    },
   },
 
   READ: {
@@ -380,7 +380,7 @@ export const SystemSubroutines: IStringDictionary<ISystemSubroutine> = {
     // indicate that to the type checker at the moment.
     args: ['ANY', 'ANY'],
     minArgs: 1,
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       const argCount = vm.stack.pop();
       const args: any[] = [];
       let i;
@@ -398,18 +398,18 @@ export const SystemSubroutines: IStringDictionary<ISystemSubroutine> = {
           args[i].value = args[i].type.createInstance();
         }
       }
-    }
+    },
   },
 
   SCREEN: {
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       // TODO: NOT IMPLEMENTED
       vm.stack.pop();
-    }
+    },
   },
 
   INPUT: {
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       // TODO: Support multiple arguments. Convert strings input by the
       // user to numbers.
       const argCountOrFileNumber = vm.stack.pop();
@@ -448,51 +448,51 @@ export const SystemSubroutines: IStringDictionary<ISystemSubroutine> = {
 
       vm.suspend();
 
-      vm.cons.input(function(result: any) {
+      vm.cons.input(function (result: any) {
         vm.resume();
         args[0].value = result;
       });
-    }
+    },
   },
 
   SWAP: {
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       const lhs = vm.stack.pop() as ScalarVariable;
       const rhs = vm.stack.pop() as ScalarVariable;
       const temp = lhs.value;
       lhs.value = rhs.value;
       rhs.value = temp;
       // TODO: Type checking.
-    }
+    },
   },
 
   WIDTH: {
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       // TODO: NOT IMPLEMENTED
       vm.stack.pop();
       vm.stack.pop();
-    }
+    },
   },
 
   OPEN: {
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       const fileNumber = vm.stack.pop() as string;
       const mode = vm.stack.pop() as string;
       const file = vm.stack.pop() as string;
 
       openFile(file, fileNumber);
-    }
+    },
   },
   SEEK: {
-    action: function(vm: VirtualMachine) {
+    action: function (vm: VirtualMachine) {
       const column = vm.stack.pop() as ScalarVariable;
       const lineNumber = vm.stack.pop() as ScalarVariable;
       const fileNumber = vm.stack.pop() as ScalarVariable;
 
       setSeekPosition(fileNumber.value as string, {
         lineNumber: lineNumber.value as number,
-        column: column.value as number
+        column: column.value as number,
       });
-    }
-  }
+    },
+  },
 };

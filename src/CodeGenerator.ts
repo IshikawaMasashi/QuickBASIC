@@ -240,7 +240,7 @@ export class CodeGenerator {
       this.write('CALL', this.getGotoLabel(node.name));
       this.callMap.set(this.instructions.length - 1, {
         name: node.name,
-        location: node.location
+        location: node.location,
       });
     }
   }

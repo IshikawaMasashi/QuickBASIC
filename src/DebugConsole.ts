@@ -100,7 +100,7 @@
         precision: match[8],
         code: match[9] || '%',
         negative: parseInt(args[convCount], 10) < 0 ? true : false,
-        argument: String(args[convCount])
+        argument: String(args[convCount]),
       };
     }
     strings[strings.length] = string.substring(matchPosEnd);

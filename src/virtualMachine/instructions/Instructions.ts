@@ -637,5 +637,5 @@ export const Instructions: IStringDictionary<(arg: any) => Instruction<any>> = {
   MEMBER_DEREF: (arg: any) => new MEMBER_DEREF(arg),
   MEMBER_VALUE: (arg: any) => new MEMBER_VALUE(arg),
   ASSIGN: () => new ASSIGN(),
-  SYSCALL: (arg: string) => new SYSCALL(arg)
+  SYSCALL: (arg: string) => new SYSCALL(arg),
 };

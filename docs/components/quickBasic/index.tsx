@@ -1,32 +1,32 @@
-import * as React from "react";
-import { useEffect, useRef } from "react";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
+import * as React from 'react';
+import { useEffect, useRef } from 'react';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 
-import { _Console } from "../../../src";
-import { compile2 } from "../../../src";
-import { VirtualMachine } from "../../../src";
-import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
-import Monaco from "../monaco";
+import { _Console } from '../../../src';
+import { compile2 } from '../../../src';
+import { VirtualMachine } from '../../../src';
+import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+import Monaco from '../monaco';
 
 // スタイルを定義
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      padding: theme.spacing(6)
+      padding: theme.spacing(6),
     },
     title: {
-      borderBottom: `2px solid ${theme.palette.primary.main}`
+      borderBottom: `2px solid ${theme.palette.primary.main}`,
     },
     paper: {
-      padding: 18
+      padding: 18,
     },
     button: {
-      margin: theme.spacing(1)
-    }
+      margin: theme.spacing(1),
+    },
   })
 );
 
@@ -40,7 +40,7 @@ export default function QuickBasic(props: Props) {
   const classes = useStyles({});
 
   const model = monaco.editor.createModel(value);
-  monaco.editor.setModelLanguage(model, "quickbasic");
+  monaco.editor.setModelLanguage(model, 'quickbasic');
 
   const consRef = useRef<_Console>();
   const virtualMachineRef = useRef<VirtualMachine>();
@@ -54,7 +54,7 @@ export default function QuickBasic(props: Props) {
       virtualMachineRef.current.run(quickBasicProgram, false);
     }
     for (let i = 0; i < quickBasicProgram.errors.length; i++) {
-      consRef.current.print(quickBasicProgram.errors[i] + "\n");
+      consRef.current.print(quickBasicProgram.errors[i] + '\n');
     }
   }
 
@@ -87,7 +87,7 @@ export default function QuickBasic(props: Props) {
           </Button>
         </Grid>
       </Grid>
-      <div style={{ display: "flex" }}>
+      <div style={{ display: 'flex' }}>
         <Monaco model={model} width={editorWidth} height={editorHeight} />
         <canvas
           ref={refCanvas}

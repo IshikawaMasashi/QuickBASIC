@@ -74,7 +74,7 @@ export class _Console implements IConsole {
     //    }
     //});
 
-    canvas.onclick = event => {
+    canvas.onclick = (event) => {
       canvas.style.borderColor = '#008800';
       // $(canvas).focus();
       canvas.focus();
@@ -127,7 +127,7 @@ export class _Console implements IConsole {
     '#ff0000', // Red
     '#ff00ff', // Magenta
     '#ffff00', // Yellow
-    '#ffffff' // White
+    '#ffffff', // White
   ];
 
   ScreenDimensions: any = {
@@ -141,7 +141,7 @@ export class _Console implements IConsole {
     10: { width: 640, height: 350 },
     11: { width: 640, height: 480 },
     12: { width: 640, height: 480 },
-    13: { width: 320, height: 200 }
+    13: { width: 320, height: 200 },
   };
 
   reset(testMode = false) {
@@ -444,7 +444,7 @@ export class _Console implements IConsole {
         37: 75, // left
         38: 72, // up
         39: 77, // right
-        40: 80 // down
+        40: 80, // down
       };
 
       if (event.keyCode in SpecialChars) {

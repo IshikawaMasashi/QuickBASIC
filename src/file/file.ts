@@ -38,7 +38,7 @@ export function setOpenFile(func: (name: string, fileNumber: string) => void) {
 export function setFileStream(file: File, fileNumber: string) {
   const fileStream: FileStream = {
     file: file,
-    position: { lineNumber: 1, column: 1 }
+    position: { lineNumber: 1, column: 1 },
   };
   fileStreams[fileNumber] = fileStream;
 }

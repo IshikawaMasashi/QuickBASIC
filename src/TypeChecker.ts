@@ -35,7 +35,7 @@ import {
   AreTypesCompatible,
   IsArrayType,
   IsNumericType,
-  IsStringType
+  IsStringType,
 } from './qb';
 import { dbg, sprintf, DeriveTypeNameFromVariable, IsUserType } from './qb';
 import { SystemFunctions } from './SystemFunctions';
@@ -70,7 +70,7 @@ export class TypeChecker {
     DOUBLE: new DoubleType(),
     STRING: new StringType(),
     ANY: new AnyType(),
-    ':NULL': new NullType()
+    ':NULL': new NullType(),
   };
 
   // Changed to integer if DEFINT is present in the program (hack hack)

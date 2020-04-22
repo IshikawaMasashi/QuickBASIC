@@ -6,7 +6,7 @@ const docsBasedir = join(__dirname, 'docs');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: join(devBasedir, 'index.tsx'),
   output: {
     path: docsBasedir,

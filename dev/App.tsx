@@ -48,20 +48,12 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
-  toolbar: theme.mixins.toolbar as any,
+  toolbar: theme.mixins.toolbar,
 }));
-
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
 
 export default function App() {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {};
+
   return (
     <Router>
       <div className={classes.root}>
@@ -78,11 +70,7 @@ export default function App() {
         <main className={classes.content}>
           <div className={classes.toolbar} />
 
-          <Switch>
-            <Route path="/" exact>
-              <Home />
-            </Route>
-          </Switch>
+          <Home />
         </main>
       </div>
     </Router>
